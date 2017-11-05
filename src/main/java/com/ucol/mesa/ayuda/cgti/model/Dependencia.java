@@ -5,23 +5,15 @@ package com.ucol.mesa.ayuda.cgti.model;
  */
 public class Dependencia {
     private int id_dependencia;
-    private String calle;
     private String campus;
     private String nombreDependencia;
-    private int numero;
-    private String colonia;
-    private int codPostal;
-    private String ciudad;
+    private String direccion;
 
-    public Dependencia(int id_dependencia, String calle, String campus, String nombreDependencia, int numero, String colonia, int codPostal, String ciudad){
+    public Dependencia(int id_dependencia, String campus, String nombreDependencia, String direccion){
         this.id_dependencia=id_dependencia;
-        this.calle= calle;
+        this.direccion=direccion;
         this.campus=campus;
         this.nombreDependencia= nombreDependencia;
-        this.numero= numero;
-        this.colonia= colonia;
-        this.codPostal=codPostal;
-        this.ciudad=ciudad;
     }
     
     public int getId_dependencia() {
@@ -30,14 +22,6 @@ public class Dependencia {
 
     public void setId_dependencia(int id_dependencia) {
         this.id_dependencia = id_dependencia;
-    }
-
-    public String getCalle() {
-        return calle;
-    }
-
-    public void setCalle(String calle) {
-        this.calle = calle;
     }
 
     public String getCampus() {
@@ -56,36 +40,16 @@ public class Dependencia {
         this.nombreDependencia = nombreDependencia;
     }
 
-    public int getNumero() {
-        return numero;
+     public String getDireccion() {
+        return direccion;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public void setDireccion(String calle, int numero, String colonia, String codPostal, String ciudad) {
+        this.direccion = calle + ","+numero+","+colonia+","+codPostal+","+ciudad;
     }
-
-    public String getColonia() {
-        return colonia;
+    
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
-
-    public void setColonia(String colonia) {
-        this.colonia = colonia;
-    }
-
-    public int getCodPostal() {
-        return codPostal;
-    }
-
-    public void setCodPostal(int codPostal) {
-        this.codPostal = codPostal;
-    }
-
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }    
     
 }
