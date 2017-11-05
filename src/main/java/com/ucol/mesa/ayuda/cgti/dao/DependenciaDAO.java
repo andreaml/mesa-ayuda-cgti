@@ -25,15 +25,14 @@ public class DependenciaDAO {
     
     //Agregar Dependencia
     public boolean insertar(Dependencia dependencia ) throws SQLException {
-        String sql = "INSERT INTO DEPENDENCIA(id_dependencia, campus, nombre_dependencia, direccion) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO DEPENDENCIA(campus, nombre_dependencia, direccion) VALUES (?,?,?)";
         System.out.println(dependencia.getId_dependencia());
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, dependencia.getId_dependencia());
-        statement.setString(2, dependencia.getCampus());
-        statement.setString(3, dependencia.getNombreDependencia());
-        statement.setString(4, dependencia.getDireccion());
+        statement.setString(1, dependencia.getCampus());
+        statement.setString(2, dependencia.getNombreDependencia());
+        statement.setString(3, dependencia.getDireccion());
 
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
@@ -42,7 +41,7 @@ public class DependenciaDAO {
     }
     
     // listar todas los dependencias
-    public List<Dependencia> listarUsuarios() throws SQLException {
+    public List<Dependencia> listarDependencias() throws SQLException {
 
         List<Dependencia> listaDependencias = new ArrayList<Dependencia>();
         String sql = "SELECT * FROM DEPENDENCIA";
@@ -57,7 +56,8 @@ public class DependenciaDAO {
             String nombre_dependencia = resulSet.getString("nombre_dependencia");
             String direccion = resulSet.getString("direccion");
 
-            Dependencia dependencia = new Dependencia(id_dependencia, campus, nombre_dependencia,direccion);
+            Dependencia dependencia = new Dependencia(campus, nombre_dependencia,direccion);
+            dependencia.setId_dependencia(id_dependencia);
             listaDependencias.add(dependencia);
         }
         conexionBD.desconectar();
@@ -76,7 +76,8 @@ public class DependenciaDAO {
       
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            dependencia = new Dependencia(res.getInt("id_dependencia"), res.getString("campus"), res.getString("nombre_dependencia"), res.getString("direccion"));
+            dependencia = new Dependencia(res.getString("campus"), res.getString("nombre_dependencia"), res.getString("direccion"));
+            dependencia.setId_dependencia(res.getInt("id_dependencia"));
         }
         res.close();
         conexionBD.desconectar();
@@ -87,15 +88,14 @@ public class DependenciaDAO {
     //Actualizar dependencia
     public boolean actualizar(Dependencia dependencia) throws SQLException {
         boolean rowActualizar = false;
-        String sql = "UPDATE DEPENDENCIA SET id_dependencia=?, campus=?, nombre_dependencia=?, direccion=? WHERE id_dependencia=?";
+        String sql = "UPDATE DEPENDENCIA SET campus=?, nombre_dependencia=?, direccion=? WHERE id_dependencia=?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, dependencia.getId_dependencia());
-        statement.setString(2, dependencia.getCampus());
-        statement.setString(3, dependencia.getNombreDependencia());
-        statement.setString(4, dependencia.getDireccion());
-        statement.setInt(5, dependencia.getId_dependencia());
+        statement.setString(1, dependencia.getCampus());
+        statement.setString(2, dependencia.getNombreDependencia());
+        statement.setString(3, dependencia.getDireccion());
+        statement.setInt(4, dependencia.getId_dependencia());
 
         
         rowActualizar = statement.executeUpdate() > 0;
