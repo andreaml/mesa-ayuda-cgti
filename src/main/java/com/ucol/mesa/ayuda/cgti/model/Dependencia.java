@@ -9,8 +9,7 @@ public class Dependencia {
     private String nombreDependencia;
     private String direccion;
 
-    public Dependencia(int id_dependencia, String campus, String nombreDependencia, String direccion){
-        this.id_dependencia=id_dependencia;
+    public Dependencia(String campus, String nombreDependencia, String direccion){
         this.direccion=direccion;
         this.campus=campus;
         this.nombreDependencia= nombreDependencia;
