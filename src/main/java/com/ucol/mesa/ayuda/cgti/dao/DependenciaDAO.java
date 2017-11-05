@@ -56,7 +56,8 @@ public class DependenciaDAO {
             String nombre_dependencia = resulSet.getString("nombre_dependencia");
             String direccion = resulSet.getString("direccion");
 
-            Dependencia dependencia = new Dependencia(id_dependencia, campus, nombre_dependencia,direccion);
+            Dependencia dependencia = new Dependencia(campus, nombre_dependencia,direccion);
+            dependencia.setId_dependencia(id_dependencia);
             listaDependencias.add(dependencia);
         }
         conexionBD.desconectar();
@@ -75,7 +76,8 @@ public class DependenciaDAO {
       
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            dependencia = new Dependencia(res.getInt("id_dependencia"), res.getString("campus"), res.getString("nombre_dependencia"), res.getString("direccion"));
+            dependencia = new Dependencia(res.getString("campus"), res.getString("nombre_dependencia"), res.getString("direccion"));
+            dependencia.setId_dependencia(res.getInt("id_dependencia"));
         }
         res.close();
         conexionBD.desconectar();
