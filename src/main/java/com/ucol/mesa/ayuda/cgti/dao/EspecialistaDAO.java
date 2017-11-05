@@ -47,7 +47,7 @@ public class EspecialistaDAO {
     }
     
     // listar todos los especialistas
-    public List<Especialista> listarUsuarios() throws SQLException {
+    public List<Especialista> listarEspecialistas() throws SQLException {
 
         List<Especialista> listaEspecialistas = new ArrayList<Especialista>();
         String sql = "SELECT * FROM ESPECIALISTA";
