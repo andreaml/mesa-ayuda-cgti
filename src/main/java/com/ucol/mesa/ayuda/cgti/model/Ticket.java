@@ -21,9 +21,8 @@ public class Ticket {
     private int estadoSatisfaccion;
     private int estadoTicket;
     
-    public Ticket(int id_ticket, String titulo, String descripcion, int tipoServicio,
+    public Ticket(String titulo, String descripcion, int tipoServicio,
             String emisor, LocalDate fecha, LocalTime hora, int estadoTicket){
-        this.id_ticket= id_ticket;
         this.titulo= titulo;
         this.descripcion= descripcion;
         this.tipoServicio= tipoServicio;
