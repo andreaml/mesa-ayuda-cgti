@@ -17,8 +17,16 @@
         <servlet-name>UsuarioServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.UsuarioServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VehiculoServlet</servlet-name>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.VehiculoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsuarioServlet</servlet-name>
         <url-pattern>/usuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VehiculoServlet</servlet-name>
+        <url-pattern>/vehiculo</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -4,7 +4,7 @@ package com.ucol.mesa.ayuda.cgti.model;
  * @author 20126225
  */
 public class Vehiculo {
-    private int id_vehiculo;
+    private String id_vehiculo;
     private String modelo;
     private int anio;
     private String estado;
@@ -12,7 +12,7 @@ public class Vehiculo {
     private String marca;
     private int nivelGasolina;
 
-    public Vehiculo(int id_vehiculo, String modelo, int anio, String estado, int dependencia, String marca, int nivelGasolina){
+    public Vehiculo(String id_vehiculo, String modelo, int anio, String estado, int dependencia, String marca, int nivelGasolina){
         this.id_vehiculo=id_vehiculo;
         this.modelo=modelo;
         this.anio=anio;
@@ -22,11 +22,11 @@ public class Vehiculo {
         this.nivelGasolina=nivelGasolina;
     }
     
-    public int getId_vehiculo() {
+    public String getId_vehiculo() {
         return id_vehiculo;
     }
 
-    public void setId_vehiculo(int id_vehiculo) {
+    public void setId_vehiculo(String id_vehiculo) {
         this.id_vehiculo = id_vehiculo;
     }
 
