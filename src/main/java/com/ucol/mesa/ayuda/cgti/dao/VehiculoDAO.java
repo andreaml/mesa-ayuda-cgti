@@ -32,7 +32,7 @@ public class VehiculoDAO {
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, vehiculo.getId_vehiculo());
+        statement.setString(1, vehiculo.getId_vehiculo());
         statement.setString(2, vehiculo.getModelo());
         statement.setInt(3, vehiculo.getAnio());
         statement.setString(4, vehiculo.getEstado());
@@ -57,7 +57,7 @@ public class VehiculoDAO {
         ResultSet resulSet = statement.executeQuery(sql);
 
         while (resulSet.next()) {
-            int id_vehiculo = resulSet.getInt("id_vehiculo");
+            String id_vehiculo = resulSet.getString("id_vehiculo");
             String modelo = resulSet.getString("modelo");
             int anio = resulSet.getInt("anio");
             String estado = resulSet.getString("estado");
@@ -73,18 +73,18 @@ public class VehiculoDAO {
     }
     
     //Obtener vehiculo por id
-    public Vehiculo obtenerPorId(int id_vehiculo) throws SQLException {
+    public Vehiculo obtenerPorId(String id_vehiculo) throws SQLException {
         Vehiculo vehiculo = null;
 
         String sql = "SELECT * FROM VEHICULOS WHERE correo=?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, id_vehiculo);
+        statement.setString(1, id_vehiculo);
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            vehiculo = new Vehiculo(res.getInt("id_vehiculo"), res.getString("modelo"), res.getInt("anio"), res.getString("estado"), res.getInt("dependencia"), res.getString("marca"), res.getInt("nivel_gasolina"));
+            vehiculo = new Vehiculo(res.getString("id_vehiculo"), res.getString("modelo"), res.getInt("anio"), res.getString("estado"), res.getInt("dependencia"), res.getString("marca"), res.getInt("nivel_gasolina"));
         }
         res.close();
         conexionBD.desconectar();
@@ -99,14 +99,14 @@ public class VehiculoDAO {
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, vehiculo.getId_vehiculo());
+        statement.setString(1, vehiculo.getId_vehiculo());
         statement.setString(2, vehiculo.getModelo());
         statement.setInt(3, vehiculo.getAnio());
         statement.setString(4, vehiculo.getEstado());
         statement.setInt(5, vehiculo.getDependencia());
         statement.setString(6, vehiculo.getMarca());
         statement.setInt(7, vehiculo.getNivelGasolina());
-        statement.setInt(8, vehiculo.getId_vehiculo());
+        statement.setString(8, vehiculo.getId_vehiculo());
         
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();
@@ -121,7 +121,7 @@ public class VehiculoDAO {
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, vehiculo.getId_vehiculo());
+        statement.setString(1, vehiculo.getId_vehiculo());
 
         rowEliminar = statement.executeUpdate() > 0;
         statement.close();
