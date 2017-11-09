@@ -93,7 +93,7 @@ public class ServicioServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Servicio servicio = new Servicio(request.getParameter("id_servicio"), request.getParameter("modelo"), Integer.parseInt(request.getParameter("anio")), request.getParameter("estado"), Integer.parseInt(request.getParameter("dependencia")), request.getParameter("marca"), Integer.parseInt(request.getParameter("nivelGasolina")));
+        Servicio servicio = new Servicio(Integer.parseInt(request.getParameter("id_servicio")), request.getParameter("nombre_servicio"), request.getParameter("especialista"), request.getParameter("id_vehiculo"), Integer.parseInt(request.getParameter("nivel_gasolina_inicio")));
         servicioDAO.insertar(servicio);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
@@ -107,7 +107,7 @@ public class ServicioServlet extends HttpServlet {
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/servicios/mostrar.jsp");
-        List<Servicio> listaServicios = servicioDAO.listarServicios();
+        List<Servicio> listaServicios = servicioDAO.listarServicio();
         request.setAttribute("lista", listaServicios);
         dispatcher.forward(request, response);
     }
@@ -121,7 +121,7 @@ public class ServicioServlet extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Servicio servicio = new Servicio(request.getParameter("id_servicio"), request.getParameter("modelo"), Integer.parseInt(request.getParameter("anio")), request.getParameter("estado"), Integer.parseInt(request.getParameter("dependencia")), request.getParameter("marca"), Integer.parseInt(request.getParameter("nivelGasolina")));
+        Servicio servicio = new Servicio(Integer.parseInt(request.getParameter("id_servicio")), request.getParameter("nombre_servicio"), request.getParameter("especialista"), request.getParameter("id_vehiculo"), Integer.parseInt(request.getParameter("nivel_gasolina_inicio")), Integer.parseInt(request.getParameter("nivel_gasolina_fin")));
 
         servicioDAO.actualizar(servicio);
         index(request, response);
