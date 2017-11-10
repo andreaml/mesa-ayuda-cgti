@@ -25,6 +25,10 @@
         <servlet-name>ServicioServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.ServicioServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DependenciaServlet</servlet-name>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.DependenciaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsuarioServlet</servlet-name>
         <url-pattern>/usuario</url-pattern>
@@ -36,5 +40,9 @@
     <servlet-mapping>
         <servlet-name>ServicioServlet</servlet-name>
         <url-pattern>/servicios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DependenciaServlet</servlet-name>
+        <url-pattern>/DependenciaServlet</url-pattern>
     </servlet-mapping>
 </web-app>
