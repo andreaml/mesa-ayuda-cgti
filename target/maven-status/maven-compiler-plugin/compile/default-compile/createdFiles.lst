@@ -1,4 +1,4 @@
-com\ucol\mesa\ayuda\cgti\controller\UsuarioServlet.class
 com\ucol\mesa\ayuda\cgti\model\ConexionBD.class
 com\ucol\mesa\ayuda\cgti\model\Usuario.class
 com\ucol\mesa\ayuda\cgti\dao\UsuarioDAO.class
+com\ucol\mesa\ayuda\cgti\controller\UsuarioServlet.class
