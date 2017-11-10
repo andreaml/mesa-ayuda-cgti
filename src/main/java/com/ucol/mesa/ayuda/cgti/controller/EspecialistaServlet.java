@@ -88,7 +88,7 @@ public class EspecialistaServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Especialista especialista = new Especialista(request.getParameter("correo"), request.getParameter("nombre1"), request.getParameter("nombre2"), request.getParameter("apellidoP"), request.getParameter("apellidoM"), Integer.parseInt(request.getParameter("area")), Integer.parseInt(request.getParameter("numTrabajador")), request.getParameter("contraseña"), request.getParameter("profesion"));
+        Especialista especialista = new Especialista(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("area")), Integer.parseInt(request.getParameter("num_trabajador")), request.getParameter("contrasenia"), request.getParameter("profesion"));
         especialistaDAO.insertar(especialista);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
@@ -116,7 +116,7 @@ public class EspecialistaServlet extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Especialista especialista = new Especialista(request.getParameter("correo"), request.getParameter("nombre1"), request.getParameter("nombre2"), request.getParameter("apellidoP"), request.getParameter("apellidoM"), Integer.parseInt(request.getParameter("area")), Integer.parseInt(request.getParameter("numTrabajador")), request.getParameter("contraseña"), request.getParameter("profesion"));
+        Especialista especialista = new Especialista(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("area")), Integer.parseInt(request.getParameter("num_trabajador")), request.getParameter("contrasenia"), request.getParameter("profesion"));
         especialistaDAO.actualizar(especialista);
         index(request, response);
     }
