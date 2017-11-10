@@ -33,6 +33,10 @@
         <servlet-name>EspecialistaServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.EspecialistaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AtnUsuariosServlet</servlet-name>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.AtnUsuariosServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsuarioServlet</servlet-name>
         <url-pattern>/usuario</url-pattern>
@@ -52,5 +56,9 @@
     <servlet-mapping>
         <servlet-name>EspecialistaServlet</servlet-name>
         <url-pattern>/EspecialistaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AtnUsuariosServlet</servlet-name>
+        <url-pattern>/AtnUsuariosServlet</url-pattern>
     </servlet-mapping>
 </web-app>
