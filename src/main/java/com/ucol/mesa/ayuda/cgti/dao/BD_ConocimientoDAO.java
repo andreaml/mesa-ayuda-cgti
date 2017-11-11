@@ -41,9 +41,9 @@ public class BD_ConocimientoDAO {
     }
     
     // listar conocimiento
-    public List<BD_Conocimiento> listarTipoServicio() throws SQLException {
+    public List<BD_Conocimiento> listarBD_Conocimiento() throws SQLException {
 
-        List<BD_Conocimiento> listaTipoServicio = new ArrayList<BD_Conocimiento>();
+        List<BD_Conocimiento> listaBD_Conocimiento = new ArrayList<BD_Conocimiento>();
         String sql = "SELECT * FROM BD_CONOCIMIENTO";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
@@ -56,21 +56,21 @@ public class BD_ConocimientoDAO {
             int ticket = resulSet.getInt("ticket");
 
             BD_Conocimiento bd_conocimiento = new BD_Conocimiento(id, reporte, ticket);
-            listaTipoServicio.add(bd_conocimiento);
+            listaBD_Conocimiento.add(bd_conocimiento);
         }
         conexionBD.desconectar();
-        return listaTipoServicio;
+        return listaBD_Conocimiento;
     }
     
     //Obtener por id
-    public BD_Conocimiento obtenerPorId(String id) throws SQLException {
+    public BD_Conocimiento obtenerPorId(int id) throws SQLException {
         BD_Conocimiento bd_conocimiento = null;
 
         String sql = "SELECT * FROM BD_CONOCIMIENTO WHERE id=?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, id);
+        statement.setInt(1, id);
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
