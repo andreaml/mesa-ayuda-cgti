@@ -7,18 +7,27 @@ public class Servicio {
     private int id_servicio;
     private String nombreServicio;
     private String especialista;
-    private int id_vehiculo;
+    private String id_vehiculo;
     private int nivelGasolinaInicio;
     private int nivelGasolinaFin;
     
     public Servicio(){}
     
-    public Servicio(int id_servicio, String nombreServicio, String especialista, int id_vehiculo, int nivelGasolinaInicio){
+    public Servicio(int id_servicio, String nombreServicio, String especialista, String id_vehiculo, int nivelGasolinaInicio){
         this.id_servicio=id_servicio; 
         this.nombreServicio=nombreServicio;
         this.especialista=especialista;
         this.id_vehiculo=id_vehiculo;
         this.nivelGasolinaInicio=nivelGasolinaInicio;   
+    }
+    
+    public Servicio(int id_servicio, String nombreServicio, String especialista, String id_vehiculo, int nivelGasolinaInicio, int nivelGasolinaFin){
+        this.id_servicio=id_servicio; 
+        this.nombreServicio=nombreServicio;
+        this.especialista=especialista;
+        this.id_vehiculo=id_vehiculo;
+        this.nivelGasolinaInicio=nivelGasolinaInicio;
+        this.nivelGasolinaFin=nivelGasolinaFin;
     }
 
     public int getId_servicio() {
@@ -45,11 +54,11 @@ public class Servicio {
         this.especialista = especialista;
     }
 
-    public int getId_vehiculo() {
+    public String getId_vehiculo() {
         return id_vehiculo;
     }
 
-    public void setId_vehiculo(int vehiculo) {
+    public void setId_vehiculo(String vehiculo) {
         this.id_vehiculo = vehiculo;
     }
     
