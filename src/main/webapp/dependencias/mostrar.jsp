@@ -3,8 +3,10 @@
     Created on : 11/11/2017, 04:51:41 PM
     Author     : andreaml
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="UTF-8"%>
+    
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="es">
   <head>
@@ -14,11 +16,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet"  href="css/font-awesome.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/normalize.css">
-   
+    <link rel="stylesheet"  href="<c:url value='/css/font-awesome.css' />">
+    <link rel="stylesheet"  href="<c:url value='/css/bootstrap.css' />">
+    <link rel="stylesheet"  href="<c:url value='/css/style.css' />">
+    <link rel="stylesheet"  href="<c:url value='/css/normalize.css' />">
   </head>
   <body>
   <!-- Encabezado -->
@@ -315,6 +316,7 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.js"></script>
+    <script src="<c:url value='/js/bootstrap.js' />"></script>
+    
   </body>
 </html>

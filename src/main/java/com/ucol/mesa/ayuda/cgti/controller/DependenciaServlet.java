@@ -40,38 +40,46 @@ public class DependenciaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("Hola Servlet..");
-        String action = request.getParameter("action");
-        System.out.println(action);
-        try {
-            switch (action) {
-                case "index":
-                    index(request, response);
-                    break;
-                case "nuevo":
-                    nuevo(request, response);
-                    break;
-                case "register":
-                    System.out.println("entro");
-                    registrar(request, response);
-                    break;
-                case "mostrar":
-                    mostrar(request, response);
-                    break;
-                case "showedit":
-                    showEditar(request, response);
-                    break;
-                case "editar":
-                    editar(request, response);
-                    break;
-                case "eliminar":
-                    eliminar(request, response);
-                    break;
-                default:
-                    break;
+        if (request.getParameter("action") != null ) {
+            String action = request.getParameter("action");
+            System.out.println(action);
+            try {
+                switch (action) {
+                    case "index":
+                        index(request, response);
+                        break;
+                    case "nuevo":
+                        nuevo(request, response);
+                        break;
+                    case "register":
+                        System.out.println("entro");
+                        registrar(request, response);
+                        break;
+                    case "mostrar":
+                        mostrar(request, response);
+                        break;
+                    case "showedit":
+                        showEditar(request, response);
+                        break;
+                    case "editar":
+                        editar(request, response);
+                        break;
+                    case "eliminar":
+                        eliminar(request, response);
+                        break;
+                    default:
+                        break;
+                }
+            } catch (SQLException e) {
+                e.getStackTrace();
             }
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
+        } else {
+            try {
+                index(request, response);
+            } catch (SQLException e) {
+                e.getStackTrace();
+            }
+        }       
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -81,8 +89,8 @@ public class DependenciaServlet extends HttpServlet {
     }
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        //mostrar(request, response);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+//        mostrar(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("dependencias/mostrar.jsp");
         dispatcher.forward(request, response);
     }
 
