@@ -3,7 +3,7 @@
     Created on : 11/11/2017, 04:51:41 PM
     Author     : andreaml
 --%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -89,6 +89,12 @@
   <section class="container mt-5 ">
     <h3 class="text-center p-1">Dependencias</h3>
         <div class="row col-12 d-flex justify-content-center align-items-center ml-0 my-4">
+            <div id="alertAgregado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+                Dependencia <strong id="nombreDependenciaNueva"></strong> agregada con éxito.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <form class="form-group col-11 col-md-6 mx-md-5 px-0 mb-lg-0 mb-2">
             <div class="input-group">
                 <input class="form-control " type="search" placeholder="Buscar" aria-label="Search">
@@ -193,42 +199,42 @@
             </div>
 
             <div class="modal-body p-5 col-11 ">
-                <form action="">
+                <form id="formAgregarDependencia" action="">
                     <div class="form-group row">
                         <label for="" class="col-form-label col-4">Nombre:</label>
-                        <input type="text" class="form-control col-8" id="">
+                        <input name="nombre_dependencia" type="text" class="form-control col-8" id="">
                     </div>
                     <div class="form-group row">
-                            <label for="" class="col-form-label col-4">Campus:</label>
-                            <input type="text" class="form-control col-8" id="">
+                        <label for="" class="col-form-label col-4">Campus:</label>
+                        <input name="campus" type="text" class="form-control col-8" id="">
                     </div>
                     <h4>Dirección </h4>
                     <div class="form-group row">
-                            <label for="" class="col-form-label col-4">Calle:</label>
-                            <input type="text" class="form-control col-8" id="">
+                        <label for="" class="col-form-label col-4">Calle:</label>
+                        <input type="text" class="form-control col-8 direccion" id="">
                     </div>
                     <div class="form-group row">
-                            <label for="" class="col-form-label col-4">Número:</label>
-                            <input type="text" class="form-control col-4" id="">
+                        <label for="" class="col-form-label col-4">Número:</label>
+                        <input type="text" class="form-control col-4 direccion" id="">
                     </div>
                     <div class="form-group row">
-                            <label for="" class="col-form-label col-4">Colonia:</label>
-                            <input type="text" class="form-control col-8" id="">
+                        <label for="" class="col-form-label col-4">Colonia:</label>
+                        <input type="text" class="form-control col-8direccion" id="">
                     </div>
                     <div class="form-group row">
-                            <label for="" class="col-form-label col-4">Ciudad:</label>
-                            <input type="text" class="form-control col-8" id="">
+                        <label for="" class="col-form-label col-4">Ciudad:</label>
+                        <input type="text" class="form-control col-8 direccion" id="">
                     </div>
                     <div class="form-group row">
-                            <label for="" class="col-form-label col-4">Código postal:</label>
-                            <input type="text" class="form-control col-4" id="">
+                        <label for="" class="col-form-label col-4">Código postal:</label>
+                        <input type="text" class="form-control col-4 direccion" id="">
                     </div>
                 </form>
             </div>
             
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal">Agregar</button>
+            <button id="btnAgregarDependencia" type="button" class="btn btn-success" data-dismiss="modal">Agregar</button>
             </div>
         </div>
         </div>
@@ -314,9 +320,36 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="<c:url value='/js/bootstrap.js' />"></script>
-    
+    <script>
+        $(function(){
+           $("#btnAgregarDependencia").unbind('click').on('click', ()=>{
+               console.log($("#formAgregarDependencia").serialize()); 
+               let direccion = "&direccion=";
+               $.each($(".direccion"),function(){
+                   direccion += "|" + $(this).val();
+               });
+               console.log(direccion);
+               $.ajax({
+                    type: 'POST',
+                    url: './dependencias?action=registrar',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formAgregarDependencia").serialize() + direccion,
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                        $("#nombreDependenciaNueva").text(data.nombreDependencia);
+                        $("#alertAgregado").toggle();
+                        setTimeout(function(){
+                            $("#alertAgregado").toggle();
+                        }, 5000);
+                    }
+                });
+            });
+        });
+    </script>
   </body>
 </html>

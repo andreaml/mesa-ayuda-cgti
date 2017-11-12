@@ -1,5 +1,6 @@
 package com.ucol.mesa.ayuda.cgti.controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -51,7 +52,7 @@ public class DependenciaServlet extends HttpServlet {
                     case "nuevo":
                         nuevo(request, response);
                         break;
-                    case "register":
+                    case "registrar":
                         System.out.println("entro");
                         registrar(request, response);
                         break;
@@ -71,13 +72,15 @@ public class DependenciaServlet extends HttpServlet {
                         break;
                 }
             } catch (SQLException e) {
-                e.getStackTrace();
+                PrintWriter out = response.getWriter();
+                out.print(e.getSQLState());
             }
         } else {
             try {
                 index(request, response);
             } catch (SQLException e) {
-                e.getStackTrace();
+                PrintWriter out = response.getWriter();
+                out.print(e.getSQLState());
             }
         }       
     }
@@ -93,13 +96,16 @@ public class DependenciaServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("dependencias/mostrar.jsp");
         dispatcher.forward(request, response);
     }
-
+    
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Dependencia dependencia = new Dependencia(request.getParameter("campus"), request.getParameter("nombre_dependencia"), request.getParameter("dirección"));
+        Dependencia dependencia = new Dependencia(request.getParameter("campus"), request.getParameter("nombre_dependencia"), request.getParameter("direccion"));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        System.out.println(response.toString());
         dependenciaDAO.insertar(dependencia);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(dependencia));
     }
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -108,10 +114,12 @@ public class DependenciaServlet extends HttpServlet {
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/dependencias/mostrar.jsp");
+        //RequestDispatcher dispatcher = request.getRequestDispatcher("/dependencias/mostrar.jsp");
         List<Dependencia> listaDependencias = dependenciaDAO.listarDependencias();
+        Gson jsonBuilder = new Gson();
+        System.out.println(jsonBuilder.toJson(listaDependencias));
         request.setAttribute("lista", listaDependencias);
-        dispatcher.forward(request, response);
+        //dispatcher.forward(request, response);
     }
 
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -123,7 +131,7 @@ public class DependenciaServlet extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Dependencia dependencia = new Dependencia(request.getParameter("campus"), request.getParameter("nombre_dependencia"), request.getParameter("dirección"));
+        Dependencia dependencia = new Dependencia(request.getParameter("campus"), request.getParameter("nombre_dependencia"), request.getParameter("direccion"));
         dependenciaDAO.actualizar(dependencia);
         index(request, response);
     }
