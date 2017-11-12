@@ -41,6 +41,18 @@
         <servlet-name>BD_ConocimientoServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.BD_ConocimientoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TipoServicioServlet</servlet-name>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.TipoServicioServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TicketServlet</servlet-name>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.TicketServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReporteServlet</servlet-name>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.ReporteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsuarioServlet</servlet-name>
         <url-pattern>/usuario</url-pattern>
@@ -68,5 +80,17 @@
     <servlet-mapping>
         <servlet-name>BD_ConocimientoServlet</servlet-name>
         <url-pattern>/base-datos-conocimiento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TipoServicioServlet</servlet-name>
+        <url-pattern>/TipoServicioServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TicketServlet</servlet-name>
+        <url-pattern>/TicketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReporteServlet</servlet-name>
+        <url-pattern>/ReporteServlet</url-pattern>
     </servlet-mapping>
 </web-app>
