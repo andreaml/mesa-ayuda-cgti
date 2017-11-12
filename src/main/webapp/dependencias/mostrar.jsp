@@ -35,7 +35,7 @@
   <!-- Fin de encabezado -->
 
   <!--Inicio encabezado 2  -->
-    <div class="container-fluid d-flex flex-column mt-2 col-12 align-items-center ">
+    <div class="container-fluid d-flex flex-column mt-2 col-12 align-dependencias-center ">
         <div class="row col-12 px-0 ">
             <div class=" col-12 col-md-8 px-0"><h1 class="display-5">Mesa de ayuda UdeC</h1></div>
             <div class="col-5 col-md-4 px-0 align-self-md-center d-md-flex justify-content-md-start justify-content-md-end px-md-0 ">
@@ -51,10 +51,10 @@
                     </button>
                       
                     <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                        <a class="nav-item nav-link text-dark p-3 px-4 px-md-5 selected mr-1" href="01-inicio.html">Inicio</a>
+                        <a class="nav-dependencia nav-link text-dark p-3 px-4 px-md-5 selected mr-1" href="01-inicio.html">Inicio</a>
           
-                        <div class="nav-item dropSubmenu dropdown">
-                            <a class="nav-item nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 boton" href="" role="button">Dependencias </a>
+                        <div class="nav-dependencia dropSubmenu dropdown">
+                            <a class="nav-dependencia nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 boton" href="" role="button">Dependencias </a>
                             <!-- Inicio de submenu -->
                               <div class="contenido text-left ">
                                 <a href="02-dependencias.html" class="">Dependencias</a>
@@ -64,8 +64,8 @@
                             <!-- Fin de submenu -->      
                         </div>
                       
-                        <a class="nav-item nav-link text-dark p-3 selected   px-4 px-md-5 mr-1" href="05-servicios.html">Servicios</a>
-                        <div class="nav-item dropSubmenu dropdown">
+                        <a class="nav-dependencia nav-link text-dark p-3 selected   px-4 px-md-5 mr-1" href="05-servicios.html">Servicios</a>
+                        <div class="nav-dependencia dropSubmenu dropdown">
                             <a class="nav-link text-dark p-3 dropdown-toggle   px-4 px-md-5" href=""  role="button">Usuarios </a>
                             <!-- Inicio de submenu -->
                               <div class="contenido text-left ">
@@ -75,8 +75,8 @@
                               </div>
                             <!-- Fin de submenu -->  
                         </div>
-                        <a class="nav-item nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="09-tickets.html">Tickets</a>
-                        <a class="nav-item nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="10-evaluacion.html">Evaluación de servicio</a>          
+                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="09-tickets.html">Tickets</a>
+                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="10-evaluacion.html">Evaluación de servicio</a>          
                     </div>
                 </nav>
             </div>
@@ -88,7 +88,7 @@
 <!-- Seccion 1-->
   <section class="container mt-5 ">
     <h3 class="text-center p-1">Dependencias</h3>
-        <div class="row col-12 d-flex justify-content-center align-items-center ml-0 my-4">
+        <div class="row col-12 d-flex justify-content-center align-dependencias-center ml-0 my-4">
             <div id="alertAgregado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
                 Dependencia <strong id="nombreDependenciaNueva"></strong> agregada con éxito.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -124,51 +124,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="text-truncate"> 
-            <td>Dependencia 1 </td>
-            <td>Campus 1</td>
-            <td>Lorem Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor</td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button " class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarDependencia"><i class="fa fa-pencil"></i></button>              
-              <button type="button " class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarDependencia"><i class="fa fa-trash-o"></i></button>
-            </td>
-          </tr>
-          <tr>
-            <td>Dependencia 2 </td>
-            <td>Campus 3</td>
-            <td>Lorem Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor</td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarDependencia"><i class="fa fa-pencil"></i></button>
-              <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarDependencia"><i class="fa fa-trash-o"></i></button>
-            </td>
-          </tr>
-          <tr>
-            <td>Dependencia 3 </td>
-            <td>Campus 3</td>
-            <td>Lorem Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor</td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarDependencia"><i class="fa fa-pencil"></i></button>
-              <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarDependencia"><i class="fa fa-trash-o"></i></button>
-            </td>
-          </tr>
-          <tr>
-            <td>Dependencia 4 </td>
-            <td>Campus 4</td>
-            <td>Lorem Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor</td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarDependencia"><i class="fa fa-pencil"></i></button>
-              <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarDependencia"><i class="fa fa-trash-o"></i></button>
-            </td>
-          </tr>
-          <tr>
-            <td>Dependencia 5  </td>
-            <td>Campus 5</td>
-            <td>Lorem Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor</td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarDependencia"><i class="fa fa-pencil"></i></button>
-              <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarDependencia"><i class="fa fa-trash-o"></i></button>
-            </td>
-          </tr> 
         </tbody>
       </table>
   
@@ -219,7 +174,7 @@
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-form-label col-4">Colonia:</label>
-                        <input type="text" class="form-control col-8direccion" id="">
+                        <input type="text" class="form-control col-8 direccion" id="">
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-form-label col-4">Ciudad:</label>
@@ -256,32 +211,32 @@
                 <form action="">
                     <div class="form-group row">
                         <label for="" class="col-form-label col-4">Nombre:</label>
-                        <input type="text" class="form-control col-8" id="">
+                        <input type="text" class="form-control col-8" id="nombreDependencia" name="nombre_dependencia">
                     </div>
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Campus:</label>
-                            <input type="text" class="form-control col-8" id="">
+                            <input type="text" class="form-control col-8" id="campus" name="campus">
                     </div>
                     <h4>Dirección </h4>
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Calle:</label>
-                            <input type="text" class="form-control col-8" id="">
+                            <input type="text" class="form-control col-8" id="calle">
                     </div>
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Número:</label>
-                            <input type="text" class="form-control col-4" id="">
+                            <input type="text" class="form-control col-4" id="numero">
                     </div>
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Colonia:</label>
-                            <input type="text" class="form-control col-8" id="">
+                            <input type="text" class="form-control col-8" id="colonia">
                     </div>
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Ciudad:</label>
-                            <input type="text" class="form-control col-8" id="">
+                            <input type="text" class="form-control col-8" id="ciudad">
                     </div>
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Código postal:</label>
-                            <input type="text" class="form-control col-4" id="">
+                            <input type="text" class="form-control col-4" id="codigoPostal">
                     </div>
                 </form>
             </div>
@@ -325,11 +280,13 @@
     <script src="<c:url value='/js/bootstrap.js' />"></script>
     <script>
         $(function(){
-           $("#btnAgregarDependencia").unbind('click').on('click', ()=>{
+            var listaDependencias;
+            cargarTablaDependencias();
+            $("#btnAgregarDependencia").unbind('click').on('click', ()=>{
                console.log($("#formAgregarDependencia").serialize()); 
                let direccion = "&direccion=";
                $.each($(".direccion"),function(){
-                   direccion += "|" + $(this).val();
+                   direccion += $(this).val() + "|";
                });
                console.log(direccion);
                $.ajax({
@@ -346,9 +303,53 @@
                         setTimeout(function(){
                             $("#alertAgregado").toggle();
                         }, 5000);
+                        cargarTablaDependencias();
                     }
                 });
             });
+            
+            function mostrarEditarDependencia() {
+                $(".editar").unbind('click').on('click', function(){
+                    let idObjDependencia = $(this).attr('data-idObjDependencia');
+                    $("#modal-editarDependencia #nombreDependencia").val(listaDependencias[idObjDependencia].nombreDependencia);
+                    $("#modal-editarDependencia #campus").val(listaDependencias[idObjDependencia].campus);
+                    let arrayDireccion = listaDependencias[idObjDependencia].direccion.split('|');
+                    $("#modal-editarDependencia #calle").val(arrayDireccion[0]);
+                    $("#modal-editarDependencia #numero").val(arrayDireccion[1]);
+                    $("#modal-editarDependencia #colonia").val(arrayDireccion[2]);
+                    $("#modal-editarDependencia #ciudad").val(arrayDireccion[3]);
+                    $("#modal-editarDependencia #codigoPostal").val(arrayDireccion[4]);
+                });
+            }
+
+            function cargarTablaDependencias() {
+                $.ajax({
+                    type: 'GET',
+                    url: './dependencias?action=mostrar',
+                    dataType: 'json',
+                    //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    //data: $("#formAgregarDependencia").serialize() + direccion,
+                    success: function(dependencias, textStatus, jqXHR){
+                        // access response data
+                        console.log(dependencias, textStatus, jqXHR);
+                        listaDependencias = dependencias;
+                        $("tbody").empty();
+                        $.each(dependencias, function(id, dependencia) {
+                            let btnEditar = '<button type="button" class="editar btn btn-info my-1" data-toggle="modal" data-target="#modal-editarDependencia" data-idObjDependencia="'+ id +'"><i class="fa fa-pencil"></i></button>';
+                            let btnEliminar = '<button type="button " class="eliminar btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarDependencia" data-idObjDependencia="'+ id +'"><i class="fa fa-trash-o"></i></button>';
+                            let tr = $('<tr class="text-truncate">').append(
+                                $('<td>').text(dependencia.nombreDependencia),
+                                $('<td>').text(dependencia.campus),
+                                $('<td>').text(dependencia.direccion),
+                                $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar + btnEliminar)
+                            ); //.appendTo('#records_table');
+                            $("table").append(tr);
+                            //console.log(tr.wrap('<tr>').html());
+                        });
+                        mostrarEditarDependencia();
+                    }
+                });
+            }  
         });
     </script>
   </body>

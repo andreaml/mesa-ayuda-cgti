@@ -116,9 +116,12 @@ public class DependenciaServlet extends HttpServlet {
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         //RequestDispatcher dispatcher = request.getRequestDispatcher("/dependencias/mostrar.jsp");
         List<Dependencia> listaDependencias = dependenciaDAO.listarDependencias();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
         Gson jsonBuilder = new Gson();
-        System.out.println(jsonBuilder.toJson(listaDependencias));
-        request.setAttribute("lista", listaDependencias);
+        out.print(jsonBuilder.toJson(listaDependencias));
+        //request.setAttribute("lista", listaDependencias);
         //dispatcher.forward(request, response);
     }
 
