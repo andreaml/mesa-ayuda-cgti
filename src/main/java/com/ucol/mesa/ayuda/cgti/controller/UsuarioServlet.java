@@ -93,7 +93,7 @@ public class UsuarioServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Usuario usuario = new Usuario(request.getParameter("correo"), request.getParameter("nombre1"), request.getParameter("nombre2"), request.getParameter("apellidoP"), request.getParameter("apellidoM"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("numCuenta")), request.getParameter("tipo"));
+        Usuario usuario = new Usuario(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_cuenta")), request.getParameter("tipo"));
         usuarioDAO.insertar(usuario);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
@@ -121,7 +121,7 @@ public class UsuarioServlet extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Usuario usuario = new Usuario(request.getParameter("correo"), request.getParameter("nombre1"), request.getParameter("nombre2"), request.getParameter("apellidoP"), request.getParameter("apellidoM"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("numCuenta")), request.getParameter("tipo"));
+        Usuario usuario = new Usuario(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_cuenta")), request.getParameter("tipo"));
         usuarioDAO.actualizar(usuario);
         index(request, response);
     }

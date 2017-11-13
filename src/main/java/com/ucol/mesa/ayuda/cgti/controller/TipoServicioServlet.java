@@ -93,7 +93,7 @@ public class TipoServicioServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        TipoServicio tipoServicio = new TipoServicio(request.getParameter("id_tipo_servicio"), request.getParameter("nombre_tipo_servicio"), request.getParameter("area"));
+        TipoServicio tipoServicio = new TipoServicio(request.getParameter("nombre_tipo_servicio"), Integer.parseInt(request.getParameter("area")));
         tipoServicioDAO.insertar(tipoServicio);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
@@ -113,7 +113,7 @@ public class TipoServicioServlet extends HttpServlet {
     }
 
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        TipoServicio tipoServicio = tipoServicioDAO.obtenerPorId(request.getParameter("tipoServicio"));
+        TipoServicio tipoServicio = tipoServicioDAO.obtenerPorId(Integer.parseInt(request.getParameter("tipoServicio")));
         request.setAttribute("tipoServicio", tipoServicio);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/tipoServicio/editar.jsp");
@@ -121,13 +121,13 @@ public class TipoServicioServlet extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-    TipoServicio tipoServicio = new TipoServicio(request.getParameter("id_tipo_servicio"), request.getParameter("nombre_tipo_servicio"), request.getParameter("area"));
+    TipoServicio tipoServicio = new TipoServicio(request.getParameter("nombre_tipo_servicio"), Integer.parseInt(request.getParameter("area")));
         tipoServicioDAO.actualizar(tipoServicio);
         index(request, response);
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        TipoServicio tipoServicio = tipoServicioDAO.obtenerPorId(request.getParameter("id_tipo_servicio"));
+        TipoServicio tipoServicio = tipoServicioDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_tipo_servicio")));
         tipoServicioDAO.eliminar(tipoServicio);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);

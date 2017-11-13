@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.ucol.mesa.ayuda.cgti.dao.TicketDAO;
 import com.ucol.mesa.ayuda.cgti.model.Ticket;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 
@@ -93,7 +96,11 @@ public class TicketServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Ticket ticket = new Ticket(request.getParameter("id_ticket"), request.getParameter("titulo"), request.getParameter("descripcion"), request.getParameter("tipo_servicio"), request.getParameter("emisor"), Integer.parseInt(request.getParameter("fecha")), Integer.parseInt(request.getParameter("hora")), request.getParameter("comentarios"), request.getParameter("estado_satisfaccion"), request.getParameter("estado_ticket"), request.getParameter("especialista") );
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
+        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
+        Ticket ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), request.getParameter("emisor"), fecha, hora, Integer.parseInt(request.getParameter("estado_ticket")));
         ticketDAO.insertar(ticket);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
@@ -113,7 +120,7 @@ public class TicketServlet extends HttpServlet {
     }
 
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Ticket ticket = ticketDAO.obtenerPorId(request.getParameter("ticket"));
+        Ticket ticket = ticketDAO.obtenerPorId(Integer.parseInt(request.getParameter("ticket")));
         request.setAttribute("ticket", ticket);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/ticket/editar.jsp");
@@ -121,16 +128,20 @@ public class TicketServlet extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Ticket ticket = new Ticket(request.getParameter("id_ticket"), request.getParameter("titulo"), request.getParameter("descripcion"), request.getParameter("tipo_servicio"), request.getParameter("emisor"), Integer.parseInt(request.getParameter("fecha")), Integer.parseInt(request.getParameter("hora")), request.getParameter("comentarios"), request.getParameter("estado_satisfaccion"), request.getParameter("estado_ticket"), request.getParameter("especialista") );
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
+        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
+        Ticket ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), request.getParameter("emisor"), fecha, hora, Integer.parseInt(request.getParameter("estado_ticket")));
+        ticket.setId_ticket(Integer.parseInt(request.getParameter("id_ticket")));
         ticketDAO.actualizar(ticket);
         index(request, response);
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Ticket ticket = ticketDAO.obtenerPorId(request.getParameter("id_ticket"));
+        Ticket ticket = ticketDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_ticket")));
         ticketDAO.eliminar(ticket);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 }
-//corregido

@@ -3,7 +3,7 @@
     <display-name>CRUD Artículos con JSP y Servlet </display-name>
     <context-param>
         <param-name>jdbcURL</param-name>
-        <param-value>jdbc:mysql://andreaml.ddns.net:3306/borrarme</param-value>
+        <param-value>jdbc:mysql://andreaml.ddns.net:3306/mesa-ayuda</param-value>
     </context-param>
     <context-param>
         <param-name>jdbcUsername</param-name>
@@ -67,15 +67,15 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DependenciaServlet</servlet-name>
-        <url-pattern>/DependenciaServlet</url-pattern>
+        <url-pattern>/dependencias</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EspecialistaServlet</servlet-name>
-        <url-pattern>/EspecialistaServlet</url-pattern>
+        <url-pattern>/especialista</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AtnUsuariosServlet</servlet-name>
-        <url-pattern>/AtnUsuariosServlet</url-pattern>
+        <url-pattern>/atencion-usuarios</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BD_ConocimientoServlet</servlet-name>

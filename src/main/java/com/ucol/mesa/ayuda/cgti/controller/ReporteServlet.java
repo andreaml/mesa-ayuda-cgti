@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.ucol.mesa.ayuda.cgti.dao.ReporteDAO;
 import com.ucol.mesa.ayuda.cgti.model.Reporte;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 
@@ -94,7 +97,11 @@ public class ReporteServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Reporte reporte = new Reporte(request.getParameter("id_reporte"), Integer.parseInt(request.getParameter("fecha")), Integer.parseInt(request.getParameter("hora")), request.getParameter("num_usuarios"), request.getParameter("num_especialistas"), request.getParameter("num_tickets_asignados"), request.getParameter("num_tickets_sin_asignar"), request.getParameter("num_tickets_atendiendo"), request.getParameter("num_tickets_cerrados"), request.getParameter("num_tickets_calendarizados"), request.getParameter("num_tickets_solucionados"), request.getParameter("num_casos_satisfechos"), request.getParameter("num_casos_insatisfechos"));
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
+        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
+        Reporte reporte = new Reporte(Integer.parseInt(request.getParameter("id_reporte")), fecha, hora, Integer.parseInt(request.getParameter("num_usuarios")), Integer.parseInt(request.getParameter("num_especialistas")), Integer.parseInt(request.getParameter("num_tickets_asignados")), Integer.parseInt(request.getParameter("num_tickets_sin_asignar")), Integer.parseInt(request.getParameter("num_tickets_atendiendo")), Integer.parseInt(request.getParameter("num_tickets_cerrados")), Integer.parseInt(request.getParameter("num_tickets_calendarizados")), Integer.parseInt(request.getParameter("num_tickets_solucionados")), Integer.parseInt(request.getParameter("num_casos_satisfechos")), Integer.parseInt(request.getParameter("num_casos_insatisfechos")));
         reporteDAO.insertar(reporte);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
@@ -122,7 +129,11 @@ public class ReporteServlet extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Reporte reporte = new Reporte(request.getParameter("id_reporte"), Integer.parseInt(request.getParameter("fecha")), Integer.parseInt(request.getParameter("hora")), request.getParameter("num_usuarios"), request.getParameter("num_especialistas"), request.getParameter("num_tickets_asignados"), request.getParameter("num_tickets_sin_asignar"), request.getParameter("num_tickets_atendiendo"), request.getParameter("num_tickets_cerrados"), request.getParameter("num_tickets_calendarizados"), request.getParameter("num_tickets_solucionados"), request.getParameter("num_casos_satisfechos"), request.getParameter("num_casos_insatisfechos"));
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
+        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
+        Reporte reporte = new Reporte(Integer.parseInt(request.getParameter("id_reporte")), fecha, hora, Integer.parseInt(request.getParameter("num_usuarios")), Integer.parseInt(request.getParameter("num_especialistas")), Integer.parseInt(request.getParameter("num_tickets_asignados")), Integer.parseInt(request.getParameter("num_tickets_sin_asignar")), Integer.parseInt(request.getParameter("num_tickets_atendiendo")), Integer.parseInt(request.getParameter("num_tickets_cerrados")), Integer.parseInt(request.getParameter("num_tickets_calendarizados")), Integer.parseInt(request.getParameter("num_tickets_solucionados")), Integer.parseInt(request.getParameter("num_casos_satisfechos")), Integer.parseInt(request.getParameter("num_casos_insatisfechos")));
         reporteDAO.actualizar(reporte);
         index(request, response);
     }
