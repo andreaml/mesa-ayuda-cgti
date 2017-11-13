@@ -83,14 +83,14 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TipoServicioServlet</servlet-name>
-        <url-pattern>/TipoServicioServlet</url-pattern>
+        <url-pattern>/tipo-servicio</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TicketServlet</servlet-name>
-        <url-pattern>/TicketServlet</url-pattern>
+        <url-pattern>/tickets</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReporteServlet</servlet-name>
-        <url-pattern>/ReporteServlet</url-pattern>
+        <url-pattern>/reportes</url-pattern>
     </servlet-mapping>
 </web-app>
