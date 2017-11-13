@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ucol.mesa.ayuda.cgti.dao.UsuarioDAO;
-import com.ucol.mesa.ayuda.cgti.model.Usuario;
+import com.ucol.mesa.ayuda.cgti.dao.TipoServicioDAO;
+import com.ucol.mesa.ayuda.cgti.model.TipoServicio;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -22,9 +22,9 @@ import javax.servlet.RequestDispatcher;
  *
  * @author andreaml
  */
-public class UsuarioServlet extends HttpServlet {
+public class TipoServicioServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    UsuarioDAO usuarioDAO;
+    TipoServicioDAO tipoServicioDAO;
 
     public void init() {
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
@@ -32,13 +32,13 @@ public class UsuarioServlet extends HttpServlet {
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
         try {
 
-            usuarioDAO = new UsuarioDAO(jdbcURL, jdbcUsername, jdbcPassword);
+            tipoServicioDAO = new TipoServicioDAO(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
     
-    public UsuarioServlet() {
+    public TipoServicioServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -93,42 +93,42 @@ public class UsuarioServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Usuario usuario = new Usuario(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_cuenta")), request.getParameter("tipo"));
-        usuarioDAO.insertar(usuario);
+        TipoServicio tipoServicio = new TipoServicio(request.getParameter("nombre_tipo_servicio"), Integer.parseInt(request.getParameter("area")));
+        tipoServicioDAO.insertar(tipoServicio);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/usuarios/register.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/tipoServicio/register.jsp");
         dispatcher.forward(request, response);
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/usuarios/mostrar.jsp");
-        List<Usuario> listaUsuarios = usuarioDAO.listarUsuarios();
-        request.setAttribute("lista", listaUsuarios);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/tipoServicio/mostrar.jsp");
+        List<TipoServicio> listaTipoServicio = tipoServicioDAO.listarTipoServicio();
+        request.setAttribute("lista", listaTipoServicio);
         dispatcher.forward(request, response);
     }
 
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Usuario usuario = usuarioDAO.obtenerPorId(request.getParameter("usuario"));
-        request.setAttribute("usuario", usuario);
+        TipoServicio tipoServicio = tipoServicioDAO.obtenerPorId(Integer.parseInt(request.getParameter("tipoServicio")));
+        request.setAttribute("tipoServicio", tipoServicio);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/usuarios/editar.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/tipoServicio/editar.jsp");
         dispatcher.forward(request, response);
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Usuario usuario = new Usuario(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_cuenta")), request.getParameter("tipo"));
-        usuarioDAO.actualizar(usuario);
+    TipoServicio tipoServicio = new TipoServicio(request.getParameter("nombre_tipo_servicio"), Integer.parseInt(request.getParameter("area")));
+        tipoServicioDAO.actualizar(tipoServicio);
         index(request, response);
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Usuario usuario = usuarioDAO.obtenerPorId(request.getParameter("correo"));
-        usuarioDAO.eliminar(usuario);
+        TipoServicio tipoServicio = tipoServicioDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_tipo_servicio")));
+        tipoServicioDAO.eliminar(tipoServicio);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }

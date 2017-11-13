@@ -1,4 +1,5 @@
 /*
+corregido
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -12,9 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ucol.mesa.ayuda.cgti.dao.UsuarioDAO;
-import com.ucol.mesa.ayuda.cgti.model.Usuario;
+import com.ucol.mesa.ayuda.cgti.dao.ReporteDAO;
+import com.ucol.mesa.ayuda.cgti.model.Reporte;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 
@@ -22,9 +26,9 @@ import javax.servlet.RequestDispatcher;
  *
  * @author andreaml
  */
-public class UsuarioServlet extends HttpServlet {
+public class ReporteServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    UsuarioDAO usuarioDAO;
+    ReporteDAO reporteDAO;
 
     public void init() {
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
@@ -32,13 +36,13 @@ public class UsuarioServlet extends HttpServlet {
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
         try {
 
-            usuarioDAO = new UsuarioDAO(jdbcURL, jdbcUsername, jdbcPassword);
+            reporteDAO = new ReporteDAO(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
     
-    public UsuarioServlet() {
+    public ReporteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -93,42 +97,50 @@ public class UsuarioServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Usuario usuario = new Usuario(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_cuenta")), request.getParameter("tipo"));
-        usuarioDAO.insertar(usuario);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
+        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
+        Reporte reporte = new Reporte(Integer.parseInt(request.getParameter("id_reporte")), fecha, hora, Integer.parseInt(request.getParameter("num_usuarios")), Integer.parseInt(request.getParameter("num_especialistas")), Integer.parseInt(request.getParameter("num_tickets_asignados")), Integer.parseInt(request.getParameter("num_tickets_sin_asignar")), Integer.parseInt(request.getParameter("num_tickets_atendiendo")), Integer.parseInt(request.getParameter("num_tickets_cerrados")), Integer.parseInt(request.getParameter("num_tickets_calendarizados")), Integer.parseInt(request.getParameter("num_tickets_solucionados")), Integer.parseInt(request.getParameter("num_casos_satisfechos")), Integer.parseInt(request.getParameter("num_casos_insatisfechos")));
+        reporteDAO.insertar(reporte);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/usuarios/register.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/reportes/register.jsp");
         dispatcher.forward(request, response);
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/usuarios/mostrar.jsp");
-        List<Usuario> listaUsuarios = usuarioDAO.listarUsuarios();
-        request.setAttribute("lista", listaUsuarios);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/reportes/mostrar.jsp");
+        List<Reporte> listaReporte = reporteDAO.listarReporte();
+        request.setAttribute("lista", listaReporte);
         dispatcher.forward(request, response);
     }
 
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Usuario usuario = usuarioDAO.obtenerPorId(request.getParameter("usuario"));
-        request.setAttribute("usuario", usuario);
+        Reporte reporte = reporteDAO.obtenerPorId(request.getParameter("reporte"));
+        request.setAttribute("reporte", reporte);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/usuarios/editar.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/reportes/editar.jsp");
         dispatcher.forward(request, response);
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Usuario usuario = new Usuario(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_cuenta")), request.getParameter("tipo"));
-        usuarioDAO.actualizar(usuario);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
+        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
+        Reporte reporte = new Reporte(Integer.parseInt(request.getParameter("id_reporte")), fecha, hora, Integer.parseInt(request.getParameter("num_usuarios")), Integer.parseInt(request.getParameter("num_especialistas")), Integer.parseInt(request.getParameter("num_tickets_asignados")), Integer.parseInt(request.getParameter("num_tickets_sin_asignar")), Integer.parseInt(request.getParameter("num_tickets_atendiendo")), Integer.parseInt(request.getParameter("num_tickets_cerrados")), Integer.parseInt(request.getParameter("num_tickets_calendarizados")), Integer.parseInt(request.getParameter("num_tickets_solucionados")), Integer.parseInt(request.getParameter("num_casos_satisfechos")), Integer.parseInt(request.getParameter("num_casos_insatisfechos")));
+        reporteDAO.actualizar(reporte);
         index(request, response);
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Usuario usuario = usuarioDAO.obtenerPorId(request.getParameter("correo"));
-        usuarioDAO.eliminar(usuario);
+        Reporte reporte = reporteDAO.obtenerPorId(request.getParameter("id_reporte"));
+        reporteDAO.eliminar(reporte);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }

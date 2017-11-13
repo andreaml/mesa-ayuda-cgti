@@ -8,8 +8,7 @@ public class TipoServicio {
     private String nombreTipoServicio;
     private int area;
 
-    public TipoServicio(int id_tipo_servicio, String nombreTipoServicio, int area){
-        this.id_tipo_servicio=id_tipo_servicio;
+    public TipoServicio(String nombreTipoServicio, int area){
         this.nombreTipoServicio=nombreTipoServicio;
         this.area=area;
     }

@@ -55,7 +55,7 @@ public class TipoServicioDAO {
             String nombreTipoServicio = resulSet.getString("nombreTipoServicio");
             int area = resulSet.getInt("area");
 
-            TipoServicio tiposervicio = new TipoServicio(id_tipo_servicio, nombreTipoServicio, area);
+            TipoServicio tiposervicio = new TipoServicio(nombreTipoServicio, area);
             listaTipoServicio.add(tiposervicio);
         }
         conexionBD.desconectar();
@@ -74,7 +74,7 @@ public class TipoServicioDAO {
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            tiposervicio = new TipoServicio(res.getInt("id_tipo_servicio"), res.getString("nombre_tipo_servicio"), res.getInt("area"));
+            tiposervicio = new TipoServicio(res.getString("nombre_tipo_servicio"), res.getInt("area"));
         }
         res.close();
         conexionBD.desconectar();

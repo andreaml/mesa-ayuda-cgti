@@ -12,9 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ucol.mesa.ayuda.cgti.dao.UsuarioDAO;
-import com.ucol.mesa.ayuda.cgti.model.Usuario;
+import com.ucol.mesa.ayuda.cgti.dao.TicketDAO;
+import com.ucol.mesa.ayuda.cgti.model.Ticket;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 
@@ -22,9 +25,9 @@ import javax.servlet.RequestDispatcher;
  *
  * @author andreaml
  */
-public class UsuarioServlet extends HttpServlet {
+public class TicketServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    UsuarioDAO usuarioDAO;
+    TicketDAO ticketDAO;
 
     public void init() {
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
@@ -32,13 +35,13 @@ public class UsuarioServlet extends HttpServlet {
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
         try {
 
-            usuarioDAO = new UsuarioDAO(jdbcURL, jdbcUsername, jdbcPassword);
+            ticketDAO = new TicketDAO(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
     
-    public UsuarioServlet() {
+    public TicketServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -93,42 +96,51 @@ public class UsuarioServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Usuario usuario = new Usuario(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_cuenta")), request.getParameter("tipo"));
-        usuarioDAO.insertar(usuario);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
+        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
+        Ticket ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), request.getParameter("emisor"), fecha, hora, Integer.parseInt(request.getParameter("estado_ticket")));
+        ticketDAO.insertar(ticket);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/usuarios/register.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/ticket/register.jsp");
         dispatcher.forward(request, response);
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/usuarios/mostrar.jsp");
-        List<Usuario> listaUsuarios = usuarioDAO.listarUsuarios();
-        request.setAttribute("lista", listaUsuarios);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/ticket/mostrar.jsp");
+        List<Ticket> listaTicket = ticketDAO.listarTickets();
+        request.setAttribute("lista", listaTicket);
         dispatcher.forward(request, response);
     }
 
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Usuario usuario = usuarioDAO.obtenerPorId(request.getParameter("usuario"));
-        request.setAttribute("usuario", usuario);
+        Ticket ticket = ticketDAO.obtenerPorId(Integer.parseInt(request.getParameter("ticket")));
+        request.setAttribute("ticket", ticket);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/usuarios/editar.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/ticket/editar.jsp");
         dispatcher.forward(request, response);
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Usuario usuario = new Usuario(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_cuenta")), request.getParameter("tipo"));
-        usuarioDAO.actualizar(usuario);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
+        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
+        Ticket ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), request.getParameter("emisor"), fecha, hora, Integer.parseInt(request.getParameter("estado_ticket")));
+        ticket.setId_ticket(Integer.parseInt(request.getParameter("id_ticket")));
+        ticketDAO.actualizar(ticket);
         index(request, response);
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Usuario usuario = usuarioDAO.obtenerPorId(request.getParameter("correo"));
-        usuarioDAO.eliminar(usuario);
+        Ticket ticket = ticketDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_ticket")));
+        ticketDAO.eliminar(ticket);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
