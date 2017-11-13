@@ -49,18 +49,12 @@ public class DependenciaServlet extends HttpServlet {
                     case "index":
                         index(request, response);
                         break;
-                    case "nuevo":
-                        nuevo(request, response);
-                        break;
                     case "registrar":
                         System.out.println("entro");
                         registrar(request, response);
                         break;
                     case "mostrar":
                         mostrar(request, response);
-                        break;
-                    case "showedit":
-                        showEditar(request, response);
                         break;
                     case "editar":
                         editar(request, response);
@@ -92,7 +86,6 @@ public class DependenciaServlet extends HttpServlet {
     }
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-//        mostrar(request, response);
         RequestDispatcher dispatcher = request.getRequestDispatcher("dependencias/mostrar.jsp");
         dispatcher.forward(request, response);
     }
@@ -108,41 +101,35 @@ public class DependenciaServlet extends HttpServlet {
         out.print(jsonBuilder.toJson(dependencia));
     }
 
-    private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/dependencias/register.jsp");
-        dispatcher.forward(request, response);
-    }
-
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        //RequestDispatcher dispatcher = request.getRequestDispatcher("/dependencias/mostrar.jsp");
         List<Dependencia> listaDependencias = dependenciaDAO.listarDependencias();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(listaDependencias));
-        //request.setAttribute("lista", listaDependencias);
-        //dispatcher.forward(request, response);
-    }
-
-    private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Dependencia dependencia = dependenciaDAO.obtenerPorId(Integer.parseInt(request.getParameter("dependencia")));
-        request.setAttribute("dependencia", dependencia);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/dependencias/editar.jsp");
-        dispatcher.forward(request, response);
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         Dependencia dependencia = new Dependencia(request.getParameter("campus"), request.getParameter("nombre_dependencia"), request.getParameter("direccion"));
+        dependencia.setId_dependencia(Integer.parseInt(request.getParameter("id_dependencia")));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        System.out.println(response.toString());      
         dependenciaDAO.actualizar(dependencia);
-        index(request, response);
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(dependencia));
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         Dependencia dependencia = dependenciaDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_dependencia")));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        System.out.println(response.toString());      
         dependenciaDAO.eliminar(dependencia);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(dependencia));
     }
 }
