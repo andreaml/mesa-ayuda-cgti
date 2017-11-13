@@ -95,6 +95,18 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <div id="alertEditado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+                Dependencia <strong id="nombreDependenciaNueva"></strong> editada con éxito.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="alertEliminado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+                Dependencia <strong id="nombreDependenciaNueva"></strong> eliminada con éxito.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <form class="form-group col-11 col-md-6 mx-md-5 px-0 mb-lg-0 mb-2">
             <div class="input-group">
                 <input class="form-control " type="search" placeholder="Buscar" aria-label="Search">
@@ -117,10 +129,10 @@
       <table class="table table-striped ">
         <thead>
           <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Campus</th>
-            <th scope="col" >Dirección</th>
-            <th scope="col" class="text-center">Opciones </th>
+            <th scope="col-4">Nombre</th>
+            <th scope="col-3">Campus</th>
+            <th scope="col-4" >Dirección</th>
+            <th scope="col-1" class="text-center">Opciones </th>
           </tr>
         </thead>
         <tbody>
@@ -208,7 +220,8 @@
             </div>
 
             <div class="modal-body p-5 col-11 ">
-                <form action="">
+                <form id="formEditarDependencia" action="">
+                    <input type="hidden" id="idDependencia">
                     <div class="form-group row">
                         <label for="" class="col-form-label col-4">Nombre:</label>
                         <input type="text" class="form-control col-8" id="nombreDependencia" name="nombre_dependencia">
@@ -220,30 +233,30 @@
                     <h4>Dirección </h4>
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Calle:</label>
-                            <input type="text" class="form-control col-8" id="calle">
+                            <input type="text" class="form-control col-8 direccion" id="calle">
                     </div>
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Número:</label>
-                            <input type="text" class="form-control col-4" id="numero">
+                            <input type="text" class="form-control col-4 direccion" id="numero">
                     </div>
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Colonia:</label>
-                            <input type="text" class="form-control col-8" id="colonia">
+                            <input type="text" class="form-control col-8 direccion" id="colonia">
                     </div>
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Ciudad:</label>
-                            <input type="text" class="form-control col-8" id="ciudad">
+                            <input type="text" class="form-control col-8 direccion" id="ciudad">
                     </div>
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Código postal:</label>
-                            <input type="text" class="form-control col-4" id="codigoPostal">
+                            <input type="text" class="form-control col-4 direccion" id="codigoPostal">
                     </div>
                 </form>
             </div>
             
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
+            <button id="btnEditarDependencia" type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
             </div>
         </div>
         </div>
@@ -262,11 +275,14 @@
                 </button>
             </div>
             <div class="modal-body p-5">
-            ¿Realmente desea eliminar dependencia array[i] ?   
+                ¿Realmente desea eliminar la Dependencia <strong id="nombreDependencia"></strong>?   
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
+            <form id="formEliminarDependencia" action="">
+                <input id="idDependencia" type="hidden">
+                <button id="btnEliminarDependencia" type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
+            </form>
             </div>
         </div>
         </div>
@@ -285,7 +301,7 @@
             $("#btnAgregarDependencia").unbind('click').on('click', ()=>{
                console.log($("#formAgregarDependencia").serialize()); 
                let direccion = "&direccion=";
-               $.each($(".direccion"),function(){
+               $.each($("#formAgregarDependencia .direccion"),function(){
                    direccion += $(this).val() + "|";
                });
                console.log(direccion);
@@ -298,7 +314,7 @@
                     success: function(data, textStatus, jqXHR){
                         // access response data
                         console.log(data, textStatus, jqXHR);
-                        $("#nombreDependenciaNueva").text(data.nombreDependencia);
+                        $("#alertAgregado #nombreDependenciaNueva").text(data.nombreDependencia);
                         $("#alertAgregado").toggle();
                         setTimeout(function(){
                             $("#alertAgregado").toggle();
@@ -308,9 +324,55 @@
                 });
             });
             
+            $("#btnEditarDependencia").unbind('click').on('click', ()=>{
+               console.log($("#formEditarDependencia").serialize()); 
+               let direccion = "&direccion=";
+               $.each($("#formEditarDependencia .direccion"),function(){
+                   direccion += $(this).val() + "|";
+               });
+               console.log(direccion);
+               $.ajax({
+                    type: 'POST',
+                    url: './dependencias?action=editar&id_dependencia=' + $("#formEditarDependencia #idDependencia").val(),
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formEditarDependencia").serialize() + direccion,
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                        $("#alertEditado #nombreDependenciaNueva").text(data.nombreDependencia);
+                        $("#alertEditado").toggle();
+                        setTimeout(function(){
+                            $("#alertEditado").toggle();
+                        }, 5000);
+                        cargarTablaDependencias();
+                    }
+                });
+            });
+            
+            $("#btnEliminarDependencia").unbind('click').on('click', ()=>{
+               $.ajax({
+                    type: 'POST',
+                    url: './dependencias?action=eliminar&id_dependencia=' + $("#formEliminarDependencia #idDependencia").val(),
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                        $("#alertEliminado #nombreDependenciaNueva").text(data.nombreDependencia);
+                        $("#alertEliminado").toggle();
+                        setTimeout(function(){
+                            $("#alertEliminado").toggle();
+                        }, 5000);
+                        cargarTablaDependencias();
+                    }
+                });
+            });
+            
             function mostrarEditarDependencia() {
                 $(".editar").unbind('click').on('click', function(){
                     let idObjDependencia = $(this).attr('data-idObjDependencia');
+                    $("#modal-editarDependencia #idDependencia").val(listaDependencias[idObjDependencia].id_dependencia);
                     $("#modal-editarDependencia #nombreDependencia").val(listaDependencias[idObjDependencia].nombreDependencia);
                     $("#modal-editarDependencia #campus").val(listaDependencias[idObjDependencia].campus);
                     let arrayDireccion = listaDependencias[idObjDependencia].direccion.split('|');
@@ -319,6 +381,14 @@
                     $("#modal-editarDependencia #colonia").val(arrayDireccion[2]);
                     $("#modal-editarDependencia #ciudad").val(arrayDireccion[3]);
                     $("#modal-editarDependencia #codigoPostal").val(arrayDireccion[4]);
+                });
+            }
+            
+            function mostrarEliminarDependencia() {
+                $(".eliminar").unbind('click').on('click', function(){
+                    let idObjDependencia = $(this).attr('data-idObjDependencia');
+                    $("#modal-eliminarDependencia #nombreDependencia").text(listaDependencias[idObjDependencia].nombreDependencia);
+                    $("#modal-eliminarDependencia #idDependencia").val(listaDependencias[idObjDependencia].id_dependencia);
                 });
             }
 
@@ -340,13 +410,14 @@
                             let tr = $('<tr class="text-truncate">').append(
                                 $('<td>').text(dependencia.nombreDependencia),
                                 $('<td>').text(dependencia.campus),
-                                $('<td>').text(dependencia.direccion),
+                                $('<td class="text-truncate">').text(dependencia.direccion.replace(/[\x7C]/g, ' ')),
                                 $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar + btnEliminar)
                             ); //.appendTo('#records_table');
                             $("table").append(tr);
                             //console.log(tr.wrap('<tr>').html());
                         });
                         mostrarEditarDependencia();
+                        mostrarEliminarDependencia();
                     }
                 });
             }  
