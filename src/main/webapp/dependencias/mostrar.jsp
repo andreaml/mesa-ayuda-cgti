@@ -51,15 +51,15 @@
                     </button>
                       
                     <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                        <a class="nav-dependencia nav-link text-dark p-3 px-4 px-md-5 selected mr-1" href="01-inicio.html">Inicio</a>
+                        <a class="nav-dependencia nav-link text-dark p-3 px-4 px-md-5 selected mr-1" href="<c:url value='/atnUsuarios/index.jsp' />">Inicio</a>
           
                         <div class="nav-dependencia dropSubmenu dropdown">
                             <a class="nav-dependencia nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 boton" href="" role="button">Dependencias </a>
                             <!-- Inicio de submenu -->
                               <div class="contenido text-left ">
-                                <a href="02-dependencias.html" class="">Dependencias</a>
-                                <a href="03-areas.html" class="">Áreas</a>
-                                <a href="04-vehiculos.html" class="">Vehículos</a>
+                                <a href="<c:url value='/dependencias/mostrar.jsp' />" class="">Dependencias</a>
+                                <a href="<c:url value='/areas/mostrar.jsp' />" class="">Áreas</a>
+                                <a href="<c:url value='/vehiculos/mostrar.jsp' />" class="">Vehículos</a>
                               </div>
                             <!-- Fin de submenu -->      
                         </div>
@@ -69,14 +69,14 @@
                             <a class="nav-link text-dark p-3 dropdown-toggle   px-4 px-md-5" href=""  role="button">Usuarios </a>
                             <!-- Inicio de submenu -->
                               <div class="contenido text-left ">
-                                <a href="06-atencionUsuarios.html" class="">Atención a usuarios</a>
-                                <a href="07-especialistas.html" class="">Especialistas</a>
-                                <a href="08-usuarios.html" class="">Usuarios</a>
+                                <a href="<c:url value='/atnUsuarios/mostrar.jsp' />" class="">Atención a usuarios</a>
+                                <a href="<c:url value='/especialistas/mostrar.jsp' />" class="">Especialistas</a>
+                                <a href="<c:url value='/usuarios/mostrar.jsp' />" class="">Usuarios</a>
                               </div>
                             <!-- Fin de submenu -->  
                         </div>
-                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="09-tickets.html">Tickets</a>
-                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="10-evaluacion.html">Evaluación de servicio</a>          
+                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/tickets/mostrar.jsp' />">Tickets</a>
+                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/evaluacionServicio/mostrar.jsp' />">Evaluación de servicio</a>          
                     </div>
                 </nav>
             </div>
