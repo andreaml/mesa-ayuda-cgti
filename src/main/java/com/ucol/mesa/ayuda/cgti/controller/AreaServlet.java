@@ -112,7 +112,7 @@ private static final long serialVersionUID = 1L;
     }
 
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Area area = areaDAO.obtenerPorId(request.getParameter("area"));
+        Area area = areaDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_area")));
         request.setAttribute("area", area);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/area/editar.jsp");
@@ -127,7 +127,7 @@ private static final long serialVersionUID = 1L;
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Area area = areaDAO.obtenerPorId(request.getParameter("id_area"));
+        Area area = areaDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_area")));
         areaDAO.eliminar(area);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
