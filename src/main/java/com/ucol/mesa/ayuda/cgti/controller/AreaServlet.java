@@ -106,8 +106,8 @@ private static final long serialVersionUID = 1L;
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/area/mostrar.jsp");
-        List<Area> listaVehiculos = areaDAO.listarArea();
-        request.setAttribute("lista", listaVehiculos);
+        List<Area> listaArea = areaDAO.listarArea();
+        request.setAttribute("lista", listaArea);
         dispatcher.forward(request, response);
     }
 
