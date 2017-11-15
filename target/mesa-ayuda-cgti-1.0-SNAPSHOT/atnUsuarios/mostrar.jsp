@@ -303,7 +303,7 @@
                console.log($("#formAgregarAtnUsuario").serialize()); 
                $.ajax({
                     type: 'POST',
-                    url: './atnUsuarios?action=registrar',
+                    url: './atencion-usuarios?action=registrar',
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: $("#formAgregarAtnUsuario").serialize() ,
@@ -324,7 +324,7 @@
                console.log($("#formEditarAtnUsuario").serialize()); 
                $.ajax({
                     type: 'POST',
-                    url: './atnUsuarios?action=editar&correo=' + $("#formEditarAtnUsuario #correo").val(),
+                    url: './atencion-usuarios?action=editar&correo=' + $("#formEditarAtnUsuario #correo").val(),
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: $("#formEditarAtnUsuario").serialize(),
@@ -344,13 +344,13 @@
             $("#btnEliminarAtnUsuario").unbind('click').on('click', function(){
                $.ajax({
                     type: 'POST',
-                    url: './dependencias?action=eliminar&correo=' + $("#formEliminarAtnUsuario #correo").val(),
+                    url: './atencion-usuarios?action=eliminar&correo=' + $("#formEliminarAtnUsuario #correo").val(),
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     success: function(data, textStatus, jqXHR){
                         // access response data
                         console.log(data, textStatus, jqXHR);
-                        $("#alertEliminado #correoDependenciaNueva").text(data.correo);
+                        $("#alertEliminado #correoAtnUsuariosNuevo").text(data.correo);
                         $("#alertEliminado").toggle();
                         setTimeout(function(){
                             $("#alertEliminado").toggle();
