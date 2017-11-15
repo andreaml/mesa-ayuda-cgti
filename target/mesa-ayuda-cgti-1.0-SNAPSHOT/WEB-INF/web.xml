@@ -53,6 +53,10 @@
         <servlet-name>ReporteServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.ReporteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AreaServlet</servlet-name>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.AreaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsuarioServlet</servlet-name>
         <url-pattern>/usuario</url-pattern>
@@ -92,5 +96,9 @@
     <servlet-mapping>
         <servlet-name>ReporteServlet</servlet-name>
         <url-pattern>/reportes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AreaServlet</servlet-name>
+        <url-pattern>/AreaServlet</url-pattern>
     </servlet-mapping>
 </web-app>
