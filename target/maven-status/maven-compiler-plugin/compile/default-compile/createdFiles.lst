@@ -16,10 +16,13 @@ com\ucol\mesa\ayuda\cgti\controller\VehiculoServlet.class
 com\ucol\mesa\ayuda\cgti\model\Usuario_.class
 com\ucol\mesa\ayuda\cgti\dao\TicketDAO.class
 com\ucol\mesa\ayuda\cgti\controller\EspecialistaServlet.class
+com\ucol\mesa\ayuda\cgti\controller\TipoServicioServlet.class
 com\ucol\mesa\ayuda\cgti\model\Ticket.class
 com\ucol\mesa\ayuda\cgti\dao\AreaDAO.class
 com\ucol\mesa\ayuda\cgti\dao\BD_ConocimientoDAO.class
 com\ucol\mesa\ayuda\cgti\dao\UsuarioDAO.class
+com\ucol\mesa\ayuda\cgti\controller\TicketServlet.class
+com\ucol\mesa\ayuda\cgti\controller\ReporteServlet.class
 com\ucol\mesa\ayuda\cgti\controller\ServicioServlet.class
 com\ucol\mesa\ayuda\cgti\controller\UsuarioServlet.class
 com\ucol\mesa\ayuda\cgti\model\BD_Conocimiento.class

@@ -3,6 +3,7 @@ C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda
 C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\model\Ticket.java
 C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\model\Usuario_.java
 C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\controller\ServicioServlet.java
+C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\controller\TipoServicioServlet.java
 C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\controller\BD_ConocimientoServlet.java
 C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\model\BD_Conocimiento.java
 C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\model\ConexionBD.java
@@ -21,8 +22,10 @@ C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda
 C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\controller\VehiculoServlet.java
 C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\model\Dependencia.java
 C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\dao\ServicioDAO.java
+C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\controller\ReporteServlet.java
 C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\dao\ReporteDAO.java
 C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\dao\AreaDAO.java
+C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\controller\TicketServlet.java
 C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\controller\UsuarioServlet.java
 C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\model\Area.java
 C:\Users\andreaml\Google Drive\INTEGRADOR 5K\Programación Distribuida\mesa-ayuda-cgti\src\main\java\com\ucol\mesa\ayuda\cgti\dao\BD_ConocimientoDAO.java

@@ -5,6 +5,7 @@
  */
 package com.ucol.mesa.ayuda.cgti.controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -53,9 +54,6 @@ public class ServicioServlet extends HttpServlet {
                 case "index":
                     index(request, response);
                     break;
-                case "nuevo":
-                    nuevo(request, response);
-                    break;
                 case "register":
                     System.out.println("entro");
                     registrar(request, response);
@@ -63,8 +61,8 @@ public class ServicioServlet extends HttpServlet {
                 case "mostrar":
                     mostrar(request, response);
                     break;
-                case "showedit":
-                    showEditar(request, response);
+                case "mostrarPorEspecialista":
+                    mostrarPorEspecialista(request, response);
                     break;
                 case "editar":
                     editar(request, response);
@@ -112,12 +110,13 @@ public class ServicioServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Servicio servicio = servicioDAO.obtenerPorId(request.getParameter("servicio"));
-        request.setAttribute("servicio", servicio);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/servicios/editar.jsp");
-        dispatcher.forward(request, response);
+    private void mostrarPorEspecialista(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+        List<Servicio> listaServiciosPorEspecialista = servicioDAO.listarServicioPorEspecialista(request.getParameter("id_especialista"));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(listaServiciosPorEspecialista));
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {

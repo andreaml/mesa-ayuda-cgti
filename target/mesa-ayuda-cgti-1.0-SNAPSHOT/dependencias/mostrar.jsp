@@ -75,7 +75,7 @@
                               </div>
                             <!-- Fin de submenu -->  
                         </div>
-                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/tickets/mostrar.jsp' />">Tickets</a>
+                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/tickets' />">Tickets</a>
                         <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/evaluacionServicio/mostrar.jsp' />">Evaluación de servicio</a>          
                     </div>
                 </nav>
