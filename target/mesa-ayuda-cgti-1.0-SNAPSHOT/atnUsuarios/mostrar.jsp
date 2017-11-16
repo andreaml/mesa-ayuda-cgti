@@ -373,7 +373,7 @@
                 });
             }
             
-            function mostrarEliminarDependencia() {
+            function mostrarEliminarAtnUsuario() {
                 $(".eliminar").unbind('click').on('click', function(){
                     let idObjAtnUsuario = $(this).attr('data-idObjAtnUsuario');
                     $("#modal-eliminarAtnUsuario #num_trabajador").text(listaAtnUsuarios[idObjAtnUsuario].num_trabajador);
