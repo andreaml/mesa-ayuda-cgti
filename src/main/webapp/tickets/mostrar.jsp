@@ -338,9 +338,6 @@
                         <div class="form-group row ">
                             <label for="" class="col-4">Especialista: </label>
                             <select class="form-control col-8" id="selectEspecialista">
-                                <option value="123">Prueba </option>
-                                <option value="456">Prueba </option>
-                                <option value="678">Prueba </option>
                             </select> 
                         </div>
                         <div class="form-group row ">
@@ -351,20 +348,8 @@
                         <div class="form-group row ">
                         <label for="" class="col-4">Estado de ticket: </label>
                             <select class="form-control col-8" id="">
-                                <option>Calendarizado</option>
-                                <option>Solucionado</option>
-                                <option>Asignado</option>
-                                <option>No asignado</option>
-                            </select> 
-                        </div>
-                        <div class="form-group row ">
-                            <label for="" class="col-4">Estado de satisfacción: </label>
-                            <select class="form-control col-8" id="">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>                
+                                <option value="Atendiendo">Atendiendo</option>
+                                <option value="Solucionado">Solucionado</option>
                             </select> 
                         </div>
                     </form>
@@ -471,11 +456,13 @@
                         });
                     }
                });
+               $("#selectTipoServicio").change(function(){
+                    cargarEspecialistasEnSelect($("#selectTipoServicio option:selected").val());
+               });
            } 
-           //cargarEmisoresEnSelect();
-           //cargarTipoServicioEnSelect();
-           cargarEspecialistasEnSelect();
-           console.log('init')
+           cargarEmisoresEnSelect();
+           cargarTipoServicioEnSelect();
+           //cargarEspecialistasEnSelect();
         });
     </script>
   </body>
