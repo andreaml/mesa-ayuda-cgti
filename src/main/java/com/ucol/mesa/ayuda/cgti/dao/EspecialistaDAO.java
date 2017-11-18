@@ -67,7 +67,7 @@ public class EspecialistaDAO {
             String contrasenia = resulSet.getString("contrasenia");
             String profesion = resulSet.getString("profesion");
 
-            Especialista especialista = new Especialista(correo, nombre1, nombre2, apellidoP, apellidoM,area, numTrabajador, contrasenia, profesion);
+            Especialista especialista = new Especialista(correo, nombre1, nombre2, apellidoP, apellidoM,area, numTrabajador, profesion);
             listaEspecialistas.add(especialista);
         }
         conexionBD.desconectar();
@@ -86,7 +86,7 @@ public class EspecialistaDAO {
        
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            especialista = new Especialista(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), res.getInt("area"), res.getInt("num_trabajador"), res.getString("contrasenia"), res.getString("profesion"));
+            especialista = new Especialista(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), res.getInt("area"), res.getInt("num_trabajador"), res.getString("profesion"));
         }
         res.close();
         conexionBD.desconectar();
@@ -95,7 +95,7 @@ public class EspecialistaDAO {
     }
     
     //Actualizar especialista
-    public boolean actualizar(Especialista especialista) throws SQLException {
+    public boolean actualizar(Especialista especialista, String correoViejo) throws SQLException {
         boolean rowActualizar = false;
         //primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, num_trabajador
         String sql = "UPDATE ESPECIALISTA SET correo=?, primer_nombre=?, segundo_nombre=?, apellido_paterno=?, apellido_materno=?, area=?, num_trabajador=?, contrasenia=?, profesion=? WHERE correo=?";
@@ -111,7 +111,7 @@ public class EspecialistaDAO {
         statement.setInt(7, especialista.getNumTrabajador());
         statement.setString(8, especialista.getContrasenia());
         statement.setString(9, especialista.getProfesion());
-        statement.setString(10, especialista.getCorreo());
+        statement.setString(10, correoViejo);
         
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();

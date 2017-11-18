@@ -13,7 +13,7 @@ public class Especialista extends UsuarioGeneral{
         super();
     }
     
-    public Especialista(String correo, String nombre1, String nombre2, String apellidoP, String apellidoM, int area, int numTrabajador, String contrasenia, String profesion){
+    public Especialista(String correo, String nombre1, String nombre2, String apellidoP, String apellidoM, int area, int numTrabajador, String profesion){
         super(correo, nombre1, nombre2, apellidoP, apellidoM);
         this.area=area;
         this.numTrabajador=numTrabajador;
