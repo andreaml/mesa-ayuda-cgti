@@ -88,6 +88,24 @@
   <!-- Seccion 1-->
   <section class="container mt-5">
     <h3 class="text-center p-1">Usuarios tipo Especialistas</h3>
+            <div id="alertAgregado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+                Dependencia <strong id="nombreDependenciaNueva"></strong> agregada con éxito.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="alertEditado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+                Dependencia <strong id="nombreDependenciaNueva"></strong> editada con éxito.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="alertEliminado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+                Dependencia <strong id="nombreDependenciaNueva"></strong> eliminada con éxito.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
         <div class="row col-12 d-flex justify-content-center align-items-center my-4 ml-0">
             <form class="form-group col-11 col-md-6 mx-md-5 px-0 mb-lg-0 mb-2">
             <div class="input-group">
