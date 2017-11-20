@@ -328,12 +328,13 @@
                 
                 $("#btnEditarUsuario").unbind('click').on('click', function(){
                    console.log($("#formEditarUsuario").serialize()); 
+                   let dependencia="&dependencia="+$("#formEditarUsuario #selectDependencia").val();
                    $.ajax({
                         type: 'POST',
                         url: './usuarios?action=editar&correo=' + $("#formEditarUsuario #correo").val(),
                         dataType: 'json',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                        data: $("#formEditarUsuario").serialize(),
+                        data: $("#formEditarUsuario").serialize()  + dependencia,
                         success: function(data, textStatus, jqXHR){
                             // access response data
                             console.log(data, textStatus, jqXHR);
@@ -375,7 +376,7 @@
                         $("#modal-editarUsuario #segundo_nombre").val(listaUsuarios[idObjUsuario].segundo_nombre);
                         $("#modal-editarUsuario #apellido_paterno").val(listaUsuarios[idObjUsuario].apellido_paterno);
                         $("#modal-editarUsuario #apellido_materno").val(listaUsuarios[idObjUsuario].apellido_materno);
-                        $("#modal-editarUsuario #dependencia").val(listaUsuarios[idObjUsuario].dependencia);
+                        $("#modal-editarUsuario #selectDependencia").val(listaUsuarios[idObjUsuario].dependencia);
                         $("#modal-editarUsuario #tipo").val(listaUsuarios[idObjUsuario].tipo);
                     });
                 }
