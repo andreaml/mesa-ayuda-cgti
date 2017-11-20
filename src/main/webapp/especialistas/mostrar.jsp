@@ -258,7 +258,7 @@
                     </div>
                     <div class="form-group row ">
                         <label for="" class="col-4">Área: </label>
-                        <select class="form-control col-8" id="area">
+                        <select class="form-control col-8" id="selectArea">
                         </select> 
                     </div>
                 </form>
@@ -322,7 +322,7 @@
                  
                 <div class="form-group row ">
                     <label for="" class="col-4">Área: </label>
-                    <select class="form-control col-8" id="area">
+                    <select class="form-control col-8" id="selectArea">
                     </select> 
                 </div>
             </form>
@@ -442,7 +442,7 @@
                     $("#modal-editarEspecialista #correo").val(listaEspecialistas[idObjEspecialista].correo);
                     $("#modal-editarEspecialista #numTrabajador").val(listaEspecialistas[idObjEspecialista].nombreEspecialista);
                     $("#modal-editarEspecialista #primerNombre").val(listaEspecialistas[idObjEspecialista].campus);
-                    $("#modal-editarEspecialista #area").val(listaEspecialistas[idObjEspecialista].area);
+                    $("#modal-editarEspecialista #area").val(listaEspecialistas[idObjEspecialista].areaArea.id_area);
                     let arrayProfesion = listaEspecialistas[idObjEspecialista].profesion.split('|');
                     $("#modal-editarEspecialista #profesion").val(arrayDireccion[0]);
                     $("#modal-editarEspecialista #nombreProfesion").val(arrayDireccion[1]);
@@ -475,17 +475,32 @@
                                 $('<td>').text(especialista.numTrabajador),
                                 $('<td>').text(especialista.nombre1 + " " + especialista.nombre2 + " " + especialista.apellidoP + " " + especialista.apellidoM),
                                 $('<td>').text(especialista.profesion.replace(/[\x7C]/g, ' ')),
-                                $('<td>').text(especialista.area),
+                                $('<td>').text(especialista.areaArea.nombreArea),
                                 $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar + btnEliminar)
                             );
                             $("table").append(tr);
                             //console.log(tr.wrap('<tr>').html());
                         });
+                        cargarAreasEnSelect();
                         mostrarEditarEspecialista();
                         mostrarEliminarEspecialista();
                     }
                 });
-            }  
+            }
+            function cargarAreasEnSelect() {
+               $.ajax({
+                    type: 'GET',
+                    url: './areas?action=mostrar',
+                    dataType: 'json',
+                    success: function(areas, textStatus, jqXHR){
+                        // access response data
+                        $("#selectDependencia").empty();
+                        $.each(areas, function(id, area) {
+                            $('#selectArea').append(new Option(area.nombreArea,area.id_area)); 
+                        });
+                    }
+               });
+           }
         });
     </script>
   </body>
