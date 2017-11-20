@@ -7,6 +7,7 @@
 package com.ucol.mesa.ayuda.cgti.dao;
 import com.ucol.mesa.ayuda.cgti.model.Usuario;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
+import com.ucol.mesa.ayuda.cgti.model.Dependencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,10 +24,12 @@ import java.util.List;
 public class UsuarioDAO {
     private ConexionBD conexionBD;
     private Connection connection;
+    private DependenciaDAO dependenciaDAO;
 
     public UsuarioDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) throws SQLException {
         System.out.println(jdbcURL);
         conexionBD = new ConexionBD(jdbcURL, jdbcUsername, jdbcPassword);
+        dependenciaDAO = new DependenciaDAO(jdbcURL, jdbcUsername, jdbcPassword);
     }
 
     //Agregar nombreUsuario
@@ -41,7 +44,7 @@ public class UsuarioDAO {
         statement.setString(3, usuario.getNombre2());
         statement.setString(4, usuario.getApellidoP());
         statement.setString(5, usuario.getApellidoM());
-        statement.setInt(6, usuario.getDependencia());
+        statement.setInt(6, usuario.getDependenciaInt());
         statement.setInt(7, usuario.getNumCuenta());
         statement.setString(8, usuario.getTipo());
 
@@ -67,7 +70,8 @@ public class UsuarioDAO {
             String segundo_nombre = resulSet.getString("segundo_nombre");
             String apellido_paterno = resulSet.getString("apellido_paterno");
             String apellido_materno = resulSet.getString("apellido_materno");
-            int dependencia = resulSet.getInt("dependencia");
+            //int dependencia = resulSet.getInt("dependencia");
+            Dependencia dependencia= dependenciaDAO.obtenerPorId(resulSet.getInt("dependencia"));
             int num_cuenta = resulSet.getInt("num_cuenta");
             String tipo = resulSet.getString("tipo");
 
@@ -90,7 +94,8 @@ public class UsuarioDAO {
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            usuario = new Usuario(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), res.getInt("dependencia"), res.getInt("num_cuenta"), res.getString("tipo"));
+            Dependencia dependencia= dependenciaDAO.obtenerPorId(res.getInt("dependencia"));            
+            usuario = new Usuario(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), dependencia , res.getInt("num_cuenta"), res.getString("tipo"));
         }
         res.close();
         conexionBD.desconectar();
@@ -110,7 +115,7 @@ public class UsuarioDAO {
         statement.setString(3, usuario.getNombre2());
         statement.setString(4, usuario.getApellidoP());
         statement.setString(5, usuario.getApellidoM());
-        statement.setInt(6, usuario.getDependencia());
+        statement.setInt(6, usuario.getDependenciaInt());
         statement.setInt(7, usuario.getNumCuenta());
         statement.setString(8, usuario.getTipo());
         statement.setString(9, usuario.getCorreo());

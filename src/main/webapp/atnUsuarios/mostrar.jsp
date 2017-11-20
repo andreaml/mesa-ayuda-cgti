@@ -368,7 +368,7 @@
                         $("#modal-editarAtnUsuario #segundo_nombre").val(listaAtnUsuarios[idObjAtnUsuario].segundo_nombre);
                         $("#modal-editarAtnUsuario #apellido_paterno").val(listaAtnUsuarios[idObjAtnUsuario].apellido_paterno);
                         $("#modal-editarAtnUsuario #apellido_materno").val(listaAtnUsuarios[idObjAtnUsuario].apellido_materno);
-                        $("#modal-editarAtnUsuario #dependencia").val(listaAtnUsuarios[idObjAtnUsuario].dependencia);
+                        $("#modal-editarAtnUsuario #selectDependencia").val(listaAtnUsuarios[idObjAtnUsuario].dependencia.id_dependencia);
                     });
                 }
                 
@@ -402,7 +402,7 @@
                                     $('<td>').text(atnUsuario.correo),                              
                                     $('<td>').text(atnUsuario.num_trabajador),
                                     $('<td>').text(nombreCompleto),
-                                    $('<td>').text(atnUsuario.dependencia),                               
+                                    $('<td>').text(atnUsuario.dependencia.nombreDependencia),                               
                                     $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar + btnEliminar)
                                 ); //.appendTo('#records_table');
                                 $("table").append(tr);
