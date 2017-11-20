@@ -101,7 +101,7 @@ public class AtnUsuariosServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());
-        //atnUsuariosDAO.insertar(atnUsuario);
+        atnUsuariosDAO.insertar(atnUsuario);
 
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(atnUsuario));
@@ -124,7 +124,7 @@ public class AtnUsuariosServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString()); 
-        //atnUsuariosDAO.actualizar(atnUsuario);
+        atnUsuariosDAO.actualizar(atnUsuario);
         
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(atnUsuario));
@@ -136,7 +136,7 @@ public class AtnUsuariosServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());  
-        //atnUsuariosDAO.eliminar(atnUsuario);
+        atnUsuariosDAO.eliminar(atnUsuario);
         
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(atnUsuario));

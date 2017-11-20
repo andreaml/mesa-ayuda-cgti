@@ -26,7 +26,7 @@
             <div class="container-fluid bg-dark"> 
                 <nav class="navbar navbar-dark bg-dark ml-md-5">
                     <a class="navbar-brand" href="index.html">
-                      <img src="images/logo.png" class="image-fluid" width="320px" alt="logo-udec">
+                      <img src="<c:url value='/images/logo.png' />" class="image-fluid" width="320px" alt="logo-udec">
                     </a>
                </nav>
             </div>
@@ -219,7 +219,7 @@
                     </div>
                     
                     <div class="modal-body p-5 col-11 ">
-                        <form action="">
+                        <form id="formEditarAtnUsuario" action="">
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-4">Correo universitario:</label>
                                 <input type="text" class="form-control col-8" id="correo" name="correo">
