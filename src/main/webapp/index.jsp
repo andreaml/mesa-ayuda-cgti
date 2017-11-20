@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="es">
   <head>
@@ -5,12 +7,14 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="<c:url value='/images/favicon.ico' />" type="image/x-icon">
+    <link rel="icon" href="<c:url value='/images/favicon.ico' />" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet"  href="css/font-awesome.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet"  href="<c:url value='/css/font-awesome.css' />">
+    <link rel="stylesheet"  href="<c:url value='/css/bootstrap.css' />">
+    <link rel="stylesheet"  href="<c:url value='/css/style.css' />">
+    <link rel="stylesheet"  href="<c:url value='/css/normalize.css' />">
    
   </head>
   <body>
@@ -31,7 +35,7 @@
         <div class="row col-12 px-0 ">
             <div class=" col-12 col-md-8 px-0"><h1 class="display-5">Mesa de ayuda UdeC</h1></div>
             <div class="col-5 col-md-4 px-0 align-self-md-center d-md-flex justify-content-md-start justify-content-md-end px-md-0 ">
-                <a href="" class="btn btn-info">Iniciar sesión</a>
+                <a href="" class="btn btn-info">Iniciar sesiÃ³n</a>
             </div>
             <!-- Barra de menu -->
         <div class="col-7 col-md-12 px-0 mt-lg-3">
@@ -41,9 +45,9 @@
                     </button>
                       
                     <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                        <a class="nav-item nav-link text-dark p-3 px-4 px-lg-5 selected act" href="pub-01-consultaTicket.html">Consulta de Tickets</a>
-                        <a class="nav-item nav-link text-dark p-3 selected px-4 px-lg-5 " href="pub-02-bdConocimientos.html">Base de Datos de Conocimiento</a>
-                        <a class="nav-item nav-link text-dark p-3 selected px-4 px-lg-5" href="pub-03-evaluacion.html">Evaluacion de Servicio</a>    
+                        <a class="nav-item nav-link text-dark p-3 px-4 px-lg-5 selected act" href="<c:url value='/' />">Consulta de Tickets</a>
+                        <a class="nav-item nav-link text-dark p-3 selected px-4 px-lg-5" href="<c:url value='/base-datos-conocimiento' />">Base de Datos de Conocimiento</a>
+                        <a class="nav-item nav-link text-dark p-3 selected px-4 px-lg-5" href="<c:url value='/evaluacion-servicio' />">Evaluacion de Servicio</a>    
                     </div>
                 </nav>
             </div>
@@ -68,7 +72,7 @@
   </section>
 <!-- Fin de seccion 1 -->
 
-<!-- Inicio de descripción de los tickets -->
+<!-- Inicio de descripciÃ³n de los tickets -->
     <div class="container-fluid d-flex flex-column mt-5 col-12 col-md-11 col-lg-10 ">
         <div class="row mt-5">
             <div class="col-12 col-md-8">
@@ -82,7 +86,7 @@
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque aliquam ratione possimus asperiores? Quibusdam minus nemo doloribus eius quaerat consequuntur ad sunt id doloremque.
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Porro earum, adipisci perferendis ipsa libero unde nemo facere saepe recusandae aperiam? Error, a pariatur.
                 </p>
-                <p>Ticket número: 1234</p>
+                <p>Ticket nÃºmero: 1234</p>
             </div>
             <div class="col-lg-3 col-md-4 col-12 ml-auto">
                 <table class="table table-striped">
@@ -121,14 +125,14 @@
         </div>
     </div>
 
-<!-- Fin de descripción de tickets -->
+<!-- Fin de descripciÃ³n de tickets -->
 
   
  
   <!-- Inicio de pie de pagina -->
   <footer class="mt-5 container-fluid bg-dark text-center ">
     <div class="container navbar navbar-dark bg-dark ">
-      <p class="text-white mr-auto ml-auto"><i class="fa fa-registered"></i> Derechos reservados Universidad de Colima | Página desarrollada por la Facultad de Telemática - 2017</p>
+      <p class="text-white mr-auto ml-auto"><i class="fa fa-registered"></i> Derechos reservados Universidad de Colima | PÃ¡gina desarrollada por la Facultad de TelemÃ¡tica - 2017</p>
     </div>
   </footer>
   <!-- Fin de pie de pagina -->
