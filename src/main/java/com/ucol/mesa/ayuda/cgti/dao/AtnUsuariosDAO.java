@@ -65,7 +65,7 @@ public class AtnUsuariosDAO {
             int num_trabajador = resulSet.getInt("num_trabajador");
             String contrasenia = resulSet.getString("contrasenia");
 
-            AtnUsuarios atnusuarios = new AtnUsuarios(correo, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, dependencia, num_trabajador, contrasenia);
+            AtnUsuarios atnusuarios = new AtnUsuarios(correo, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, dependencia, num_trabajador);
             listaAtnUsuarios.add(atnusuarios);
         }
         conexionBD.desconectar();
@@ -84,7 +84,7 @@ public class AtnUsuariosDAO {
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            atnusuarios = new AtnUsuarios(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), res.getInt("dependencia"), res.getInt("num_trabajador"), res.getString("contrasenia"));
+            atnusuarios = new AtnUsuarios(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), res.getInt("dependencia"), res.getInt("num_trabajador"));
         }
         res.close();
         conexionBD.desconectar();
