@@ -106,7 +106,7 @@ public class UsuarioServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());
-        //usuarioDAO.insertar(usuario);
+        usuarioDAO.insertar(usuario);
 
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(usuario));
@@ -128,7 +128,7 @@ public class UsuarioServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString()); 
-        //usuarioDAO.actualizar(usuario);
+        usuarioDAO.actualizar(usuario);
        
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(usuario));
@@ -140,7 +140,7 @@ public class UsuarioServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());  
-        //usuarioDAO.eliminar(usuario);
+        usuarioDAO.eliminar(usuario);
                
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(usuario));
