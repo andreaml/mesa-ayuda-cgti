@@ -444,8 +444,8 @@
                     $("#modal-editarEspecialista #primerNombre").val(listaEspecialistas[idObjEspecialista].campus);
                     $("#modal-editarEspecialista #area").val(listaEspecialistas[idObjEspecialista].areaArea.id_area);
                     let arrayProfesion = listaEspecialistas[idObjEspecialista].profesion.split('|');
-                    $("#modal-editarEspecialista #profesion").val(arrayDireccion[0]);
-                    $("#modal-editarEspecialista #nombreProfesion").val(arrayDireccion[1]);
+                    $("#modal-editarEspecialista #profesion").val(arrayProfesion[0]);
+                    $("#modal-editarEspecialista #nombreProfesion").val(arrayProfesion[1]);
                 });
             }
             
