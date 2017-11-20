@@ -13,6 +13,7 @@ import com.ucol.mesa.ayuda.cgti.model.AtnUsuarios;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 
 /**
  * @author cmiranda
@@ -67,6 +68,8 @@ public class AtnUsuariosServlet extends HttpServlet {
                 }
             } catch (SQLException e) {
                 e.getStackTrace();
+                PrintWriter out = response.getWriter();
+                out.print(e.getSQLState());
             }
         }else{
             try {
@@ -86,12 +89,14 @@ public class AtnUsuariosServlet extends HttpServlet {
     }
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("atnUsuarios/mostrar.jsp");
-        dispatcher.forward(request, response);
+        //RequestDispatcher dispatcher = request.getRequestDispatcher("atnUsuarios/mostrar.jsp");
+        //dispatcher.forward(request, response);
+        ServletContext servletContext= request.getServletContext();
+        servletContext.getRequestDispatcher("/atnUsuarios/mostrar.jsp").forward(request, response);
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        AtnUsuarios atnUsuario = new AtnUsuarios(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_trabajador")), request.getParameter("contrasenia"));
+        AtnUsuarios atnUsuario = new AtnUsuarios(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_trabajador")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -113,7 +118,7 @@ public class AtnUsuariosServlet extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        AtnUsuarios atnUsuario = new AtnUsuarios(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_trabajador")), request.getParameter("contrasenia"));
+        AtnUsuarios atnUsuario = new AtnUsuarios(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_trabajador")));
         atnUsuario.setNumTrabajador(Integer.parseInt(request.getParameter("num_trabajador")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");

@@ -12,11 +12,10 @@ public class AtnUsuarios extends UsuarioGeneral {
         super();
     }
     
-    public AtnUsuarios(String correo, String nombre1, String nombre2, String apellidoP, String apellidoM, int dependencia, int numTrabajador, String contrasenia){
+    public AtnUsuarios(String correo, String nombre1, String nombre2, String apellidoP, String apellidoM, int dependencia, int numTrabajador){
         super(correo, nombre1, nombre2, apellidoP, apellidoM);
         this.dependencia=dependencia;
         this.numTrabajador=numTrabajador;
-        this.contrasenia=contrasenia;
     }
       
     public int getDependencia() {

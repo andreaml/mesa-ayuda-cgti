@@ -163,7 +163,7 @@
                     </div>
                     
                     <div class="modal-body p-5 col-11 ">
-                        <form action="">
+                        <form id="formAgregarAtnUsuario" action="">
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-4">Correo universitario:</label>
                                 <input name="correo" type="text" class="form-control col-8" id="">
@@ -298,13 +298,14 @@
                 var listaAtnUsuarios;
                 cargarTablaAtnUsuarios();
                 $("#btnAgregarAtnUsuario").unbind('click').on('click', function(){
-                   console.log($("#formAgregarAtnUsuario").serialize()); 
+                   console.log($("#formAgregarAtnUsuario").serialize());
+                   let dependencia="&dependencia="+$("#formAgregarAtnUsuario #selectDependencia").val();
                    $.ajax({
                         type: 'POST',
                         url: './atencion-usuarios?action=registrar',
                         dataType: 'json',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                        data: $("#formAgregarAtnUsuario").serialize() ,
+                        data: $("#formAgregarAtnUsuario").serialize() + dependencia ,
                         success: function(data, textStatus, jqXHR){
                             // access response data
                             console.log(data, textStatus, jqXHR);
