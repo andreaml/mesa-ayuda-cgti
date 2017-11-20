@@ -1,9 +1,8 @@
 <%-- 
-    Document   : mostrarEvaluacionServicio
-    Created on : 19/11/2017, 10:19:31 PM
+    Document   : evaluacion-servicio
+    Created on : 20/11/2017, 02:05:33 PM
     Author     : andreaml
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
@@ -44,21 +43,44 @@
                 <a href="" class="btn btn-info">Iniciar sesión</a>
             </div> 
 
-            <!-- Barra de menu -->
-        <div class="col-7 col-md-12 px-0 mt-lg-3">
+        <!-- Barra de menu -->
+            <div class="col-7 col-md-12 px-0 mt-lg-3">
                 <nav class=" container nav navbar mr-0 mx-lg-auto pt-0 px-0 navbar-expand-lg navbar-light ">
                     <button class="navbar-toggler align-self-center ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                       
                     <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                        <a class="nav-item nav-link text-dark p-3 px-4 px-lg-5 selected" href="<c:url value='/' />">Consulta de Tickets</a>
-                        <a class="nav-item nav-link text-dark p-3 selected px-4 px-lg-5" href="<c:url value='/base-datos-conocimiento' />">Base de Datos de Conocimiento</a>
-                        <a class="nav-item nav-link text-dark p-3 selected px-4 px-lg-5 act" href="<c:url value='/evaluacion-servicio' />">Evaluacion de Servicio</a>    
+                        <a class="nav-dependencia nav-link text-dark p-3 px-4 px-md-5 selected mr-1" href="<c:url value='/atencion-usuarios' />">Inicio</a>
+          
+                        <div class="nav-dependencia dropSubmenu dropdown">
+                            <a class="nav-dependencia nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 boton" href="" role="button">Dependencias </a>
+                            <!-- Inicio de submenu -->
+                              <div class="contenido text-left ">
+                                <a href="<c:url value='/atencion-usuarios/dependencias' />" class="">Dependencias</a>
+                                <a href="<c:url value='/atencion-usuarios/areas' />" class="">Áreas</a>
+                                <a href="<c:url value='/atencion-usuarios/vehiculos' />" class="">Vehículos</a>
+                              </div>
+                            <!-- Fin de submenu -->      
+                        </div>
+                      
+                        <a class="nav-dependencia nav-link text-dark p-3 selected   px-4 px-md-5 mr-1" href="<c:url value='/atencion-usuarios/servicios' />">Servicios</a>
+                        <div class="nav-dependencia dropSubmenu dropdown">
+                            <a class="nav-link text-dark p-3 dropdown-toggle   px-4 px-md-5" href=""  role="button">Usuarios </a>
+                            <!-- Inicio de submenu -->
+                              <div class="contenido text-left ">
+                                <a href="<c:url value='/atencion-usuarios/atencion-usuarios' />" class="">Atención a usuarios</a>
+                                <a href="<c:url value='/atencion-usuarios/especialistas' />" class="">Especialistas</a>
+                                <a href="<c:url value='/atencion-usuarios/usuarios' />" class="">Usuarios</a>
+                              </div>
+                            <!-- Fin de submenu -->  
+                        </div>
+                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/atencion-usuarios/tickets' />">Tickets</a>
+                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5 act" href="<c:url value='/atencion-usuarios/evaluacion-servicio' />">Evaluación de servicio</a>          
                     </div>
                 </nav>
             </div>
-            <!-- Fin de barra de menu -->
+        <!-- Fin de barra de menu -->
         </div>
     </div>  
 <!-- Fin encabezado 2 --> 
