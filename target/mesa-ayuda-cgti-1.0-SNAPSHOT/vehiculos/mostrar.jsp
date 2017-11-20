@@ -380,5 +380,141 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="js/bootstrap.js"></script>
+    <script>
+        $(function(){
+            var listaAreas;
+            cargarTablaAreas();
+            $("#btnAgregarVehiculo").unbind('click').on('click', ()=>{
+               console.log($("#formAgregarVehiculo").serialize()); 
+               //let direccion = "&direccion=";
+               //$.each($("#formAgregarArea .direccion"),function(){
+               //    direccion += $(this).val() + "|";
+               //});
+               //console.log(direccion);
+               $.ajax({
+                    type: 'POST',
+                    url: './areas?action=registrar',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formAgregarVehiculo").serialize(),
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                        $("#alertAgregado #nombreAreaNueva").text(data.nombreArea);
+                        $("#alertAgregado").toggle();
+                        setTimeout(function(){
+                            $("#alertAgregado").toggle();
+                        }, 5000);
+                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formEditarVehiculo").serialize(),
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                        $("#alertEditado #nombreAreaNueva").text(data.nombreArea);
+                        $("#alertEditado").toggle();
+                        setTimeout(function(){
+                            $("#alertEditado").toggle();
+                        }, 5000);
+                        cargarTablaAreas();
+                    }
+                });
+            });        cargarTablaAreas();
+                    }
+                });
+            });
+            
+            $("#btnEditarVehiculo").unbind('click').on('click', ()=>{
+               console.log($("#formEditarVehiculo").serialize()); 
+               //let direccion = "&direccion=";
+               //$.each($("#formEditarArea .direccion"),function(){
+               //    direccion += $(this).val() + "|";
+               //});
+               //console.log(direccion);
+               $.ajax({
+                    type: 'POST',
+                    url: './areas?action=editar&id_area=' + $("#formEditarVehiculo #idArea").val(),
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formEditarVehiculo").serialize(),
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                        $("#alertEditado #nombreAreaNueva").text(data.nombreArea);
+                        $("#alertEditado").toggle();
+                        setTimeout(function(){
+                            $("#alertEditado").toggle();
+                        }, 5000);
+                        cargarTablaAreas();
+                    }
+                });
+            });
+            
+            $("#btnEliminarVehiculo").unbind('click').on('click', ()=>{
+               $.ajax({
+                    type: 'POST',
+                    url: './areas?action=eliminar&id_area=' + $("#formEliminarVehiculo #idArea").val(),
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                        $("#alertEliminado #nombreAreaNueva").text(data.nombreArea);
+                        $("#alertEliminado").toggle();
+                        setTimeout(function(){
+                            $("#alertEliminado").toggle();
+                        }, 5000);
+                        cargarTablaAreas();
+                    }
+                });
+            });
+            
+            
+            function mostrarEditarVehiculo() {
+                $(".editar").unbind('click').on('click', function(){
+                    let idObjArea = $(this).attr('data-idObjArea');
+                    $("#modal-editarArea #idArea").val(listaAreas[idObjArea].id_area);
+                    $("##modal-editarArea #nombreArea").val(listaAreas[idObjArea].nombre_area);
+                    $("##modal-editarArea #Dependencia").val(listaAreas[idObjArea].dependencia);
+                });
+            }
+            
+            function mostrarEliminarArea() {
+                $(".eliminar").unbind('click').on('click', function(){
+                    let idObjArea = $(this).attr('data-idObjArea');
+                    $("#modal-eliminarArea #nombreArea").text(listaAreas[idObjArea].nombre_area);
+                    $("#modal-eliminarArea #idArea").val(listaAreas[idObjArea].id_area);
+                });
+            }
+
+            function cargarTablaAreas() {
+                $.ajax({
+                    type: 'GET',
+                    url: './areas?action=mostrar',
+                    dataType: 'json',
+                    //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    //data: $("#formAgregarDependencia").serialize() + direccion,
+                    success: function(areas, textStatus, jqXHR){
+                        // access response data
+                        console.log(areas, textStatus, jqXHR);
+                        listaAreas = areas;
+                        $("tbody").empty();
+                        $.each(areas, function(id, area) {
+                            let btnEditar = '<button type="button" class="editar btn btn-info my-1" data-toggle="modal" data-target="#modal-editarArea" data-idObjArea="'+ id +'"><i class="fa fa-pencil"></i></button>';
+                            let btnEliminar = '<button type="button " class="eliminar btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarArea" data-idObjArea="'+ id +'"><i class="fa fa-trash-o"></i></button>';
+                            let tr = $('<tr class="text-truncate">').append(
+                                $('<td>').text(area.nombre_area),
+                                $('<td>').text(area.dependencia),
+                                $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar + btnEliminar)
+                            ); //.appendTo('#records_table');
+                            $("table").append(tr);
+                            //console.log(tr.wrap('<tr>').html());
+                        });
+                        mostrarEditarArea();
+                        mostrarEliminarArea();
+                    }
+                });
+            }  
+        });
+    </script>
   </body>
 </html>
