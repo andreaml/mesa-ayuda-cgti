@@ -13,12 +13,14 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="<c:url value='/images/favicon.ico' />" type="image/x-icon">
+    <link rel="icon" href="<c:url value='/images/favicon.ico' />" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet"  href="css/font-awesome.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet"  href="<c:url value='/css/font-awesome.css' />">
+    <link rel="stylesheet"  href="<c:url value='/css/bootstrap.css' />">
+    <link rel="stylesheet"  href="<c:url value='/css/style.css' />">
+    <link rel="stylesheet"  href="<c:url value='/css/normalize.css' />">
    
   </head>
   <body>
@@ -52,10 +54,10 @@
                     <a class="nav-item nav-link text-dark p-3 px-4 px-md-5 selected mr-1" href="01-inicio.html">Inicio</a>
       
                     <div class="nav-item dropSubmenu dropdown">
-                        <a class="nav-item nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 boton" href="" role="button">Dependencias </a>
+                        <a class="nav-item nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 boton" href="" role="button">Especialistas </a>
                         <!-- Inicio de submenu -->
                           <div class="contenido text-left ">
-                            <a href="02-dependencias.html" class="">Dependencias</a>
+                            <a href="02-dependencias.html" class="">Especialistas</a>
                             <a href="03-areas.html" class="">Áreas</a>
                             <a href="04-vehiculos.html" class="">Vehículos</a>
                           </div>
@@ -64,11 +66,11 @@
                   
                     <a class="nav-item nav-link text-dark p-3 selected px-4 px-md-5 mr-1" href="05-servicios.html">Servicios</a>
                     <div class="nav-item dropSubmenu dropdown">
-                        <a class="nav-link text-dark p-3 dropdown-toggle px-4 px-md-5" href=""  role="button">Usuarios </a>
+                        <a class="nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 active" href=""  role="button">Usuarios </a>
                         <!-- Inicio de submenu -->
                           <div class="contenido text-left ">
                             <a href="06-atencionUsuarios.html" class="">Atención a usuarios</a>
-                            <a href="07-especialistas.html" class="">Especialistas</a>
+                            <a href="07-especialistas.html" class="active">Especialistas</a>
                             <a href="08-usuarios.html" class="">Usuarios</a>
                           </div>
                         <!-- Fin de submenu -->  
@@ -86,6 +88,24 @@
   <!-- Seccion 1-->
   <section class="container mt-5">
     <h3 class="text-center p-1">Usuarios tipo Especialistas</h3>
+            <div id="alertAgregado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+                Dependencia <strong id="nombreDependenciaNueva"></strong> agregada con éxito.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="alertEditado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+                Dependencia <strong id="nombreDependenciaNueva"></strong> editada con éxito.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="alertEliminado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+                Dependencia <strong id="nombreDependenciaNueva"></strong> eliminada con éxito.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
         <div class="row col-12 d-flex justify-content-center align-items-center my-4 ml-0">
             <form class="form-group col-11 col-md-6 mx-md-5 px-0 mb-lg-0 mb-2">
             <div class="input-group">
@@ -191,9 +211,9 @@
 
 <!-- Modales -->
 
-<!--Inicio de modal agregar usurio tipo atención a usuario -->
+<!--Inicio de modal agregar usuario tipo especialista -->
 <div class="modal" id="modal-agregarEspecialista" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content ">
             <div class="modal-header">
                 <h3 class="modal-title" id="exampleModalLabel">Agregar Usuario tipo Especialista</h3>
@@ -201,69 +221,59 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
             <div class="modal-body p-5 col-11 ">
-                <form action="">
+                <form id="formAgregarEspecialista">
                     <div class="form-group row">
                         <label for="" class="col-form-label col-4">Correo universitario:</label>
-                        <input type="text" class="form-control col-8" id="">
+                        <input type="email" class="form-control col-8" id="correo" name="correo">
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-form-label col-4">Número de trabajador:</label>
-                        <input type="text" class="form-control col-4" id="">
+                        <input type="text" class="form-control col-4" id="numTrabajador" name="num_trabajador">
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-form-label col-4">Primer nombre:</label>
-                        <input type="text" class="form-control col-8" id="">
+                        <input type="text" class="form-control col-8" id="primerNombre" name="primer_nombre">
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-form-label col-4">Segundo nombre:</label>
-                        <input type="text" class="form-control col-8" id="">
+                        <input type="text" class="form-control col-8" id="segundoNombre" name="segundo_nombre">
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-form-label col-4">Apellido paterno:</label>
-                        <input type="text" class="form-control col-8" id="">
+                        <input type="text" class="form-control col-8" id="apellidoPaterno" name="apellido_paterno">
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-form-label col-4">Apellido materno:</label>
-                        <input type="text" class="form-control col-8" id="">
+                        <input type="text" class="form-control col-8" id="apellidoMaterno" name="apellido_materno">
                     </div>
                     <div class="form-group row ">
-                            <label for="" class="col-4">Profesión: </label>
-                            <select class="form-control col-4" id="">
-                                <option>Profesión 1</option>
-                                <option>Profesión 2</option>
-                                <option>Profesión 3</option>
-                                <option>Profesión 4</option>
-                                <option>Profesión 5</option>
-                              </select>
-                              <input type="text" class="form-control col-4" id="">
+                        <label for="" class="col-4">Profesión: </label>
+                        <select class="form-control col-4" id="profesion">
+                            <option>Licenciatura</option>
+                            <option>Maestría</option>
+                            <option>Doctorado</option>
+                        </select>
+                        <input type="text" class="form-control col-4" id="nombreProfesion">
                     </div>
-                     
                     <div class="form-group row ">
-                            <label for="" class="col-4">Área: </label>
-                            <select class="form-control col-8" id="">
-                                <option>Área 1</option>
-                                <option>Área 2</option>
-                                <option>Área 3</option>
-                                <option>Área 4</option>
-                                <option>Área 5</option>
-                              </select> 
+                        <label for="" class="col-4">Área: </label>
+                        <select class="form-control col-8" id="selectArea">
+                        </select> 
                     </div>
-                    
                 </form>
             </div>
             
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal">Agregar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="btnAgregarEspecialista">Agregar</button>
             </div>
         </div>
-        </div>
     </div>
+</div>
   <!-- Fin de modal agregar -->
 
-<!--Inicio de modal editar usurio tipo especialista -->
+<!--Inicio de modal editar usuario tipo especialista -->
 <div class="modal" id="modal-editarEspecialista" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content ">
@@ -273,63 +283,54 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-
         <div class="modal-body p-5 col-11 ">
-            <form action="">
+            <form id="formEditarEspecialista">
                 <div class="form-group row">
                     <label for="" class="col-form-label col-4">Correo universitario:</label>
-                    <input type="text" class="form-control col-8" id="">
+                    <input type="email" class="form-control col-8" id="correo" name="correo">
+                    <input type="hidden" id="correoViejo" name="correoViejo">
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-form-label col-4">Número de trabajador:</label>
-                    <input type="text" class="form-control col-4" id="">
+                    <input type="text" class="form-control col-4" id="numTrabajador" name="num_trabajador">
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-form-label col-4">Primer nombre:</label>
-                    <input type="text" class="form-control col-8" id="">
+                    <input type="text" class="form-control col-8" id="primerNombre" name="primer_nombre">
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-form-label col-4">Segundo nombre:</label>
-                    <input type="text" class="form-control col-8" id="">
+                    <input type="text" class="form-control col-8" id="segundoNombre" name="segundo_nombre">
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-form-label col-4">Apellido paterno:</label>
-                    <input type="text" class="form-control col-8" id="">
+                    <input type="text" class="form-control col-8" id="apellidoPaterno" name="apellido_paterno">
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-form-label col-4">Apellido materno:</label>
-                    <input type="text" class="form-control col-8" id="">
+                    <input type="text" class="form-control col-8" id="apellidoMaterno" name="apellido_materno">
                 </div>
-                 
                 <div class="form-group row ">
                     <label for="" class="col-4">Profesión: </label>
-                    <select class="form-control col-4" id="">
-                        <option>Profesión 1</option>
-                        <option>Profesión 2</option>
-                        <option>Profesión 3</option>
-                        <option>Profesión 4</option>
-                        <option>Profesión 5</option>
+                    <select class="form-control col-4" id="profesion">
+                        <option>Licenciatura</option>
+                        <option>Maestría</option>
+                        <option>Doctorado</option>
                     </select>
-                    <input type="text" class="form-control col-4" id="">
+                    <input type="text" class="form-control col-4" id="nombreProfesion">
                 </div>
                  
                 <div class="form-group row ">
-                        <label for="" class="col-4">Área: </label>
-                        <select class="form-control col-8" id="">
-                            <option>Área 1</option>
-                            <option>Área 2</option>
-                            <option>Área 3</option>
-                            <option>Área 4</option>
-                            <option>Área 5</option>
-                          </select> 
+                    <label for="" class="col-4">Área: </label>
+                    <select class="form-control col-8" id="selectArea">
+                    </select> 
                 </div>
-                
             </form>
         </div>
         
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal" id="btnEditarEspecialista">Editar</button>
           </div>
       </div>
     </div>
@@ -348,9 +349,10 @@
           </button>
         </div>
         <div class="modal-body p-5">
-            ¿Realmente desea eliminar al Usuario usuario@ucol.mx ?   
+            ¿Realmente desea eliminar al Usuario <strong id="correoEspecialista"></strong>?   
         </div>
         <div class="modal-footer">
+            <input type="hidden" id="idEspecialista">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
          </div>
@@ -363,8 +365,143 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.js"></script>
+    <script src="<c:url value='/js/bootstrap.js' />"></script>
+    <script>
+        $(function(){
+            var listaEspecialistas;
+            cargarTablaEspecialistas();
+            $("#btnAgregarEspecialista").unbind('click').on('click', ()=>{
+               console.log($("#formAgregarEspecialista").serialize()); 
+               let profesion = "&profesion=" + $("#formAgregarEspecialista #profesion").val() + "|" + $("#formAgregarEspecialista #nombreProfesion").val();
+               $.ajax({
+                    type: 'POST',
+                    url: './especialista?action=registrar',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formAgregarEspecialista").serialize() + profesion,
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                        $("#alertAgregado #correoEspecialistaNuevo").text(data.correo);
+                        $("#alertAgregado").toggle();
+                        setTimeout(function(){
+                            $("#alertAgregado").toggle();
+                        }, 5000);
+                        cargarTablaEspecialistas();
+                    }
+                });
+            });
+            
+            $("#btnEditarEspecialista").unbind('click').on('click', ()=>{
+               console.log($("#formEditarEspecialista").serialize()); 
+               let profesion = "&profesion=" + $("#formAgregarEspecialista #profesion").val() + " " + $("#formAgregarEspecialista #nombreProfesion").val();
+               $.ajax({
+                    type: 'POST',
+                    url: './especialista?action=editar&correoViejo=' + $("#formEditarEspecialista #correoViejo").val(),
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formEditarEspecialista").serialize() + profesion,
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                        $("#alertEditado #correoEspecialistaNuevo").text(data.correo);
+                        $("#alertEditado").toggle();
+                        setTimeout(function(){
+                            $("#alertEditado").toggle();
+                        }, 5000);
+                        cargarTablaEspecialistas();
+                    }
+                });
+            });
+            
+            $("#btnEliminarEspecialista").unbind('click').on('click', ()=>{
+               $.ajax({
+                    type: 'POST',
+                    url: './especialista?action=eliminar&correo=' + $("#formEliminarEspecialista #correo").val(),
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                        $("#alertEliminado #correoEspecialistaNuevo").text(data.correo);
+                        $("#alertEliminado").toggle();
+                        setTimeout(function(){
+                            $("#alertEliminado").toggle();
+                        }, 5000);
+                        cargarTablaEspecialistas();
+                    }
+                });
+            });
+            
+            function mostrarEditarEspecialista() {
+                $(".editar").unbind('click').on('click', function(){
+                    let idObjEspecialista = $(this).attr('data-idObjEspecialista');
+                    $("#modal-editarEspecialista #correoViejo").val(listaEspecialistas[idObjEspecialista].correo);
+                    $("#modal-editarEspecialista #correo").val(listaEspecialistas[idObjEspecialista].correo);
+                    $("#modal-editarEspecialista #numTrabajador").val(listaEspecialistas[idObjEspecialista].nombreEspecialista);
+                    $("#modal-editarEspecialista #primerNombre").val(listaEspecialistas[idObjEspecialista].campus);
+                    $("#modal-editarEspecialista #area").val(listaEspecialistas[idObjEspecialista].areaArea.id_area);
+                    let arrayProfesion = listaEspecialistas[idObjEspecialista].profesion.split('|');
+                    $("#modal-editarEspecialista #profesion").val(arrayDireccion[0]);
+                    $("#modal-editarEspecialista #nombreProfesion").val(arrayDireccion[1]);
+                });
+            }
+            
+            function mostrarEliminarEspecialista() {
+                $(".eliminar").unbind('click').on('click', function(){
+                    let idObjEspecialista = $(this).attr('data-idObjEspecialista');
+                    $("#modal-eliminarEspecialista #correoEspecialista").text(listaEspecialistas[idObjEspecialista].correo);
+                    $("#modal-eliminarEspecialista #idEspecialista").val(listaEspecialistas[idObjEspecialista].correo);
+                });
+            }
+
+            function cargarTablaEspecialistas() {
+                $.ajax({
+                    type: 'GET',
+                    url: './especialista?action=mostrar',
+                    dataType: 'json',
+                    success: function(especialistas, textStatus, jqXHR){
+                        // access response data
+                        console.log(especialistas, textStatus, jqXHR);
+                        listaEspecialistas = especialistas;
+                        $("tbody").empty();
+                        $.each(especialistas, function(id, especialista) {
+                            let btnEditar = '<button type="button" class="editar btn btn-info my-1" data-toggle="modal" data-target="#modal-editarEspecialista" data-idObjEspecialista="'+ id +'"><i class="fa fa-pencil"></i></button>';
+                            let btnEliminar = '<button type="button " class="eliminar btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarEspecialista" data-idObjEspecialista="'+ id +'"><i class="fa fa-trash-o"></i></button>';
+                            let tr = $('<tr class="text-truncate">').append(
+                                $('<td>').text(especialista.correo),
+                                $('<td>').text(especialista.numTrabajador),
+                                $('<td>').text(especialista.nombre1 + " " + especialista.nombre2 + " " + especialista.apellidoP + " " + especialista.apellidoM),
+                                $('<td>').text(especialista.profesion.replace(/[\x7C]/g, ' ')),
+                                $('<td>').text(especialista.areaArea.nombreArea),
+                                $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar + btnEliminar)
+                            );
+                            $("table").append(tr);
+                            //console.log(tr.wrap('<tr>').html());
+                        });
+                        cargarAreasEnSelect();
+                        mostrarEditarEspecialista();
+                        mostrarEliminarEspecialista();
+                    }
+                });
+            }
+            function cargarAreasEnSelect() {
+               $.ajax({
+                    type: 'GET',
+                    url: './areas?action=mostrar',
+                    dataType: 'json',
+                    success: function(areas, textStatus, jqXHR){
+                        // access response data
+                        $("#selectDependencia").empty();
+                        $.each(areas, function(id, area) {
+                            $('#selectArea').append(new Option(area.nombreArea,area.id_area)); 
+                        });
+                    }
+               });
+           }
+        });
+    </script>
   </body>
 </html>

@@ -4,28 +4,26 @@
  * and open the template in the editor.
  */
 package com.ucol.mesa.ayuda.cgti.controller;
+import com.ucol.mesa.ayuda.cgti.dao.AreaDAO;
+import com.ucol.mesa.ayuda.cgti.model.Area;
+import java.sql.SQLException;
+import java.util.List;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.ucol.mesa.ayuda.cgti.dao.ServicioDAO;
-import com.ucol.mesa.ayuda.cgti.model.Servicio;
-import java.sql.SQLException;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 
 /**
  *
- * @author andreaml
+ * @author ricar
  */
-public class ServicioServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    ServicioDAO servicioDAO;
+public class AreaServlet extends HttpServlet {
+private static final long serialVersionUID = 1L;
+    AreaDAO areaDAO;
 
     public void init() {
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
@@ -33,13 +31,13 @@ public class ServicioServlet extends HttpServlet {
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
         try {
 
-            servicioDAO = new ServicioDAO(jdbcURL, jdbcUsername, jdbcPassword);
+            areaDAO = new AreaDAO(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
     
-    public ServicioServlet() {
+    public AreaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -54,6 +52,9 @@ public class ServicioServlet extends HttpServlet {
                 case "index":
                     index(request, response);
                     break;
+                case "nuevo":
+                    nuevo(request, response);
+                    break;
                 case "register":
                     System.out.println("entro");
                     registrar(request, response);
@@ -61,8 +62,8 @@ public class ServicioServlet extends HttpServlet {
                 case "mostrar":
                     mostrar(request, response);
                     break;
-                case "mostrarPorEspecialista":
-                    mostrarPorEspecialista(request, response);
+                case "showedit":
+                    showEditar(request, response);
                     break;
                 case "editar":
                     editar(request, response);
@@ -91,44 +92,43 @@ public class ServicioServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Servicio servicio = new Servicio(Integer.parseInt(request.getParameter("id_servicio")), request.getParameter("nombre_servicio"), request.getParameter("especialista"), request.getParameter("id_vehiculo"), Integer.parseInt(request.getParameter("nivel_gasolina_inicio")));
-        servicioDAO.insertar(servicio);
+        Area area = new Area( Integer.parseInt(request.getParameter("id_area")), request.getParameter("nombre_area"),  Integer.parseInt(request.getParameter("dependencia")));
+        areaDAO.insertar(area);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/servicios/register.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/area/register.jsp");
         dispatcher.forward(request, response);
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/servicios/mostrar.jsp");
-        List<Servicio> listaServicios = servicioDAO.listarServicio();
-        request.setAttribute("lista", listaServicios);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/area/mostrar.jsp");
+        List<Area> listaArea = areaDAO.listarArea();
+        request.setAttribute("lista", listaArea);
         dispatcher.forward(request, response);
     }
 
-    private void mostrarPorEspecialista(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Servicio> listaServiciosPorEspecialista = servicioDAO.listarServicioPorEspecialista(request.getParameter("id_especialista"));
-        response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
-        Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(listaServiciosPorEspecialista));
+    private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        Area area = areaDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_area")));
+        request.setAttribute("area", area);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/area/editar.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Servicio servicio = new Servicio(Integer.parseInt(request.getParameter("id_servicio")), request.getParameter("nombre_servicio"), request.getParameter("especialista"), request.getParameter("id_vehiculo"), Integer.parseInt(request.getParameter("nivel_gasolina_inicio")), Integer.parseInt(request.getParameter("nivel_gasolina_fin")));
+        Area area = new Area( Integer.parseInt(request.getParameter("id_area")), request.getParameter("nombre_area"),  Integer.parseInt(request.getParameter("dependencia")));
 
-        servicioDAO.actualizar(servicio);
+        areaDAO.actualizar(area);
         index(request, response);
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Servicio servicio = servicioDAO.obtenerPorId(request.getParameter("id_servicio"));
-        servicioDAO.eliminar(servicio);
+        Area area = areaDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_area")));
+        areaDAO.eliminar(area);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }

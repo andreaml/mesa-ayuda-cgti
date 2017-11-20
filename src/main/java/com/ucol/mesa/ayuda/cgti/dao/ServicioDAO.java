@@ -68,6 +68,32 @@ public class ServicioDAO {
         return listaServicio;
     }
     
+    // listar todos los servicios que tengan idEspecialista en común
+    public List<Servicio> listarServicioPorEspecialista(String id_especialista) throws SQLException {
+
+        List<Servicio> listaServicioPorEspecialista = new ArrayList<Servicio>();
+        String sql = "SELECT * FROM SERVICIO WHERE especialista = ?";
+        conexionBD.conectar();
+        connection = conexionBD.getJdbcConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, id_especialista);
+        ResultSet resulSet = statement.executeQuery(sql);
+        
+        while (resulSet.next()) {
+            int id_servicio = resulSet.getInt("id_servicio");
+            String nombreServicio = resulSet.getString("nombreServicio");
+            String especialista = resulSet.getString("especialista");
+            String id_vehiculo = resulSet.getString("id_vehiculo");
+            int nivelGasolinaInicio = resulSet.getInt("nivel_gasolina_inicio");
+            int nivelGasolinaFin = resulSet.getInt("nivelGasolinaFin");
+
+            Servicio servicio = new Servicio(id_servicio, nombreServicio, especialista, id_vehiculo, nivelGasolinaInicio);
+            listaServicioPorEspecialista.add(servicio);
+        }
+        conexionBD.desconectar();
+        return listaServicioPorEspecialista;
+    }
+    
     //Obtener por id
     public Servicio obtenerPorId(String id_servicio) throws SQLException {
         Servicio servicio = null;

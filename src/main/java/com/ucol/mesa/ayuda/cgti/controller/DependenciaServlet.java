@@ -13,6 +13,7 @@ import com.ucol.mesa.ayuda.cgti.model.Dependencia;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 
 /**
  * @author cmiranda
@@ -86,8 +87,10 @@ public class DependenciaServlet extends HttpServlet {
     }
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("dependencias/mostrar.jsp");
-        dispatcher.forward(request, response);
+        ServletContext servletContext = request.getServletContext();
+        servletContext.getRequestDispatcher("/dependencias/mostrar.jsp").forward(request, response);
+//        RequestDispatcher dispatcher = request.getRequestDispatcher("dependencias/mostrar.jsp");
+//        dispatcher.forward(request, response);
     }
     
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {

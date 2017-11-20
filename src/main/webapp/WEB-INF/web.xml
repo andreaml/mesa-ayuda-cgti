@@ -14,83 +14,107 @@
         <param-value>asd123</param-value>
     </context-param>
     <servlet>
-        <servlet-name>UsuarioServlet</servlet-name>
+        <servlet-name>AtnUsuarios-UsuarioServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.UsuarioServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>VehiculoServlet</servlet-name>
+        <servlet-name>AtnUsuarios-VehiculoServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.VehiculoServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServicioServlet</servlet-name>
+        <servlet-name>AtnUsuarios-ServicioServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.ServicioServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DependenciaServlet</servlet-name>
+        <servlet-name>AtnUsuarios-DependenciaServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.DependenciaServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EspecialistaServlet</servlet-name>
+        <servlet-name>AtnUsuarios-EspecialistaServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.EspecialistaServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AtnUsuariosServlet</servlet-name>
+        <servlet-name>AtnUsuarios-AtnUsuariosServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.AtnUsuariosServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>BD_ConocimientoServlet</servlet-name>
+        <servlet-name>AtnUsuarios-BD_ConocimientoServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.BD_ConocimientoServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>TipoServicioServlet</servlet-name>
+        <servlet-name>AtnUsuarios-TipoServicioServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.TipoServicioServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>TicketServlet</servlet-name>
+        <servlet-name>AtnUsuarios-TicketServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.TicketServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ReporteServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.ReporteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AtnUsuarios-AreaServlet</servlet-name>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.AreaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Publico-BD_Conocimiento</servlet-name>
+        <jsp-file>/publico/base-datos-conocimientos.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>Publico-EvaluacionServicio</servlet-name>
+        <jsp-file>/publico/evaluacion-servicio.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>UsuarioServlet</servlet-name>
-        <url-pattern>/usuario</url-pattern>
+        <servlet-name>AtnUsuarios-UsuarioServlet</servlet-name>
+        <url-pattern>/atencion-usuarios/usuarios</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>VehiculoServlet</servlet-name>
-        <url-pattern>/vehiculo</url-pattern>
+        <servlet-name>AtnUsuarios-VehiculoServlet</servlet-name>
+        <url-pattern>/atencion-usuarios/vehiculos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServicioServlet</servlet-name>
-        <url-pattern>/servicios</url-pattern>
+        <servlet-name>AtnUsuarios-ServicioServlet</servlet-name>
+        <url-pattern>/atencion-usuarios/servicios</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DependenciaServlet</servlet-name>
-        <url-pattern>/dependencias</url-pattern>
+        <servlet-name>AtnUsuarios-DependenciaServlet</servlet-name>
+        <url-pattern>/atencion-usuarios/dependencias</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>EspecialistaServlet</servlet-name>
-        <url-pattern>/especialista</url-pattern>
+        <servlet-name>AtnUsuarios-EspecialistaServlet</servlet-name>
+        <url-pattern>/atencion-usuarios/especialista</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AtnUsuariosServlet</servlet-name>
-        <url-pattern>/atencion-usuarios</url-pattern>
+        <servlet-name>AtnUsuarios-AtnUsuariosServlet</servlet-name>
+        <url-pattern>/atencion-usuarios/atencion-usuarios</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>BD_ConocimientoServlet</servlet-name>
-        <url-pattern>/base-datos-conocimiento</url-pattern>
+        <servlet-name>AtnUsuarios-BD_ConocimientoServlet</servlet-name>
+        <url-pattern>/atencion-usuarios/base-datos-conocimiento</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>TipoServicioServlet</servlet-name>
-        <url-pattern>/tipo-servicio</url-pattern>
+        <servlet-name>AtnUsuarios-TipoServicioServlet</servlet-name>
+        <url-pattern>/atencion-usuarios/tipo-servicio</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>TicketServlet</servlet-name>
-        <url-pattern>/tickets</url-pattern>
+        <servlet-name>AtnUsuarios-TicketServlet</servlet-name>
+        <url-pattern>/atencion-usuarios/tickets</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReporteServlet</servlet-name>
         <url-pattern>/reportes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AtnUsuarios-AreaServlet</servlet-name>
+        <url-pattern>/atencion-usuarios/areas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Publico-BD_Conocimiento</servlet-name>
+        <url-pattern>/base-datos-conocimiento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Publico-EvaluacionServicio</servlet-name>
+        <url-pattern>/evaluacion-servicio</url-pattern>
     </servlet-mapping>
 </web-app>
