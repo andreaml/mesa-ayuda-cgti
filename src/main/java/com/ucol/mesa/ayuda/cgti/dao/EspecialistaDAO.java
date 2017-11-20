@@ -1,7 +1,8 @@
 package com.ucol.mesa.ayuda.cgti.dao;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
 import com.ucol.mesa.ayuda.cgti.model.Especialista;
-
+import com.ucol.mesa.ayuda.cgti.model.Area;
+import com.ucol.mesa.ayuda.cgti.dao.AreaDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,10 +18,12 @@ import java.util.List;
 public class EspecialistaDAO {
     private ConexionBD conexionBD;
     private Connection connection;
+    private AreaDAO areaDAO;
 
     public EspecialistaDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) throws SQLException {
         System.out.println(jdbcURL);
         conexionBD = new ConexionBD(jdbcURL, jdbcUsername, jdbcPassword);
+        areaDAO = new AreaDAO(jdbcURL, jdbcUsername, jdbcPassword);
     }
     
     //Insertar especialista
@@ -35,7 +38,7 @@ public class EspecialistaDAO {
         statement.setString(3, especialista.getNombre2());
         statement.setString(4, especialista.getApellidoP());
         statement.setString(5, especialista.getApellidoM());
-        statement.setInt(6, especialista.getArea());
+        statement.setInt(6, especialista.getAreaInt());
         statement.setInt(7, especialista.getNumTrabajador());
         statement.setString(8, especialista.getContrasenia());
         statement.setString(9, especialista.getProfesion());
@@ -62,12 +65,13 @@ public class EspecialistaDAO {
             String nombre2 = resulSet.getString("segundo_nombre");
             String apellidoP = resulSet.getString("apellido_paterno");
             String apellidoM = resulSet.getString("apellido_materno");
-            int area = resulSet.getInt("area");
+            //int area = resulSet.getInt("area");
+            Area area = areaDAO.obtenerPorId(resulSet.getInt("area"));
             int numTrabajador = resulSet.getInt("num_trabajador");
             String contrasenia = resulSet.getString("contrasenia");
             String profesion = resulSet.getString("profesion");
 
-            Especialista especialista = new Especialista(correo, nombre1, nombre2, apellidoP, apellidoM,area, numTrabajador, profesion);
+            Especialista especialista = new Especialista(correo, nombre1, nombre2, apellidoP, apellidoM, area, numTrabajador, profesion);
             listaEspecialistas.add(especialista);
         }
         conexionBD.desconectar();
@@ -86,7 +90,8 @@ public class EspecialistaDAO {
        
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            especialista = new Especialista(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), res.getInt("area"), res.getInt("num_trabajador"), res.getString("profesion"));
+            Area area = areaDAO.obtenerPorId(res.getInt("area"));
+            especialista = new Especialista(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), area, res.getInt("num_trabajador"), res.getString("profesion"));
         }
         res.close();
         conexionBD.desconectar();
@@ -107,7 +112,7 @@ public class EspecialistaDAO {
         statement.setString(3, especialista.getNombre2());
         statement.setString(4, especialista.getApellidoP());
         statement.setString(5, especialista.getApellidoM());
-        statement.setInt(6, especialista.getArea());
+        statement.setInt(6, especialista.getAreaInt());
         statement.setInt(7, especialista.getNumTrabajador());
         statement.setString(8, especialista.getContrasenia());
         statement.setString(9, especialista.getProfesion());
