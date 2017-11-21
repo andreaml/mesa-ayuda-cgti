@@ -2,7 +2,6 @@ package com.ucol.mesa.ayuda.cgti.dao;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
 import com.ucol.mesa.ayuda.cgti.model.Especialista;
 import com.ucol.mesa.ayuda.cgti.model.Area;
-import com.ucol.mesa.ayuda.cgti.dao.AreaDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
