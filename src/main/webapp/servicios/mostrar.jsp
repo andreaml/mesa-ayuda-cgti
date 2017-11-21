@@ -503,7 +503,7 @@
                         success: function(vehiculos, textStatus, jqXHR){
                             // access response data
                             $("#selectVehiculo").empty();
-                            $.each(dependencias, function(id, dependencia) {
+                            $.each(vehiculos, function(id, vehiculo) {
                                 $('#selectVehiculo').append(new Option(vehiculo.id_vehiculo,vehiculo.id_vehiculo)); 
                             });
                         }
