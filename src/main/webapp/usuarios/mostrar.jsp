@@ -376,7 +376,7 @@
                         $("#modal-editarUsuario #segundo_nombre").val(listaUsuarios[idObjUsuario].segundo_nombre);
                         $("#modal-editarUsuario #apellido_paterno").val(listaUsuarios[idObjUsuario].apellido_paterno);
                         $("#modal-editarUsuario #apellido_materno").val(listaUsuarios[idObjUsuario].apellido_materno);
-                        $("#modal-editarUsuario #selectDependencia").val(listaUsuarios[idObjUsuario].dependencia);
+                        $("#modal-editarUsuario #selectDependencia").val(listaUsuarios[idObjUsuario].dependencia.id_dependencia);
                         $("#modal-editarUsuario #tipo").val(listaUsuarios[idObjUsuario].tipo);
                     });
                 }
@@ -411,7 +411,7 @@
                                     $('<td>').text(usuario.correo),                              
                                     $('<td>').text(usuario.num_trabajador),
                                     $('<td>').text(nombreCompleto),
-                                    $('<td>').text(usuario.dependencia),                              
+                                    $('<td>').text(usuario.dependencia.nombreDependencia),                              
                                     $('<td>').text(usuario.tipo),
                                     $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar + btnEliminar)
                                 ); //.appendTo('#records_table');
