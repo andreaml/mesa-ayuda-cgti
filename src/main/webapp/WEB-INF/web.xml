@@ -81,6 +81,10 @@
         <servlet-name>Especialista-Tickets</servlet-name>
         <jsp-file>/seccionEspecialista/tickets.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>InicioSesionServlet</servlet-name>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.InicioSesionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AtnUsuarios-Inicio</servlet-name>
         <url-pattern>/atencion-usuarios</url-pattern>
@@ -148,5 +152,9 @@
     <servlet-mapping>
         <servlet-name>Especialista-Tickets</servlet-name>
         <url-pattern>/especialista/tickets</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InicioSesionServlet</servlet-name>
+        <url-pattern>/iniciar-sesion</url-pattern>
     </servlet-mapping>
 </web-app>
