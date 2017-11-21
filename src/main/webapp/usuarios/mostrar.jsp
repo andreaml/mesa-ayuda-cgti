@@ -7,6 +7,8 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="shortcut icon" href="<c:url value='/images/favicon.ico' />" type="image/x-icon">
+        <link rel="icon" href="<c:url value='/images/favicon.ico' />" type="image/x-icon">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet"  href="<c:url value='/css/font-awesome.css' />">
@@ -36,42 +38,43 @@
                 </div> 
             
                 <!-- Barra de menu -->
-                <div class="col-7 col-md-12 px-0 mt-lg-3">
-                    <nav class=" container nav navbar mr-0 mx-lg-auto pt-0 px-0 navbar-expand-lg navbar-light ">
-                        <button class="navbar-toggler align-self-center ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                            <a class="nav-item nav-link text-dark p-3 px-4 px-md-5 selected mr-1" href="01-inicio.html">Inicio</a>
-                            
-                            <div class="nav-item dropSubmenu dropdown">
-                            <a class="nav-item nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 boton" href="" role="button">Dependencias </a>
+            <div class="col-7 col-md-12 px-0 mt-lg-3">
+                <nav class=" container nav navbar mr-0 mx-lg-auto pt-0 px-0 navbar-expand-lg navbar-light ">
+                    <button class="navbar-toggler align-self-center ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                      
+                    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                        <a class="nav-dependencia nav-link text-dark p-3 px-4 px-md-5 selected mr-1" href="<c:url value='/atencion-usuarios' />">Inicio</a>
+          
+                        <div class="nav-dependencia dropSubmenu dropdown">
+                            <a class="nav-dependencia nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 boton" href="" role="button">Dependencias </a>
                             <!-- Inicio de submenu -->
-                            <div class="contenido text-left ">
-                                <a href="<c:url value='/dependencias' />" class="">Dependencias</a>
-                                <a href="<c:url value='/AreaServlet' />" class="">Áreas</a>
-                                <a href="<c:url value='/vehiculo' />" class="">Vehículos</a>
-                            </div>
+                              <div class="contenido text-left ">
+                                <a href="<c:url value='/atencion-usuarios/dependencias' />" class="">Dependencias</a>
+                                <a href="<c:url value='/atencion-usuarios/areas' />" class="">Áreas</a>
+                                <a href="<c:url value='/atencion-usuarios/vehiculos' />" class="">Vehículos</a>
+                              </div>
                             <!-- Fin de submenu -->      
                         </div>
-                            
-                            <a class="nav-item nav-link text-dark p-3 selected px-4 px-md-5 mr-1" href="05-servicios.html">Servicios</a>
-                            <div class="nav-item dropSubmenu dropdown">
-                            <a class="nav-link text-dark p-3 dropdown-toggle px-4 px-md-5" href=""  role="button">Usuarios </a>
+                      
+                        <a class="nav-dependencia nav-link text-dark p-3 selected   px-4 px-md-5 mr-1" href="<c:url value='/atencion-usuarios/servicios' />">Servicios</a>
+                        <div class="nav-dependencia dropSubmenu dropdown">
+                            <a class="nav-link text-dark p-3 dropdown-toggle   px-4 px-md-5 act" href=""  role="button">Usuarios </a>
                             <!-- Inicio de submenu -->
-                            <div class="contenido text-left ">
-                                <a href="<c:url value='/atencion-usuarios' />" class="">Atención a usuarios</a>
-                                <a href="<c:url value='/especialista' />" class="">Especialistas</a>
-                                <a href="<c:url value='/usuario' />" class="">Usuarios</a>
-                            </div>
+                              <div class="contenido text-left ">
+                                <a href="<c:url value='/atencion-usuarios/atencion-usuarios' />" class="">Atención a usuarios</a>
+                                <a href="<c:url value='/atencion-usuarios/especialistas' />" class="">Especialistas</a>
+                                <a href="<c:url value='/atencion-usuarios/usuarios' />" class="">Usuarios</a>
+                              </div>
                             <!-- Fin de submenu -->  
                         </div>
-                            <a class="nav-item nav-link text-dark p-3 selected mr-1 px-4 px-md-5" href="<c:url value='/tickets' />">Tickets</a>
-                            <a class="nav-item nav-link text-dark p-3 selected mr-1 px-4 px-md-5" href="<c:url value='/evaluacionServicio' />">Evaluación de servicio</a>          
-                        </div>
-                    </nav>
-                </div>
-                <!-- Fin de barra de menu -->
+                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/atencion-usuarios/tickets' />">Tickets</a>
+                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/atencion-usuarios/evaluacion-servicio' />">Evaluación de servicio</a>          
+                    </div>
+                </nav>
+            </div>
+            <!-- Fin de barra de menu -->
             </div>
         </div>  
         <!-- Fin encabezado 2 -->
