@@ -5,6 +5,7 @@
  */
 package com.ucol.mesa.ayuda.cgti.controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import com.ucol.mesa.ayuda.cgti.model.Vehiculo;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 
 /**
  *
@@ -46,38 +48,42 @@ public class VehiculoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("Hola Servlet..");
-        String action = request.getParameter("action");
-        System.out.println(action);
-        try {
-            switch (action) {
-                case "index":
-                    index(request, response);
-                    break;
-                case "nuevo":
-                    nuevo(request, response);
-                    break;
-                case "register":
-                    System.out.println("entro");
-                    registrar(request, response);
-                    break;
-                case "mostrar":
-                    mostrar(request, response);
-                    break;
-                case "showedit":
-                    showEditar(request, response);
-                    break;
-                case "editar":
-                    editar(request, response);
-                    break;
-                case "eliminar":
-                    eliminar(request, response);
-                    break;
-                default:
-                    break;
+        if (request.getParameter("action") != null ) {
+            String action = request.getParameter("action");
+            System.out.println(action);
+            try {
+                switch (action) {
+                    case "index":
+                        index(request, response);
+                        break;
+                    case "registrar":
+                        System.out.println("entro");
+                        registrar(request, response);
+                        break;
+                    case "mostrar":
+                        mostrar(request, response);
+                        break;
+                    case "editar":
+                        editar(request, response);
+                        break;
+                    case "eliminar":
+                        eliminar(request, response);
+                        break;
+                    default:
+                        break;
+                }
+            } catch (SQLException e) {
+                PrintWriter out = response.getWriter();
+                out.print(e.getSQLState());
             }
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
+        } else {
+            try {
+                index(request, response);
+            } catch (SQLException e) {
+                PrintWriter out = response.getWriter();
+                out.print(e.getSQLState());
+            }
+        }       
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -87,50 +93,55 @@ public class VehiculoServlet extends HttpServlet {
     }
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        //mostrar(request, response);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
+        ServletContext servletContext = request.getServletContext();
+        servletContext.getRequestDispatcher("/vehiculos/mostrar.jsp").forward(request, response);
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Vehiculo vehiculo = new Vehiculo(request.getParameter("id_vehiculo"), request.getParameter("modelo"), Integer.parseInt(request.getParameter("anio")), request.getParameter("estado"), Integer.parseInt(request.getParameter("dependencia")), request.getParameter("marca"), Integer.parseInt(request.getParameter("nivelGasolina")));
+        
+        Vehiculo vehiculo = new Vehiculo(request.getParameter("numero_placa"), request.getParameter("modelo"), Integer.parseInt(request.getParameter("anio")), request.getParameter("estado"), Integer.parseInt(request.getParameter("dependencia")), request.getParameter("marca"), Integer.parseInt(request.getParameter("nivel_gasolina")));
+        Gson jsonBuilder = new Gson();
+        System.out.println(jsonBuilder.toJson(vehiculo));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        System.out.println(vehiculoDAO.insertar(vehiculo));
         vehiculoDAO.insertar(vehiculo);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/vehiculos/register.jsp");
-        dispatcher.forward(request, response);
+        out.print(jsonBuilder.toJson(vehiculo));
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/vehiculos/mostrar.jsp");
+        System.out.println("entra mostrar");
         List<Vehiculo> listaVehiculos = vehiculoDAO.listarVehiculos();
-        request.setAttribute("lista", listaVehiculos);
-        dispatcher.forward(request, response);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(listaVehiculos));
     }
 
-    private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Vehiculo vehiculo = vehiculoDAO.obtenerPorId(request.getParameter("vehiculo"));
-        request.setAttribute("vehiculo", vehiculo);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/vehiculos/editar.jsp");
-        dispatcher.forward(request, response);
-    }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Vehiculo vehiculo = new Vehiculo(request.getParameter("id_vehiculo"), request.getParameter("modelo"), Integer.parseInt(request.getParameter("anio")), request.getParameter("estado"), Integer.parseInt(request.getParameter("dependencia")), request.getParameter("marca"), Integer.parseInt(request.getParameter("nivelGasolina")));
-
-        vehiculoDAO.actualizar(vehiculo);
-        index(request, response);
+        Vehiculo vehiculo = new Vehiculo(request.getParameter("id_vehiculo"), request.getParameter("modelo"), Integer.parseInt(request.getParameter("anio")), request.getParameter("estado"), Integer.parseInt(request.getParameter("dependencia")), request.getParameter("marca"), Integer.parseInt(request.getParameter("nivel_gasolina")));
+        Gson jsonBuilder = new Gson();
+        System.out.println(jsonBuilder.toJson(request.getParameterMap()));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        System.out.println( "HolaMundo" + vehiculoDAO.actualizar(vehiculo, request.getParameter("id_vehiculoViejo")));
+        vehiculoDAO.actualizar(vehiculo, request.getParameter("id_vehiculoViejo"));
+        out.print(jsonBuilder.toJson(vehiculo));
+        
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         Vehiculo vehiculo = vehiculoDAO.obtenerPorId(request.getParameter("id_vehiculo"));
+        System.out.println("holamundoeliminado" + vehiculoDAO.obtenerPorId(request.getParameter("id_vehiculo")));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter(); 
         vehiculoDAO.eliminar(vehiculo);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(vehiculo));
     }
 }
