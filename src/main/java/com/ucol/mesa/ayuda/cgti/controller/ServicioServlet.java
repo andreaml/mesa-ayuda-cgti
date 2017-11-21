@@ -18,6 +18,7 @@ import com.ucol.mesa.ayuda.cgti.model.Servicio;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 
 /**
  *
@@ -47,34 +48,45 @@ public class ServicioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("Hola Servlet..");
-        String action = request.getParameter("action");
-        System.out.println(action);
-        try {
-            switch (action) {
-                case "index":
-                    index(request, response);
-                    break;
-                case "register":
-                    System.out.println("entro");
-                    registrar(request, response);
-                    break;
-                case "mostrar":
-                    mostrar(request, response);
-                    break;
-                case "mostrarPorEspecialista":
-                    mostrarPorEspecialista(request, response);
-                    break;
-                case "editar":
-                    editar(request, response);
-                    break;
-                case "eliminar":
-                    eliminar(request, response);
-                    break;
-                default:
-                    break;
+        if (request.getParameter("action") != null ) {
+            String action = request.getParameter("action");
+            System.out.println(action);
+            try {
+                switch (action) {
+                    case "index":
+                        index(request, response);
+                        break;
+                    case "registrar":
+                        System.out.println("entro");
+                        registrar(request, response);
+                        break;
+                    case "mostrar":
+                        mostrar(request, response);
+                        break;
+                    case "mostrarPorEspecialista":
+                        mostrarPorEspecialista(request, response);
+                        break;
+                    case "editar":
+                        editar(request, response);
+                        break;
+                    case "eliminar":
+                        eliminar(request, response);
+                        break;
+                    default:
+                        break;
+                }
+            } catch (SQLException e) {
+                e.getStackTrace();
+                PrintWriter out = response.getWriter();
+                out.print(e.getSQLState());
             }
-        } catch (SQLException e) {
-            e.getStackTrace();
+        }else{
+            try {
+                index(request, response);
+            } catch (SQLException e) {
+                PrintWriter out = response.getWriter();
+                out.print(e.getSQLState());
+            }
         }
     }
     
@@ -85,29 +97,32 @@ public class ServicioServlet extends HttpServlet {
     }
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        //mostrar(request, response);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
+        //RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        //dispatcher.forward(request, response);
+        ServletContext servletContext= request.getServletContext();
+        servletContext.getRequestDispatcher("/servicios/mostrar.jsp").forward(request, response);
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Servicio servicio = new Servicio(Integer.parseInt(request.getParameter("id_servicio")), request.getParameter("nombre_servicio"), request.getParameter("especialista"), request.getParameter("id_vehiculo"), Integer.parseInt(request.getParameter("nivel_gasolina_inicio")));
-        servicioDAO.insertar(servicio);
+        Servicio servicio = new Servicio(Integer.parseInt(request.getParameter("id_servicio")), request.getParameter("nombre_servicio"), request.getParameter("especialista"), request.getParameter("id_vehiculo"), Integer.parseInt(request.getParameter("nivel_gasolina_inicio")), request.getParameter("fecha"), request.getParameter("hora"));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        System.out.println(response.toString());
+        //servicioDAO.insertar(servicio);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/servicios/register.jsp");
-        dispatcher.forward(request, response);
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(servicio));
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/servicios/mostrar.jsp");
         List<Servicio> listaServicios = servicioDAO.listarServicio();
-        request.setAttribute("lista", listaServicios);
-        dispatcher.forward(request, response);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(listaServicios));
     }
 
     private void mostrarPorEspecialista(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
@@ -115,21 +130,32 @@ public class ServicioServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
+        
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(listaServiciosPorEspecialista));
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Servicio servicio = new Servicio(Integer.parseInt(request.getParameter("id_servicio")), request.getParameter("nombre_servicio"), request.getParameter("especialista"), request.getParameter("id_vehiculo"), Integer.parseInt(request.getParameter("nivel_gasolina_inicio")), Integer.parseInt(request.getParameter("nivel_gasolina_fin")));
-
-        servicioDAO.actualizar(servicio);
-        index(request, response);
+        Servicio servicio = new Servicio(Integer.parseInt(request.getParameter("id_servicio")), request.getParameter("nombre_servicio"), request.getParameter("especialista"), request.getParameter("id_vehiculo"), Integer.parseInt(request.getParameter("nivel_gasolina_inicio")), Integer.parseInt(request.getParameter("nivel_gasolina_fin")),request.getParameter("fecha"), request.getParameter("hora"));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        System.out.println(response.toString()); 
+        //servicioDAO.actualizar(servicio);
+        
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(servicio));
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Servicio servicio = servicioDAO.obtenerPorId(request.getParameter("id_servicio"));
-        servicioDAO.eliminar(servicio);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
+        Servicio servicio = servicioDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_servicio")));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        System.out.println(response.toString());  
+        //servicioDAO.eliminar(servicio);
+               
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(servicio));
     }
 }
