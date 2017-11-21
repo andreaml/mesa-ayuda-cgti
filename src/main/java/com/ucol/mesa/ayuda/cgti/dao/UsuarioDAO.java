@@ -34,20 +34,21 @@ public class UsuarioDAO {
 
     //Agregar nombreUsuario
     public boolean insertar(Usuario usuario) throws SQLException {
-        String sql = "INSERT INTO usuarios(correo, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, dependencia, num_cuenta, tipo) VALUES (?,?,?,?,?,?,?,?)";
-        System.out.println(usuario.getCorreo());
+        String sql = "INSERT INTO USUARIO(correo, num_cuenta, tipo, dependencia, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno) VALUES (?,?,?,?,?,?,?,?)";
+        
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
+        
         statement.setString(1, usuario.getCorreo());
-        statement.setString(2, usuario.getNombre1());
-        statement.setString(3, usuario.getNombre2());
-        statement.setString(4, usuario.getApellidoP());
-        statement.setString(5, usuario.getApellidoM());
-        statement.setInt(6, usuario.getDependenciaInt());
-        statement.setInt(7, usuario.getNumCuenta());
-        statement.setString(8, usuario.getTipo());
-
+        statement.setInt(2, usuario.getNumCuenta());
+        statement.setString(3, usuario.getTipo());
+        statement.setInt(4, usuario.getDependenciaInt());
+        statement.setString(5, usuario.getNombre1());
+        statement.setString(6, usuario.getNombre2());
+        statement.setString(7, usuario.getApellidoP());
+        statement.setString(8, usuario.getApellidoM());
+        System.out.println(statement.toString());
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
         conexionBD.desconectar();
@@ -58,7 +59,7 @@ public class UsuarioDAO {
     public List<Usuario> listarUsuarios() throws SQLException {
 
         List<Usuario> listaUsuarios = new ArrayList<Usuario>();
-        String sql = "SELECT * FROM usuarios";
+        String sql = "SELECT * FROM USUARIO";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         Statement statement = connection.createStatement();
@@ -86,7 +87,7 @@ public class UsuarioDAO {
     public Usuario obtenerPorId(String correo) throws SQLException {
         Usuario usuario = null;
 
-        String sql = "SELECT * FROM usuarios WHERE correo=?";
+        String sql = "SELECT * FROM USUARIO WHERE correo=?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -104,21 +105,21 @@ public class UsuarioDAO {
     }
     
     //Actualizar
-    public boolean actualizar(Usuario usuario) throws SQLException {
+    public boolean actualizar(Usuario usuario, String correoViejo) throws SQLException {
         boolean rowActualizar = false;
-        String sql = "UPDATE usuarios SET correo=?, primer_nombre=?, segundo_nombre=?, apellido_paterno=?, apellido_materno=?, dependencia=?, num_cuenta=?, tipo=? WHERE correo=?";
+        String sql = "UPDATE USUARIO SET correo=?, num_cuenta=?, tipo=?, dependencia=?, primer_nombre=?, segundo_nombre=?, apellido_paterno=?, apellido_materno=? WHERE correo=?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, usuario.getCorreo());
-        statement.setString(2, usuario.getNombre1());
-        statement.setString(3, usuario.getNombre2());
-        statement.setString(4, usuario.getApellidoP());
-        statement.setString(5, usuario.getApellidoM());
-        statement.setInt(6, usuario.getDependenciaInt());
-        statement.setInt(7, usuario.getNumCuenta());
-        statement.setString(8, usuario.getTipo());
-        statement.setString(9, usuario.getCorreo());
+        statement.setInt(2, usuario.getNumCuenta());
+        statement.setString(3, usuario.getTipo());
+        statement.setInt(4, usuario.getDependenciaInt());
+        statement.setString(5, usuario.getNombre1());
+        statement.setString(6, usuario.getNombre2());
+        statement.setString(7, usuario.getApellidoP());
+        statement.setString(8, usuario.getApellidoM());
+        statement.setString(9, correoViejo);
         
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();
@@ -129,7 +130,7 @@ public class UsuarioDAO {
     //eliminar
     public boolean eliminar(Usuario usuario) throws SQLException {
         boolean rowEliminar = false;
-        String sql = "DELETE FROM usuarios WHERE correo=?";
+        String sql = "DELETE FROM USUARIO WHERE correo=?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);

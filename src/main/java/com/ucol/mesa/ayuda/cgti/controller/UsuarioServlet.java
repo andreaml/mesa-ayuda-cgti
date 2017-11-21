@@ -128,7 +128,7 @@ public class UsuarioServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString()); 
-        usuarioDAO.actualizar(usuario);
+        usuarioDAO.actualizar(usuario, request.getParameter("correoViejo"));
        
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(usuario));

@@ -221,6 +221,7 @@
                         <form id="formEditarUsuario" action="">
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-4">Correo universitario:</label>
+                                <input type="hidden" class="form-control col-8" id="correoViejo" name="correoViejo">
                                 <input type="text" class="form-control col-8" id="correo" name="correo">
                             </div>
                             <div class="form-group row">
@@ -237,7 +238,7 @@
                             </div>
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-4">Apellido paterno:</label>
-                                <input type="text" class="form-control col-8" id="apellido_materno" name="apellido_paterno">
+                                <input type="text" class="form-control col-8" id="apellido_paterno" name="apellido_paterno">
                             </div>
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-4">Apellido materno:</label>
@@ -245,7 +246,7 @@
                             </div>
                             <div class="form-group row ">
                                 <label for="" class="col-4">Tipo de usuario: </label>
-                                <select class="form-control col-4" id="tipo">
+                                <select class="form-control col-4" id="tipo" name="tipo">
                                     <option value="Alumno">Alumno</option>
                                     <option value="Trabajador">Trabajador</option>
                                 </select> 
@@ -253,8 +254,7 @@
                                 
                             <div class="form-group row ">
                                 <label for="" class="col-4">Dependencia: </label>
-                                <select class="form-control col-8" id="selectDependencia">
-                                    
+                                <select class="form-control col-8" id="selectDependencia" name="dependencia">
                                 </select> 
                             </div>                        
                         </form>
@@ -281,11 +281,12 @@
                         </button>
                     </div>
                     <div class="modal-body p-5">
-                        ¿Realmente desea eliminar usuario <strong id="correo"></strong>?   
+                        ¿Realmente desea eliminar al usuario <strong id="idUsuario"></strong>?   
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <form id="formEliminarUsuario" action="">
+                            <input type="hidden" id="correo" name="correo">
                            <button id="btnEliminarUsuario" type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
                         </form>
                     </div>
@@ -329,13 +330,12 @@
                 
                 $("#btnEditarUsuario").unbind('click').on('click', function(){
                    console.log($("#formEditarUsuario").serialize()); 
-                   let dependencia="&dependencia="+$("#formEditarUsuario #selectDependencia").val();
                    $.ajax({
                         type: 'POST',
-                        url: './usuarios?action=editar&correo=' + $("#formEditarUsuario #correo").val(),
+                        url: './usuarios?action=editar',
                         dataType: 'json',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                        data: $("#formEditarUsuario").serialize()  + dependencia,
+                        data: $("#formEditarUsuario").serialize(),
                         success: function(data, textStatus, jqXHR){
                             // access response data
                             console.log(data, textStatus, jqXHR);
@@ -344,7 +344,7 @@
                             setTimeout(function(){
                                 $("#alertEditado").toggle();
                             }, 5000);
-                            cargaTablaUsaurios();
+                            cargarTablaUsuarios();
                         }
                     });
                 });
@@ -352,9 +352,10 @@
                 $("#btnEliminarUsuario").unbind('click').on('click', function(){
                    $.ajax({
                         type: 'POST',
-                        url: './usuarios?action=eliminar&correo=' + $("#formEliminarUsuario #correo").val(),
+                        url: './usuarios?action=eliminar',
                         dataType: 'json',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        data: $("#formEliminarUsuario").serialize(),
                         success: function(data, textStatus, jqXHR){
                             // access response data
                             console.log(data, textStatus, jqXHR);
@@ -371,12 +372,13 @@
                 function mostrarEditarUsuario() {
                     $(".editar").unbind('click').on('click', function(){
                         let idObjUsuario = $(this).attr('data-idObjUsuario');
+                        $("#modal-editarUsuario #correoViejo").val(listaUsuarios[idObjUsuario].correo);
                         $("#modal-editarUsuario #correo").val(listaUsuarios[idObjUsuario].correo);
-                        $("#modal-editarUsuario #num_cuenta").val(listaUsuarios[idObjUsuario].num_cuenta);
-                        $("#modal-editarUsuario #primer_nombre").val(listaUsuarios[idObjUsuario].primer_nombre);
-                        $("#modal-editarUsuario #segundo_nombre").val(listaUsuarios[idObjUsuario].segundo_nombre);
-                        $("#modal-editarUsuario #apellido_paterno").val(listaUsuarios[idObjUsuario].apellido_paterno);
-                        $("#modal-editarUsuario #apellido_materno").val(listaUsuarios[idObjUsuario].apellido_materno);
+                        $("#modal-editarUsuario #num_cuenta").val(listaUsuarios[idObjUsuario].numCuenta);
+                        $("#modal-editarUsuario #primer_nombre").val(listaUsuarios[idObjUsuario].nombre1);
+                        $("#modal-editarUsuario #segundo_nombre").val(listaUsuarios[idObjUsuario].nombre2);
+                        $("#modal-editarUsuario #apellido_paterno").val(listaUsuarios[idObjUsuario].apellidoP);
+                        $("#modal-editarUsuario #apellido_materno").val(listaUsuarios[idObjUsuario].apellidoM);
                         $("#modal-editarUsuario #selectDependencia").val(listaUsuarios[idObjUsuario].dependencia.id_dependencia);
                         $("#modal-editarUsuario #tipo").val(listaUsuarios[idObjUsuario].tipo);
                     });
@@ -385,7 +387,7 @@
                 function mostrarEliminarUsuario() {
                     $(".eliminar").unbind('click').on('click', function(){
                         let idObjUsuario = $(this).attr('data-idObjUsuario');
-                        $("#modal-eliminarUsuario #num_cuenta").text(listaUsuarios[idObjUsuario].num_cuenta);
+                        $("#modal-eliminarUsuario #idUsuario").text(listaUsuarios[idObjUsuario].correo);
                         $("#modal-eliminarUsuario #correo").val(listaUsuarios[idObjUsuario].correo);
                     });
                 }
@@ -404,13 +406,13 @@
                             $.each(usuarios, function(id, usuario) {
                                 let btnEditar = '<button type="button" class="editar btn btn-info my-1" data-toggle="modal" data-target="#modal-editarUsuario" data-idObjUsuario="'+ id +'"><i class="fa fa-pencil"></i></button>';
                                 let btnEliminar = '<button type="button " class="eliminar btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarUsuario" data-idObjUsuario="'+ id +'"><i class="fa fa-trash-o"></i></button>';
-                                let nombreCompleto = usuario.primer_nombre+ " ";
-                                    nombreCompleto+= usuario.segundo_nombre+ " ";
-                                    nombreCompleto+= usuario.apellido_paterno+ " ";
-                                    nombreCompleto+= usuario.apellido_materno;
+                                let nombreCompleto = usuario.nombre1+ " ";
+                                    nombreCompleto+= usuario.nombre2+ " ";
+                                    nombreCompleto+= usuario.apellidoP+ " ";
+                                    nombreCompleto+= usuario.apellidoM;
                                 let tr = $('<tr class="text-truncate">').append(
                                     $('<td>').text(usuario.correo),                              
-                                    $('<td>').text(usuario.num_trabajador),
+                                    $('<td>').text(usuario.numCuenta),
                                     $('<td>').text(nombreCompleto),
                                     $('<td>').text(usuario.dependencia.nombreDependencia),                              
                                     $('<td>').text(usuario.tipo),
@@ -435,7 +437,8 @@
                             // access response data
                             $("#selectDependencia").empty();
                             $.each(dependencias, function(id, dependencia) {
-                                $('#selectDependencia').append(new Option(dependencia.nombreDependencia,dependencia.id_dependencia)); 
+                                $('#formAgregarUsuario #selectDependencia').append(new Option(dependencia.nombreDependencia,dependencia.id_dependencia));
+                                $('#formEditarUsuario #selectDependencia').append(new Option(dependencia.nombreDependencia,dependencia.id_dependencia));
                             });
                         }
                    });
