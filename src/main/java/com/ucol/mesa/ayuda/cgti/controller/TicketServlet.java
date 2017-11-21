@@ -5,6 +5,7 @@
  */
 package com.ucol.mesa.ayuda.cgti.controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ucol.mesa.ayuda.cgti.dao.TicketDAO;
+import com.ucol.mesa.ayuda.cgti.model.Dependencia;
 import com.ucol.mesa.ayuda.cgti.model.Ticket;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -49,38 +51,42 @@ public class TicketServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("Hola Servlet..");
-        String action = request.getParameter("action");
-        System.out.println(action);
-        try {
-            switch (action) {
-                case "index":
-                    index(request, response);
-                    break;
-                case "nuevo":
-                    nuevo(request, response);
-                    break;
-                case "register":
-                    System.out.println("entro");
-                    registrar(request, response);
-                    break;
-                case "mostrar":
-                    mostrar(request, response);
-                    break;
-                case "showedit":
-                    showEditar(request, response);
-                    break;
-                case "editar":
-                    editar(request, response);
-                    break;
-                case "eliminar":
-                    eliminar(request, response);
-                    break;
-                default:
-                    break;
+        if (request.getParameter("action") != null ) {
+            String action = request.getParameter("action");
+            System.out.println(action);
+            try {
+                switch (action) {
+                    case "index":
+                        index(request, response);
+                        break;
+                    case "registrar":
+                        System.out.println("entro");
+                        registrar(request, response);
+                        break;
+                    case "mostrar":
+                        mostrar(request, response);
+                        break;
+                    case "editar":
+                        editar(request, response);
+                        break;
+                    case "eliminar":
+                        eliminar(request, response);
+                        break;
+                    default:
+                        break;
+                }
+            } catch (SQLException e) {
+                PrintWriter out = response.getWriter();
+                out.print(e.getSQLState());
             }
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
+        } else {
+            try {
+                index(request, response);
+            } catch (SQLException e) {
+                PrintWriter out = response.getWriter();
+                out.print(e.getSQLState());
+            }
+        }  
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -90,8 +96,7 @@ public class TicketServlet extends HttpServlet {
     }
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        //mostrar(request, response);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("tickets/mostrar.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -100,31 +105,24 @@ public class TicketServlet extends HttpServlet {
         LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
         DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
+ 
         Ticket ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), request.getParameter("emisor"), fecha, hora, Integer.parseInt(request.getParameter("estado_ticket")));
         ticketDAO.insertar(ticket);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/ticket/register.jsp");
-        dispatcher.forward(request, response);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(ticket));
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/ticket/mostrar.jsp");
         List<Ticket> listaTicket = ticketDAO.listarTickets();
-        request.setAttribute("lista", listaTicket);
-        dispatcher.forward(request, response);
-    }
-
-    private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Ticket ticket = ticketDAO.obtenerPorId(Integer.parseInt(request.getParameter("ticket")));
-        request.setAttribute("ticket", ticket);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/ticket/editar.jsp");
-        dispatcher.forward(request, response);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(listaTicket));
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
@@ -132,16 +130,26 @@ public class TicketServlet extends HttpServlet {
         LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
         DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
+        
         Ticket ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), request.getParameter("emisor"), fecha, hora, Integer.parseInt(request.getParameter("estado_ticket")));
         ticket.setId_ticket(Integer.parseInt(request.getParameter("id_ticket")));
         ticketDAO.actualizar(ticket);
-        index(request, response);
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(ticket));
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         Ticket ticket = ticketDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_ticket")));
         ticketDAO.eliminar(ticket);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(ticket));
     }
 }

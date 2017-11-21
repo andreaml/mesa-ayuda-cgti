@@ -5,8 +5,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="es">
   <head>
@@ -14,6 +13,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="<c:url value='/images/favicon.ico' />" type="image/x-icon">
+    <link rel="icon" href="<c:url value='/images/favicon.ico' />" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet"  href="<c:url value='/css/font-awesome.css' />">
@@ -27,7 +28,7 @@
       <div class="container-fluid bg-dark"> 
         <nav class="navbar navbar-dark bg-dark ml-md-5">
           <a class="navbar-brand" href="index.html">
-            <img src="images/logo.png" class="image-fluid" width="320px" alt="logo-udec">
+            <img src="<c:url value='/images/logo.png' />" class="image-fluid" width="320px" alt="logo-udec">
           </a>
         </nav>
       </div>
@@ -51,15 +52,15 @@
                     </button>
                       
                     <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                        <a class="nav-dependencia nav-link text-dark p-3 px-4 px-md-5 selected mr-1" href="<c:url value='/atnUsuarios/index.jsp' />">Inicio</a>
+                        <a class="nav-dependencia nav-link text-dark p-3 px-4 px-md-5 selected mr-1" href="<c:url value='/atencion-usuarios' />">Inicio</a>
           
                         <div class="nav-dependencia dropSubmenu dropdown">
-                            <a class="nav-dependencia nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 boton" href="" role="button">Dependencias </a>
+                            <a class="nav-dependencia nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 boton act" href="" role="button">Dependencias </a>
                             <!-- Inicio de submenu -->
                               <div class="contenido text-left ">
-                                <a href="<c:url value='/dependencias/mostrar.jsp' />" class="">Dependencias</a>
-                                <a href="<c:url value='/areas/mostrar.jsp' />" class="">Áreas</a>
-                                <a href="<c:url value='/vehiculos/mostrar.jsp' />" class="">Vehículos</a>
+                                <a href="<c:url value='/atencion-usuarios/dependencias' />" class="">Dependencias</a>
+                                <a href="<c:url value='/atencion-usuarios/areas' />" class="">Áreas</a>
+                                <a href="<c:url value='/atencion-usuarios/vehiculos' />" class="">Vehículos</a>
                               </div>
                             <!-- Fin de submenu -->      
                         </div>
@@ -69,14 +70,14 @@
                             <a class="nav-link text-dark p-3 dropdown-toggle   px-4 px-md-5" href=""  role="button">Usuarios </a>
                             <!-- Inicio de submenu -->
                               <div class="contenido text-left ">
-                                <a href="<c:url value='/atnUsuarios/mostrar.jsp' />" class="">Atención a usuarios</a>
-                                <a href="<c:url value='/especialistas/mostrar.jsp' />" class="">Especialistas</a>
-                                <a href="<c:url value='/usuarios/mostrar.jsp' />" class="">Usuarios</a>
+                                <a href="<c:url value='/atencion-usuarios/atencion-usuarios' />" class="">Atención a usuarios</a>
+                                <a href="<c:url value='/atencion-usuarios/especialistas' />" class="">Especialistas</a>
+                                <a href="<c:url value='/atencion-usuarios/usuarios' />" class="">Usuarios</a>
                               </div>
                             <!-- Fin de submenu -->  
                         </div>
-                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/tickets/mostrar.jsp' />">Tickets</a>
-                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/evaluacionServicio/mostrar.jsp' />">Evaluación de servicio</a>          
+                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/atencion-usuarios/tickets' />">Tickets</a>
+                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/atencion-usuarios/evaluacion-servicio' />">Evaluación de servicio</a>          
                     </div>
                 </nav>
             </div>

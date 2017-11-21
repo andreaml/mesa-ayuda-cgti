@@ -4,7 +4,8 @@ package com.ucol.mesa.ayuda.cgti.model;
  * @author 20126225
  */
 public class Especialista extends UsuarioGeneral{
-    private int area;
+    private int areaInt;
+    private Area areaArea;
     private int numTrabajador;
     private String contrasenia;
     private String profesion;
@@ -13,20 +14,34 @@ public class Especialista extends UsuarioGeneral{
         super();
     }
     
-    public Especialista(String correo, String nombre1, String nombre2, String apellidoP, String apellidoM, int area, int numTrabajador, String contrasenia, String profesion){
+    public Especialista(String correo, String nombre1, String nombre2, String apellidoP, String apellidoM, int area, int numTrabajador, String profesion){
         super(correo, nombre1, nombre2, apellidoP, apellidoM);
-        this.area=area;
+        this.areaInt=area;
         this.numTrabajador=numTrabajador;
-        this.contrasenia=contrasenia;
         this.profesion=profesion;
     }
     
-    public int getArea() {
-        return area;
+    public Especialista(String correo, String nombre1, String nombre2, String apellidoP, String apellidoM, Area area, int numTrabajador, String profesion){
+        super(correo, nombre1, nombre2, apellidoP, apellidoM);
+        this.areaArea=area;
+        this.numTrabajador=numTrabajador;
+        this.profesion=profesion;
+    }
+    
+    public int getAreaInt() {
+        return areaInt;
     }
 
-    public void setArea(int area) {
-        this.area = area;
+    public void setAreaInt(int area) {
+        this.areaInt = area;
+    }
+    
+    public Area getAreaArea() {
+        return areaArea;
+    }
+
+    public void setAreaArea(Area area) {
+        this.areaArea = area;
     }
 
     public int getNumTrabajador() {

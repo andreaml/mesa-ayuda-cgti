@@ -63,14 +63,14 @@ public class AreaDAO {
     }
     
     //Obtener por id
-    public Area obtenerPorId(String id_area) throws SQLException {
+    public Area obtenerPorId(int id_area) throws SQLException {
         Area area = null;
 
         String sql = "SELECT * FROM AREA WHERE id_area=?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, id_area);
+        statement.setInt(1, id_area);
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {

@@ -58,11 +58,6 @@
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.ReporteServlet</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
-        <servlet-name>AreaServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.AreaServlet</servlet-class>
-    </servlet>
-=======
         <servlet-name>AtnUsuarios-AreaServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.AreaServlet</servlet-class>
     </servlet>
@@ -86,7 +81,6 @@
         <servlet-name>Especialista-Tickets</servlet-name>
         <jsp-file>/seccionEspecialista/tickets.jsp</jsp-file>
     </servlet>
->>>>>>> 70cf4d864042ee474ec5f67ae1b10b5ebfb2f272
     <servlet-mapping>
         <servlet-name>AtnUsuarios-Inicio</servlet-name>
         <url-pattern>/atencion-usuarios</url-pattern>
@@ -132,10 +126,6 @@
         <url-pattern>/reportes</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
-        <servlet-name>AreaServlet</servlet-name>
-        <url-pattern>/areas</url-pattern>
-=======
         <servlet-name>AtnUsuarios-AreaServlet</servlet-name>
         <url-pattern>/atencion-usuarios/areas</url-pattern>
     </servlet-mapping>
@@ -158,6 +148,5 @@
     <servlet-mapping>
         <servlet-name>Especialista-Tickets</servlet-name>
         <url-pattern>/especialista/tickets</url-pattern>
->>>>>>> 70cf4d864042ee474ec5f67ae1b10b5ebfb2f272
     </servlet-mapping>
 </web-app>
