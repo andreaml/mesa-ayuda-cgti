@@ -149,4 +149,7 @@
         <servlet-name>Especialista-Tickets</servlet-name>
         <url-pattern>/especialista/tickets</url-pattern>
     </servlet-mapping>
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
 </web-app>
