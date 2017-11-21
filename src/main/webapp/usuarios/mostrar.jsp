@@ -122,6 +122,7 @@
                     <th scope="col">Nombre completo</th>
                     <th scope="col">Tipo de usuario </th>
                     <th scope="col">Dependencia</th>
+                    <th scope="col" class="text-center">Opciones </th>
                 </tr>
             </thead>
             <tbody>
@@ -284,7 +285,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <form id="formEliminarAtnUsuario" action="">
+                        <form id="formEliminarUsuario" action="">
                            <button id="btnEliminarUsuario" type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
                         </form>
                     </div>
@@ -338,7 +339,7 @@
                         success: function(data, textStatus, jqXHR){
                             // access response data
                             console.log(data, textStatus, jqXHR);
-                            $("#alertEditado #correoUsuariosNuevo").text(data.correo);
+                            $("#alertEditado #correoUsuarioNuevo").text(data.correo);
                             $("#alertEditado").toggle();
                             setTimeout(function(){
                                 $("#alertEditado").toggle();
@@ -357,7 +358,7 @@
                         success: function(data, textStatus, jqXHR){
                             // access response data
                             console.log(data, textStatus, jqXHR);
-                            $("#alertEliminado #correoUsuariosNuevo").text(data.correo);
+                            $("#alertEliminado #correoUsuarioNuevo").text(data.correo);
                             $("#alertEliminado").toggle();
                             setTimeout(function(){
                                 $("#alertEliminado").toggle();
