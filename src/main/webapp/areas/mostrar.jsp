@@ -3,8 +3,8 @@
     Created on : 13/11/2017, 03:49:12 PM
     Author     : andreaml
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="es">
@@ -15,10 +15,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet"  href="css/font-awesome.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet"  href="<c:url value='/css/font-awesome.css' />">
+    <link rel="stylesheet"  href="<c:url value='/css/bootstrap.css' />">
+    <link rel="stylesheet"  href="<c:url value='/css/style.css' />">
+    <link rel="stylesheet"  href="<c:url value='/css/normalize.css' />">
    
   </head>
   <body>
@@ -27,7 +27,7 @@
         <div class="container-fluid bg-dark"> 
           <nav class="navbar navbar-dark bg-dark ml-md-5">
             <a class="navbar-brand" href="index.html">
-              <img src="images/logo.png" class="image-fluid" width="320px" alt="logo-udec">
+              <img src="<c:url value='/images/logo.png' />" class="image-fluid" width="320px" alt="logo-udec">
             </a>
           </nav>
         </div>
@@ -89,6 +89,24 @@
   <section class="container mt-5">
     <h3 class="text-center p-1">Áreas</h3>
     <div class="row col-12 d-flex justify-content-center align-items-center my-4 ml-0">
+        <div id="alertAgregado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+                Dependencia <strong id="nombreAreaNueva"></strong> agregada con éxito.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div id="alertEditado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+            Dependencia <strong id="nombreAreaNueva"></strong> editada con éxito.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div id="alertEliminado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+            Dependencia <strong id="nombreAreaNueva"></strong> eliminada con éxito.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         <form class="form-group col-11 col-md-6 mx-md-5 px-0 mb-lg-0 mb-2">
             <div class="input-group">
                 <input class="form-control " type="search" placeholder="Buscar" aria-label="Search">
@@ -129,58 +147,6 @@
               <button type="button" class="btn btn-success my-1" data-toggle="modal" data-target="#modal-agregarTipoServicio"><i class="fa fa-plus-circle"></i> Tipo de servicio</button>            
             </td>
           </tr>
-          <tr>
-            <td>Área 2 </td>
-            <td>Dependencia 3</td>
-            <td>
-                <div>Lorem ipsum  <a href="" data-toggle="modal" data-target="#modal-editarTipoServicio"> <i class="fa fa-pencil" aria-hidden="true"></i> </a></div>
-                <div>Lorem ipsum  <a href="" data-toggle="modal" data-target="#modal-editarTipoServicio"> <i class="fa fa-pencil" aria-hidden="true"></i> </a></div>                 
-            </td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button" class="btn btn-info  my-1" data-toggle="modal" data-target="#modal-editarArea"><i class="fa fa-pencil"></i></button>
-              <button type="button" class="btn btn-danger  my-1" data-toggle="modal" data-target="#modal-eliminarArea"><i class="fa fa-trash-o"></i></button>
-              <button type="button" class="btn btn-success  my-1" data-toggle="modal" data-target="#modal-agregarTipoServicio"><i class="fa fa-plus-circle"></i> Tipo de servicio</button>
-            </td>
-          </tr>
-          <tr>
-            <td>Área 3 </td>
-            <td>Dependencia 3</td>
-            <td>
-                <div>Lorem ipsum  <a href="" data-toggle="modal" data-target="#modal-editarTipoServicio"> <i class="fa fa-pencil" aria-hidden="true"></i> </a></div>
-                <div>Lorem ipsum  <a href="" data-toggle="modal" data-target="#modal-editarTipoServicio"> <i class="fa fa-pencil" aria-hidden="true"></i> </a></div>                 
-            </td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarArea"><i class="fa fa-pencil"></i></button>
-              <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarArea"><i class="fa fa-trash-o"></i></button>
-              <button type="button" class="btn btn-success my-1" data-toggle="modal" data-target="#modal-agregarTipoServicio"><i class="fa fa-plus-circle"></i> Tipo de servicio</button>              
-            </td>
-          </tr>
-          <tr>
-            <td>Área 4 </td>
-            <td>Dependencia 4</td>
-            <td>
-                <div>Lorem ipsum  <a href="" data-toggle="modal" data-target="#modal-editarTipoServicio"> <i class="fa fa-pencil" aria-hidden="true"></i> </a></div>
-                <div>Lorem ipsum  <a href="" data-toggle="modal" data-target="#modal-editarTipoServicio"> <i class="fa fa-pencil" aria-hidden="true"></i> </a></div>                 
-            </td>            
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarArea"><i class="fa fa-pencil"></i></button>
-              <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarArea"><i class="fa fa-trash-o"></i></button>
-              <button type="button" class="btn btn-success my-1" data-toggle="modal" data-target="#modal-agregarTipoServicio"><i class="fa fa-plus-circle"></i> Tipo de servicio</button>
-            </td>
-          </tr>
-          <tr>
-            <td>Área 5  </td>
-            <td>Dependencia 5</td>
-            <td>
-                <div>Lorem ipsum  <a href="" data-toggle="modal" data-target="#modal-editarTipoServicio"> <i class="fa fa-pencil" aria-hidden="true"></i> </a></div>
-                <div>Lorem ipsum  <a href="" data-toggle="modal" data-target="#modal-editarTipoServicio"> <i class="fa fa-pencil" aria-hidden="true"></i> </a></div>                 
-            </td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarArea"><i class="fa fa-pencil"></i></button>
-              <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarArea"><i class="fa fa-trash-o"></i></button>
-              <button type="button" class="btn btn-success my-1" data-toggle="modal" data-target="#modal-agregarTipoServicio"><i class="fa fa-plus-circle"></i> Tipo de servicio</button>
-            </td>
-          </tr> 
         </tbody>
       </table>
   
@@ -212,7 +178,7 @@
                 </div>
 
                 <div class="modal-body p-5 col-11 ">
-                    <form action="">
+                    <form id="formAgregarArea" action="">
                         <div class="form-group row">
                             <label for="" class="col-form-label col-4">Nombre:</label>
                             <input type="text" class="form-control col-8" id="">
@@ -232,7 +198,7 @@
                 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Agregar</button>
+                    <button id="btnAgregarArea" type="button" class="btn btn-success" data-dismiss="modal">Agregar</button>
                 </div>
             </div>
         </div>
@@ -252,7 +218,7 @@
                 </div>
 
                 <div class="modal-body p-5 col-11 ">
-                    <form action="">
+                    <form id="formAgregarTipoServicio" action="">
                         <div class="form-group row">
                             <label for="" class="col-form-label col-4">Nombre:</label>
                             <input type="text" class="form-control col-8" id="">
@@ -272,7 +238,7 @@
                 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Agregar</button>
+                    <button id="btnAgregarTipoServicio"type="button" class="btn btn-success" data-dismiss="modal">Agregar</button>
                 </div>
             </div>
         </div>
@@ -291,19 +257,16 @@
                 </div>
 
                 <div class="modal-body p-5 col-11 ">
-                    <form action="">
+                    <form id="formEditarArea" action="">
+                        <input type="hidden" id="idArea">
                         <div class="form-group row">
                             <label for="" class="col-form-label col-4">Nombre:</label>
-                            <input type="text" class="form-control col-8" id="">
+                            <input type="text" class="form-control col-8" id="nombreArea" name="nombre_area">
                         </div>
                         <div class="form-group row ">
                             <label for="" class="col-4">Dependencia: </label>
-                            <select class="form-control col-8" id="tipoServicio-ticket">
-                                <option>Dependencia 1</option>
-                                <option>Dependencia 2</option>
-                                <option>Dependencia 3</option>
-                                <option>Dependencia 4</option>
-                                <option>Dependencia 5</option>
+                            <input type="text" class="form-control col-8" id="Dependencia" >
+                            <select class="form-control col-8" id="selectDependencia" name="dependencia">
                             </select> 
                         </div>
                     </form>
@@ -311,7 +274,7 @@
                 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
+                    <button id="btnEditarArea" type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
                 </div>
             </div>
         </div>
@@ -330,10 +293,11 @@
                 </div>
 
                 <div class="modal-body p-5 col-11 ">
-                    <form action="">
+                    <form id="formEditarTipoServicio" action="">
+                        <input type="hidden" id="idTipoServicio">
                         <div class="form-group row">
                             <label for="" class="col-form-label col-4">Nombre:</label>
-                            <input type="text" class="form-control col-8" id="">
+                            <input type="text" class="form-control col-8" id="nombreTipoServicio" name="nombre_tipoServicio">
                         </div>
                         <div class="form-group row ">
                             <label for="" class="col-4">Área: </label>
@@ -351,12 +315,12 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger mr-auto" data-dismiss="modal">Eliminar</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
+                    <button id="btnEditarTipoServicio" type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
                 </div>
             </div>
         </div>
     </div>
-<!-- Fin de modal agregar -->
+<!-- Fin de modal editar tipo de servicio  -->
 
 
 <!--Inicio de modal eliminar area-->
@@ -370,11 +334,14 @@
                     </button>
                 </div>
                 <div class="modal-body p-5">
-                    ¿Realmente desea eliminar área array[i] ?   
+                    ¿Realmente desea eliminar el área <strong id="nombreArea"></strong> ?   
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
+                    <form id="formEliminarArea" action="">
+                        <input id="idArea" type="hidden">
+                        <button id="btnEliminarArea" type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -385,8 +352,144 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.js"></script>
+    <script src="<c:url value='/js/bootstrap.js' />"></script>
+    <script>
+        $(function(){
+            var listaAreas;
+            cargarTablaAreas();
+            $("#btnAgregarArea").unbind('click').on('click', ()=>{
+               console.log($("#formAgregarArea").serialize()); 
+               $.ajax({
+                    type: 'POST',
+                    url: './areas?action=registrar',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formAgregarArea").serialize(),
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                        $("#alertAgregado #nombreAreaNueva").text(data.id_area);
+                        $("#alertAgregado").toggle();
+                        setTimeout(function(){
+                            $("#alertAgregado").toggle();
+                        }, 5000);
+                       cargarTablaAreas();
+                    }
+                });
+            });
+            
+            $("#btnEditarArea").unbind('click').on('click', ()=>{
+               console.log($("#formEditarArea").serialize()); 
+               $.ajax({
+                    type: 'POST',
+                    url: './areas?action=editar',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formEditarArea").serialize(),
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                        $("#alertEditado #nombreAreaNueva").text(data.id_area);
+                        $("#alertEditado").toggle();
+                        setTimeout(function(){
+                            $("#alertEditado").toggle();
+                        }, 5000);
+                        cargarTablaAreas();
+                    }
+                });
+            });
+            
+            $("#btnEliminarArea").unbind('click').on('click', ()=>{
+               $.ajax({
+                    type: 'POST',
+                    url: './areas?action=eliminar',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formEliminarArea").serialize(),
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                        $("#alertEliminado #nombreAreaNueva").text(data.id_area);
+                        $("#alertEliminado").toggle();
+                        setTimeout(function(){
+                            $("#alertEliminado").toggle();
+                        }, 5000);
+                        cargarTablaAreas();
+                    }
+                });
+            });
+            
+            
+            
+            function mostrarEditarArea() {
+                $(".editar").unbind('click').on('click', function(){
+                    let idObjArea = $(this).attr('data-idObjArea');
+                    $("#modal-editarArea #idArea").val(listaAreas[idObjArea].id_area);
+                   // $("#modal-editarArea #nombreArea").val(listaAreas[idObjArea].id_area);
+                    $("##modal-editarArea #nombreArea").val(listaAreas[idObjArea].nombre_area);
+                    $("##modal-editarArea #selectDependencia").val(listaAreas[idObjArea].dependencia.id_dependencia);
+                });
+            }
+            
+            
+            
+            function mostrarEliminarArea() {
+                $(".eliminar").unbind('click').on('click', function(){
+                    let idObjArea = $(this).attr('data-idObjArea');
+                    $("#modal-eliminarArea #nombreArea").text(listaAreas[idObjArea].nombre_area);
+                    $("#modal-eliminarArea #idArea").val(listaAreas[idObjArea].id_area);
+                });
+            }
+            
+            function cargarDependenciasEnSelect() {
+               $.ajax({
+                    type: 'GET',
+                    url: './dependencias?action=mostrar',
+                    dataType: 'json',
+                    success: function(dependencias, textStatus, jqXHR){
+                        // access response data
+                        $("#selectDependencia").empty();
+                        $.each(dependencias, function(id, dependencia) {
+                            $('#formAgregarArea #selectDependencia').append(new Option(dependencia.nombreDependencia,dependencia.id_dependencia)); 
+                            $('#formEditarArea #selectDependencia').append(new Option(dependencia.nombreDependencia,dependencia.id_dependencia)); 
+                        });
+                    }
+               });
+           }
+           cargarDependenciasEnSelect();
+
+            function cargarTablaAreas() {
+                $.ajax({
+                    type: 'GET',
+                    url: './areas?action=mostrar',
+                    dataType: 'json',
+                    //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    //data: $("#formAgregarDependencia").serialize() + direccion,
+                    success: function(areas, textStatus, jqXHR){
+                        // access response data
+                        console.log(areas, textStatus, jqXHR);
+                        listaAreas = areas;
+                        $("tbody").empty();
+                        $.each(areas, function(id, area) {
+                            let btnEditar = '<button type="button" class="editar btn btn-info my-1" data-toggle="modal" data-target="#modal-editarArea" data-idObjArea="'+ id +'"><i class="fa fa-pencil"></i></button>';
+                            let btnEliminar = '<button type="button " class="eliminar btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarArea" data-idObjArea="'+ id +'"><i class="fa fa-trash-o"></i></button>';
+                            let tr = $('<tr class="text-truncate">').append(
+                                $('<td>').text(area.id_area),    
+                                $('<td>').text(area.nombre_area),
+                                $('<td>').text(area.dependencia.nombreDependencia),
+                                $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar + btnEliminar)
+                            ); //.appendTo('#records_table');
+                            $("table").append(tr);
+                            //console.log(tr.wrap('<tr>').html());
+                        });
+                        mostrarEditarArea();
+                        mostrarEliminarArea();
+                    }
+                });
+            }  
+        });
+    </script>
   </body>
 </html>
