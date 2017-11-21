@@ -23,6 +23,7 @@ public class AreaDAO {
     public AreaDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) throws SQLException {
         System.out.println(jdbcURL);
         conexionBD = new ConexionBD(jdbcURL, jdbcUsername, jdbcPassword);
+        dependenciaDAO = new DependenciaDAO(jdbcURL, jdbcUsername, jdbcPassword);
     }
 
     //Agregar Area
