@@ -27,7 +27,7 @@
       <div class="container-fluid bg-dark"> 
         <nav class="navbar navbar-dark bg-dark ml-md-5">
           <a class="navbar-brand" href="index.html">
-            <img src="images/logo.png" class="image-fluid" width="320px" alt="logo-udec">
+            <img src="<c:url value='/images/logo.png' />" class="image-fluid" width="320px" alt="logo-udec">
           </a>
         </nav>
       </div>

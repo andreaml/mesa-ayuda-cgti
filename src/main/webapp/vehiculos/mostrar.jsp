@@ -3,9 +3,10 @@
     Created on : 13/11/2017, 03:50:50 PM
     Author     : andreaml
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="es">
   <head>
@@ -15,10 +16,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet"  href="css/font-awesome.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet"  href="<c:url value='/css/font-awesome.css' />">
+    <link rel="stylesheet"  href="<c:url value='/css/bootstrap.css' />">
+    <link rel="stylesheet"  href="<c:url value='/css/style.css' />">
+    <link rel="stylesheet"  href="<c:url value='/css/normalize.css' />">
    
   </head>
   <body>
@@ -27,7 +28,7 @@
     <div class="container-fluid bg-dark"> 
       <nav class="navbar navbar-dark bg-dark ml-md-5">
         <a class="navbar-brand" href="index.html">
-          <img src="images/logo.png" class="image-fluid" width="320px" alt="logo-udec">
+          <img src="<c:url value='/images/logo.png' />" class="image-fluid" width="320px" alt="logo-udec">
         </a>
       </nav>
     </div>
@@ -56,9 +57,9 @@
                           <a class="nav-item nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 boton" href="" role="button">Dependencias </a>
                           <!-- Inicio de submenu -->
                             <div class="contenido text-left ">
-                              <a href="02-dependencias.html" class="">Dependencias</a>
-                              <a href="03-areas.html" class="">Áreas</a>
-                              <a href="04-vehiculos.html" class="">Vehículos</a>
+                              <a href="<c:url value='/dependencias/mostrar.jsp' />" class="">Dependencias</a>
+                              <a href="<c:url value='/areas/mostrar.jsp' />" class="">Áreas</a>
+                              <a href="<c:url value='/vehiculos/mostrar.jsp' />" class="">Vehículos</a>
                             </div>
                           <!-- Fin de submenu -->      
                       </div>
@@ -68,14 +69,14 @@
                           <a class="nav-link text-dark p-3 dropdown-toggle  px-4 px-md-5" href=""  role="button">Usuarios </a>
                           <!-- Inicio de submenu -->
                             <div class="contenido text-left ">
-                              <a href="06-atencionUsuarios.html" class="">Atención a usuarios</a>
-                              <a href="07-especialistas.html" class="">Especialistas</a>
-                              <a href="08-usuarios.html" class="">Usuarios</a>
+                              <a href="<c:url value='/atnUsuarios/mostrar.jsp' />" class="">Atención a usuarios</a>
+                              <a href="<c:url value='/especialistas/mostrar.jsp' />" class="">Especialistas</a>
+                              <a href="<c:url value='/usuarios/mostrar.jsp' />" class="">Usuarios</a>
                             </div>
                           <!-- Fin de submenu -->  
                       </div>
-                      <a class="nav-item nav-link text-dark p-3 selected mr-1 px-4 px-md-5" href="09-tickets.html">Tickets</a>
-                      <a class="nav-item nav-link text-dark p-3 selected mr-1 px-4 px-md-5" href="10-evaluacion.html">Evaluación de servicio</a>          
+                      <a class="nav-item nav-link text-dark p-3 selected mr-1 px-4 px-md-5" href="<c:url value='/tickets' />">Tickets</a>
+                      <a class="nav-item nav-link text-dark p-3 selected mr-1 px-4 px-md-5" href="<c:url value='/evaluacionServicio/mostrar.jsp' />">Evaluación de servicio</a>          
                   </div>
               </nav>
           </div>
@@ -88,6 +89,24 @@
   <section class="container mt-5">
     <h3 class="text-center p-1">Vehículos</h3>
         <div class="row col-12 d-flex justify-content-center align-items-center my-4 ml-0">
+            <div id="alertAgregado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+                Vehículo <strong id="nombreVehiculoNuevo"></strong> agregado con éxito.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="alertEditado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+                Vehículo <strong id="nombreVehiculoNuevo"></strong> editado con éxito.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="alertEliminado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+                Vehículo <strong id="nombreVehiculoNuevo"></strong> eliminado con éxito.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <form class="form-group col-11 col-md-6 mx-md-5 px-0 mb-lg-0 mb-2">
             <div class="input-group">
                 <input class="form-control" type="search" placeholder="Buscar" aria-label="Search">
@@ -121,71 +140,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="text-truncate"> 
-            <td>Vehículo 1 </td>
-            <td>Lorem ipsum</td>
-            <td>2017</td>
-            <td>Lorem ipsum</td>
-            <td>Dependencia 1</td>
-            <td>Disponible</td>
-            <td>Lleno</td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button " class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarVehiculo"><i class="fa fa-pencil"></i></button>              
-              <button type="button " class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarVehiculo"><i class="fa fa-trash-o"></i></button>
-            </td>
-          </tr>
-          <tr>
-            <td>Vehículo 2 </td>
-            <td>Lorem ipsum</td>
-            <td>2017</td>
-            <td>Lorem ipsum</td>
-            <td>Dependencia 2</td>
-            <td>Disponible</td>
-            <td>1/2</td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarVehiculo"><i class="fa fa-pencil"></i></button>
-              <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarVehiculo"><i class="fa fa-trash-o"></i></button>
-            </td>
-          </tr>
-          <tr>
-            <td>Vehículo 3 </td>
-            <td>Lorem ipsum</td>
-            <td>2017</td>
-            <td>Lorem ipsum</td>
-            <td>Dependencia 3</td>
-            <td>No disponible</td>
-            <td>1/4</td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarVehiculo"><i class="fa fa-pencil"></i></button>
-              <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarVehiculo"><i class="fa fa-trash-o"></i></button>
-            </td>
-          </tr>
-          <tr>
-            <td>Vehículo 4 </td>
-            <td>Lorem ipsum</td>
-            <td>2017</td>
-            <td>Lorem ipsum</td>
-            <td>Dependencia 4</td>
-            <td>Disponible</td>
-            <td>3/4</td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarVehiculo"><i class="fa fa-pencil"></i></button>
-              <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarVehiculo"><i class="fa fa-trash-o"></i></button>
-            </td>
-          </tr>
-          <tr>
-            <td>Vehículo 5  </td>
-            <td>Lorem ipsum</td>
-            <td>2017</td>
-            <td>Lorem ipsum</td>
-            <td>Dependencia 5</td>
-            <td>No disponible</td>
-            <td>Lleno</td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarVehiculo"><i class="fa fa-pencil"></i></button>
-              <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarVehiculo"><i class="fa fa-trash-o"></i></button>
-            </td>
-          </tr> 
         </tbody>
       </table>
   
@@ -216,18 +170,18 @@
             </div>
 
             <div class="modal-body p-5 col-11 ">
-                <form action="">
+                <form id="formAgregarVehiculo" action="">
                     <div class="form-group row">
                         <label for="" class="col-form-label col-4">Numero de placa:</label>
-                        <input type="text" class="form-control col-8" id="">
+                        <input name="id_vehiculo" type="text" class="form-control col-8" id="">
                     </div>
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Modelo:</label>
-                            <input type="text" class="form-control col-8" id="">
+                            <input name="modelo"type="text" class="form-control col-8" id="">
                     </div>
                     <div class="form-group row ">
                             <label for="" class="col-4">Año: </label>
-                            <select class="form-control col-4" id="">
+                            <select name="anio" class="form-control col-4" id="">
                                 <option>2017</option>
                                 <option>2016</option>
                                 <option>2015</option>
@@ -237,33 +191,28 @@
                     </div>                   
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Marca:</label>
-                            <input type="text" class="form-control col-8" id="">
+                            <input name="marca" type="text" class="form-control col-8" id="">
                     </div>
                     <div class="form-group row ">
                             <label for="" class="col-4">Dependencia: </label>
-                            <select class="form-control col-8" id="">
-                                <option>Dependencia 1</option>
-                                <option>Dependencia 2</option>
-                                <option>Dependencia 3</option>
-                                <option>Dependencia 4</option>
-                                <option>Dependencia 5</option>
-                              </select> 
+                            <select name="dependencia" class="form-control col-8" id="selectDependencia">
+                            </select> 
                     </div>
                     <div class="form-group row ">
                             <label for="" class="col-4">Estado: </label>
-                            <select class="form-control col-8" id="">
+                            <select name="estado" class="form-control col-8" id="">
                                 <option>Disponible</option>
                                 <option>No disponible</option>
                             </select> 
                     </div>
                     <div class="form-group row ">
                             <label for="" class="col-4">Nivel de gasolina: </label>
-                            <select class="form-control col-8" id="">
-                                <option>Lleno</option>
-                                <option>3/4</option>
-                                <option>1/2</option>
-                                <option>1/4</option>
-                                <option>Vacío</option>
+                            <select name="nivel_gasolina" class="form-control col-8" id="">
+                                <option value="5">Lleno</option>
+                                <option value="4">3/4</option>
+                                <option value="3">1/2</option>
+                                <option value="2">1/4</option>
+                                <option value="1">Vacío</option>
                             </select> 
                     </div>
                 </form>
@@ -271,7 +220,7 @@
             
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal">Agregar</button>
+            <button id="btnAgregarVehiculo" type="button" class="btn btn-success" data-dismiss="modal">Agregar</button>
             </div>
         </div>
         </div>
@@ -290,18 +239,19 @@
             </div>
 
             <div class="modal-body p-5 col-11 ">
-                <form action="">
+                <form id="formEditarVehiculo" action="">
+                    <input type="hidden" id="idVehiculo" name="id_vehiculoViejo">
                     <div class="form-group row">
                         <label for="" class="col-form-label col-4">Numero de placa:</label>
-                        <input type="text" class="form-control col-8" id="">
+                        <input type="text" class="form-control col-8" id="numeroPlaca" name="id_vehiculo" >
                     </div>
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Modelo:</label>
-                            <input type="text" class="form-control col-8" id="">
+                            <input type="text" class="form-control col-8" id="modelo" name="modelo">
                     </div>
                     <div class="form-group row ">
                             <label for="" class="col-4">Año: </label>
-                            <select class="form-control col-4" id="">
+                            <select class="form-control col-4" id="anio" name="anio">
                                 <option>2017</option>
                                 <option>2016</option>
                                 <option>2015</option>
@@ -311,33 +261,28 @@
                     </div>                   
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Marca:</label>
-                            <input type="text" class="form-control col-8" id="">
+                            <input type="text" class="form-control col-8" id="marca" name="marca">
                     </div>
                     <div class="form-group row ">
                             <label for="" class="col-4">Dependencia: </label>
-                            <select class="form-control col-8" id="">
-                                <option>Dependencia 1</option>
-                                <option>Dependencia 2</option>
-                                <option>Dependencia 3</option>
-                                <option>Dependencia 4</option>
-                                <option>Dependencia 5</option>
+                            <select class="form-control col-8" id="selectDependencia" name="dependencia">
                               </select> 
                     </div>
                     <div class="form-group row ">
                             <label for="" class="col-4">Estado: </label>
-                            <select class="form-control col-8" id="">
+                            <select class="form-control col-8" id="estado" name="estado">
                                 <option>Disponible</option>
                                 <option>No disponible</option>
                             </select> 
                     </div>
                     <div class="form-group row ">
                             <label for="" class="col-4">Nivel de gasolina: </label>
-                            <select class="form-control col-8" id="">
-                                <option>Lleno</option>
-                                <option>3/4</option>
-                                <option>1/2</option>
-                                <option>1/4</option>
-                                <option>Vacío</option>
+                            <select class="form-control col-8" id="nivelGasolina" name="nivel_gasolina">
+                                <option value="5">Lleno</option>
+                                <option value="4">3/4</option>
+                                <option value="3">1/2</option>
+                                <option value="2">1/4</option>
+                                <option value="1">Vacío</option>
                             </select> 
                     </div>
                 </form>
@@ -345,7 +290,7 @@
             
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
+            <button id="btnEditarVehiculo" type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
             </div>
         </div>
         </div>
@@ -364,11 +309,14 @@
                 </button>
             </div>
             <div class="modal-body p-5">
-            ¿Realmente desea eliminar vehículo array[i] ?   
+                ¿Realmente desea eliminar el vehículo <strong id="numeroPlaca"></strong> ?   
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
+            <form id="formEliminarVehiculo" action="">
+                <input id="idVehiculo" type="hidden" name="id_vehiculo">
+                <button id="btnEliminarVehiculo" type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
+            </form>
             </div>
         </div>
         </div>
@@ -377,74 +325,51 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.js"></script>
+    <script src="<c:url value='/js/bootstrap.js' />"></script>
     <script>
         $(function(){
-            var listaAreas;
-            cargarTablaAreas();
+            var listaVehiculos;
+            cargarTablaVehiculos();
             $("#btnAgregarVehiculo").unbind('click').on('click', ()=>{
                console.log($("#formAgregarVehiculo").serialize()); 
-               //let direccion = "&direccion=";
-               //$.each($("#formAgregarArea .direccion"),function(){
-               //    direccion += $(this).val() + "|";
-               //});
-               //console.log(direccion);
                $.ajax({
                     type: 'POST',
-                    url: './areas?action=registrar',
+                    url: './vehiculos?action=registrar',
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: $("#formAgregarVehiculo").serialize(),
                     success: function(data, textStatus, jqXHR){
                         // access response data
                         console.log(data, textStatus, jqXHR);
-                        $("#alertAgregado #nombreAreaNueva").text(data.nombreArea);
+                        $("#alertAgregado #nombreVehiculoNuevo").text(data.id_vehiculo);
                         $("#alertAgregado").toggle();
                         setTimeout(function(){
                             $("#alertAgregado").toggle();
                         }, 5000);
-                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    data: $("#formEditarVehiculo").serialize(),
-                    success: function(data, textStatus, jqXHR){
-                        // access response data
-                        console.log(data, textStatus, jqXHR);
-                        $("#alertEditado #nombreAreaNueva").text(data.nombreArea);
-                        $("#alertEditado").toggle();
-                        setTimeout(function(){
-                            $("#alertEditado").toggle();
-                        }, 5000);
-                        cargarTablaAreas();
-                    }
-                });
-            });        cargarTablaAreas();
+                        cargarTablaVehiculos();
                     }
                 });
             });
             
             $("#btnEditarVehiculo").unbind('click').on('click', ()=>{
                console.log($("#formEditarVehiculo").serialize()); 
-               //let direccion = "&direccion=";
-               //$.each($("#formEditarArea .direccion"),function(){
-               //    direccion += $(this).val() + "|";
-               //});
-               //console.log(direccion);
                $.ajax({
                     type: 'POST',
-                    url: './areas?action=editar&id_area=' + $("#formEditarVehiculo #idArea").val(),
+                    url: './vehiculos?action=editar',
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: $("#formEditarVehiculo").serialize(),
                     success: function(data, textStatus, jqXHR){
                         // access response data
                         console.log(data, textStatus, jqXHR);
-                        $("#alertEditado #nombreAreaNueva").text(data.nombreArea);
+                        $("#alertEditado #nombreVehiculoNuevo").text(data.id_vehiculo);
                         $("#alertEditado").toggle();
                         setTimeout(function(){
                             $("#alertEditado").toggle();
                         }, 5000);
-                        cargarTablaAreas();
+                        cargarTablaVehiculos();
                     }
                 });
             });
@@ -452,18 +377,19 @@
             $("#btnEliminarVehiculo").unbind('click').on('click', ()=>{
                $.ajax({
                     type: 'POST',
-                    url: './areas?action=eliminar&id_area=' + $("#formEliminarVehiculo #idArea").val(),
+                    url: './vehiculos?action=eliminar',
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formEliminarVehiculo").serialize(),
                     success: function(data, textStatus, jqXHR){
                         // access response data
                         console.log(data, textStatus, jqXHR);
-                        $("#alertEliminado #nombreAreaNueva").text(data.nombreArea);
+                        $("#alertEliminado #nombreVehiculoNuevo").text(data.id_vehiculo);
                         $("#alertEliminado").toggle();
                         setTimeout(function(){
                             $("#alertEliminado").toggle();
                         }, 5000);
-                        cargarTablaAreas();
+                        cargarTablaVehiculos();
                     }
                 });
             });
@@ -471,46 +397,75 @@
             
             function mostrarEditarVehiculo() {
                 $(".editar").unbind('click').on('click', function(){
-                    let idObjArea = $(this).attr('data-idObjArea');
-                    $("#modal-editarArea #idArea").val(listaAreas[idObjArea].id_area);
-                    $("##modal-editarArea #nombreArea").val(listaAreas[idObjArea].nombre_area);
-                    $("##modal-editarArea #Dependencia").val(listaAreas[idObjArea].dependencia);
+                    let idObjVehiculo = $(this).attr('data-idObjVehiculo');
+                    $("#modal-editarVehiculo #idVehiculo").val(listaVehiculos[idObjVehiculo].id_vehiculo);
+                    $("#modal-editarVehiculo #numeroPlaca").val(listaVehiculos[idObjVehiculo].id_vehiculo);
+                    $("#modal-editarVehiculo #modelo").val(listaVehiculos[idObjVehiculo].modelo);
+                    $("#modal-editarVehiculo #anio").val(listaVehiculos[idObjVehiculo].anio);
+                    $("#modal-editarVehiculo #estado").val(listaVehiculos[idObjVehiculo].estado);
+                    $("#modal-editarVehiculo #selectDependencia").val(listaVehiculos[idObjVehiculo].dependencia.id_dependencia);
+                    $("#modal-editarVehiculo #marca").val(listaVehiculos[idObjVehiculo].marca);
+                    $("#modal-editarVehiculo #nivelGasolina").val(listaVehiculos[idObjVehiculo].nivelGasolina);
+                    
                 });
             }
             
-            function mostrarEliminarArea() {
+            function mostrarEliminarVehiculo() {
                 $(".eliminar").unbind('click').on('click', function(){
-                    let idObjArea = $(this).attr('data-idObjArea');
-                    $("#modal-eliminarArea #nombreArea").text(listaAreas[idObjArea].nombre_area);
-                    $("#modal-eliminarArea #idArea").val(listaAreas[idObjArea].id_area);
+                    let idObjVehiculo = $(this).attr('data-idObjVehiculo');
+                    $("#modal-eliminarVehiculo #numeroPlaca").text(listaVehiculos[idObjVehiculo].id_vehiculo);
+                    $("#modal-eliminarVehiculo #idVehiculo").val(listaVehiculos[idObjVehiculo].id_vehiculo);
                 });
             }
+            
+            function cargarDependenciasEnSelect() {
+               $.ajax({
+                    type: 'GET',
+                    url: './dependencias?action=mostrar',
+                    dataType: 'json',
+                    success: function(dependencias, textStatus, jqXHR){
+                        // access response data
+                        $("#selectDependencia").empty();
+                        $.each(dependencias, function(id, dependencia) {
+                            $('#formAgregarVehiculo #selectDependencia').append(new Option(dependencia.nombreDependencia,dependencia.id_dependencia)); 
+                            $('#formEditarVehiculo #selectDependencia').append(new Option(dependencia.nombreDependencia,dependencia.id_dependencia)); 
+                        });
+                    }
+               });
+           }
+           cargarDependenciasEnSelect();
+       
 
-            function cargarTablaAreas() {
+            function cargarTablaVehiculos() {
                 $.ajax({
                     type: 'GET',
-                    url: './areas?action=mostrar',
+                    url: './vehiculos?action=mostrar',
                     dataType: 'json',
                     //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     //data: $("#formAgregarDependencia").serialize() + direccion,
-                    success: function(areas, textStatus, jqXHR){
+                    success: function(vehiculos, textStatus, jqXHR){
                         // access response data
-                        console.log(areas, textStatus, jqXHR);
-                        listaAreas = areas;
+                        console.log(vehiculos, textStatus, jqXHR);
+                        listaVehiculos = vehiculos;
                         $("tbody").empty();
-                        $.each(areas, function(id, area) {
-                            let btnEditar = '<button type="button" class="editar btn btn-info my-1" data-toggle="modal" data-target="#modal-editarArea" data-idObjArea="'+ id +'"><i class="fa fa-pencil"></i></button>';
-                            let btnEliminar = '<button type="button " class="eliminar btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarArea" data-idObjArea="'+ id +'"><i class="fa fa-trash-o"></i></button>';
+                        $.each(vehiculos, function(id, vehiculo) {
+                            let btnEditar = '<button type="button" class="editar btn btn-info my-1" data-toggle="modal" data-target="#modal-editarVehiculo" data-idObjVehiculo="'+ id +'"><i class="fa fa-pencil"></i></button>';
+                            let btnEliminar = '<button type="button " class="eliminar btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarVehiculo" data-idObjVehiculo="'+ id +'"><i class="fa fa-trash-o"></i></button>';
                             let tr = $('<tr class="text-truncate">').append(
-                                $('<td>').text(area.nombre_area),
-                                $('<td>').text(area.dependencia),
+                                $('<td>').text(vehiculo.id_vehiculo),
+                                $('<td>').text(vehiculo.modelo),
+                                $('<td>').text(vehiculo.anio),
+                                $('<td>').text(vehiculo.estado),
+                                $('<td>').text(vehiculo.dependencia.nombreDependencia),
+                                $('<td>').text(vehiculo.marca),
+                                $('<td>').text(vehiculo.nivelGasolina),
                                 $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar + btnEliminar)
                             ); //.appendTo('#records_table');
                             $("table").append(tr);
                             //console.log(tr.wrap('<tr>').html());
                         });
-                        mostrarEditarArea();
-                        mostrarEliminarArea();
+                        mostrarEditarVehiculo();
+                        mostrarEliminarVehiculo();
                     }
                 });
             }  
