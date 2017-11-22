@@ -185,12 +185,7 @@
                         </div>
                         <div class="form-group row ">
                             <label for="" class="col-4">Dependencia: </label>
-                            <select class="form-control col-8" id="tipoServicio-ticket">
-                                <option>Dependencia 1</option>
-                                <option>Dependencia 2</option>
-                                <option>Dependencia 3</option>
-                                <option>Dependencia 4</option>
-                                <option>Dependencia 5</option>
+                            <select name="dependencia" class="form-control col-8" id="selectDependencia">
                             </select> 
                         </div>
                     </form>
@@ -313,7 +308,7 @@
                 </div>
                 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger mr-auto" data-dismiss="modal">Eliminar</button>
+                    <button id="btnEliminarTipoServicio" type="button" class="btn btn-danger mr-auto" data-dismiss="modal">Eliminar</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button id="btnEditarTipoServicio" type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
                 </div>
@@ -486,6 +481,119 @@
                         });
                         mostrarEditarArea();
                         mostrarEliminarArea();
+                    }
+                });
+            }  
+        });
+        
+        
+         $(function(){
+            var listaTipoServicio;
+            cargarTablaTipoServicio();
+            $("#btnAgregarTipoServicio").unbind('click').on('click', ()=>{
+               console.log($("#formAgregarTipoServicio").serialize()); 
+               $.ajax({
+                    type: 'POST',
+                    url: './tipo-servicio?action=registrar',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formAgregarTipoServicio").serialize(),
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                       // $("#alertAgregado #nombreTipoServicioNuevo").text(data.nombreArea);
+                        $("#alertAgregado").toggle();
+                        setTimeout(function(){
+                            $("#alertAgregado").toggle();
+                        }, 5000);
+                        cargarTablaTipoServicio();
+                    }
+                });
+            });
+            
+            $("#btnEditarTipoServicio").unbind('click').on('click', ()=>{
+               console.log($("#formEditaTipoServicio").serialize()); 
+               $.ajax({
+                    type: 'POST',
+                    url: './tipo-servicio?action=editar',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formEditarArea").serialize(),
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                      //  $("#alertEditado #nombreAreaNueva").text(data.nombreArea);
+                        $("#alertEditado").toggle();
+                        setTimeout(function(){
+                            $("#alertEditado").toggle();
+                        }, 5000);
+                        cargarTablaTipoServicio();
+                    }
+                });
+            });
+            
+            $("#btnEliminarTipoServicio").unbind('click').on('click', ()=>{
+               $.ajax({
+                    type: 'POST',
+                    url: './tipo-servicio?action=eliminar',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formEliminarArea").serialize(),
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                        $("#alertEliminado #nombreTipoServicioNuevo").text(data.id_tipo_servicio);
+                        $("#alertEliminado").toggle();
+                        setTimeout(function(){
+                            $("#alertEliminado").toggle();
+                        }, 5000);
+                        cargarTablaTipoServicio();
+                    }
+                });
+            });
+            
+            function mostrarEditarTipoServicio() {
+                $(".editar").unbind('click').on('click', function(){
+                    let idObjTipoServicio = $(this).attr('data-idObjTipoServicio');
+                    $("#modal-editarTipoServicio #idTipoServicio").val(listaTipoServicio[idObjTipoServicio].id_tipo_servicio);
+                    $("##modal-editarTipoServicio #nombreTipoServicio").val(listaTipoServicio[idObjTipoServicio].nombre_tipo_servicio);
+                    $("##modal-editarTipoServicio #tipoServicio-ticket").val(listaTipoServicio[idObjTipoServicio].area);
+                });
+            }
+            
+            function mostrarEliminarTipoServicio() {
+                $(".eliminar").unbind('click').on('click', function(){
+                    let idObjTipoServicio = $(this).attr('data-idObjArea');
+                    $("#modal-eliminarTipoServicio #nombreTipoServicio").text(listaTipoServicio[idObjArea].nombre_tipo_servicio);
+                    $("#modal-eliminarTipoServicio #idTipoServicio").val(listaTipoServicio[idObjArea].id_tipo_servicio);
+                });
+            }
+            
+         function cargarTablaTipoServicio() {
+                $.ajax({
+                    type: 'GET',
+                    url: './tipo-servicio?action=mostrar',
+                    dataType: 'json',
+                    //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    //data: $("#formAgregarDependencia").serialize() + direccion,
+                    success: function(tipo-servicio, textStatus, jqXHR){
+                        // access response data
+                        console.log(tipo-servicio, textStatus, jqXHR);
+                        listaTipoServicio = TipoServicio;
+                        $("tbody").empty();
+                        $.each(tipo_servicio, function(id, tipo_servicio) {
+                            let btnEditar = '<button type="button" class="editar btn btn-info my-1" data-toggle="modal" data-target="#modal-editarTipoServicio" data-idObjTipoServicio="'+ id +'"><i class="fa fa-pencil"></i></button>';
+                            let btnEliminar = '<button type="button " class="eliminar btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarTipoServicio" data-idObjTipoServicio="'+ id +'"><i class="fa fa-trash-o"></i></button>';
+                            let tr = $('<tr class="text-truncate">').append(
+                                $('<td>').text(tipo_servicio.nombre_tipo_servicio),
+                                $('<td>').text(tipo_servicio.area),
+                                $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar + btnEliminar)
+                            ); //.appendTo('#records_table');
+                            $("table").append(tr);
+                            //console.log(tr.wrap('<tr>').html());
+                        });
+                        mostrarEditarTipoServicio();
+                        mostrarEliminarTipoServicio();
                     }
                 });
             }  
