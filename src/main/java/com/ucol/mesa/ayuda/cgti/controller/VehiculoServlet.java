@@ -105,7 +105,6 @@ public class VehiculoServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        System.out.println(vehiculoDAO.insertar(vehiculo));
         vehiculoDAO.insertar(vehiculo);
         out.print(jsonBuilder.toJson(vehiculo));
     }
