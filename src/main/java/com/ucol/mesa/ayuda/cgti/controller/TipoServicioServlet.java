@@ -5,6 +5,7 @@
  */
 package com.ucol.mesa.ayuda.cgti.controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import com.ucol.mesa.ayuda.cgti.model.TipoServicio;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 
 /**
  *
@@ -46,38 +48,42 @@ public class TipoServicioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("Hola Servlet..");
-        String action = request.getParameter("action");
-        System.out.println(action);
-        try {
-            switch (action) {
-                case "index":
-                    index(request, response);
-                    break;
-                case "nuevo":
-                    nuevo(request, response);
-                    break;
-                case "register":
-                    System.out.println("entro");
-                    registrar(request, response);
-                    break;
-                case "mostrar":
-                    mostrar(request, response);
-                    break;
-                case "showedit":
-                    showEditar(request, response);
-                    break;
-                case "editar":
-                    editar(request, response);
-                    break;
-                case "eliminar":
-                    eliminar(request, response);
-                    break;
-                default:
-                    break;
+        if (request.getParameter("action") != null ) {
+            String action = request.getParameter("action");
+            System.out.println(action);
+            try {
+                switch (action) {
+                    case "index":
+                        index(request, response);
+                        break;
+                    case "registrar":
+                        System.out.println("entro");
+                        registrar(request, response);
+                        break;
+                    case "mostrar":
+                        mostrar(request, response);
+                        break;
+                    case "editar":
+                        editar(request, response);
+                        break;
+                    case "eliminar":
+                        eliminar(request, response);
+                        break;
+                    default:
+                        break;
+                }
+            } catch (SQLException e) {
+                PrintWriter out = response.getWriter();
+                out.print(e.getSQLState());
             }
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
+        } else {
+            try {
+                index(request, response);
+            } catch (SQLException e) {
+                PrintWriter out = response.getWriter();
+                out.print(e.getSQLState());
+            }
+        }       
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -87,49 +93,50 @@ public class TipoServicioServlet extends HttpServlet {
     }
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        //mostrar(request, response);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
+        ServletContext servletContext = request.getServletContext();
+        servletContext.getRequestDispatcher("/tipo-servicio/mostrar.jsp").forward(request, response);
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        TipoServicio tipoServicio = new TipoServicio(request.getParameter("nombre_tipo_servicio"), Integer.parseInt(request.getParameter("area")));
+        TipoServicio tipoServicio = new TipoServicio(Integer.parseInt(request.getParameter("id_tipo_servicio")),request.getParameter("nombre_tipo_servicio"), Integer.parseInt(request.getParameter("area")));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        System.out.println(response.toString());
         tipoServicioDAO.insertar(tipoServicio);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    private void nuevo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/tipoServicio/register.jsp");
-        dispatcher.forward(request, response);
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(tipoServicio));
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/tipoServicio/mostrar.jsp");
         List<TipoServicio> listaTipoServicio = tipoServicioDAO.listarTipoServicio();
-        request.setAttribute("lista", listaTipoServicio);
-        dispatcher.forward(request, response);
-    }
-
-    private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        TipoServicio tipoServicio = tipoServicioDAO.obtenerPorId(Integer.parseInt(request.getParameter("tipoServicio")));
-        request.setAttribute("tipoServicio", tipoServicio);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/tipoServicio/editar.jsp");
-        dispatcher.forward(request, response);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(listaTipoServicio));
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-    TipoServicio tipoServicio = new TipoServicio(request.getParameter("nombre_tipo_servicio"), Integer.parseInt(request.getParameter("area")));
-        tipoServicioDAO.actualizar(tipoServicio);
-        index(request, response);
+        TipoServicio tipoServicio = new TipoServicio(Integer.parseInt(request.getParameter("id_tipo_servicio")),request.getParameter("nombre_tipo_servicio"), Integer.parseInt(request.getParameter("area")));
+        Gson jsonBuilder = new Gson();
+        System.out.println(jsonBuilder.toJson(request.getParameterMap()));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        System.out.println( "HolaMundo" + tipoServicioDAO.actualizar(tipoServicio, Integer.parseInt(request.getParameter("id_tipo_servicioViejo"))));
+        tipoServicioDAO.actualizar(tipoServicio, Integer.parseInt(request.getParameter("id_tipo_servicioViejo")));
+        out.print(jsonBuilder.toJson(tipoServicio));
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         TipoServicio tipoServicio = tipoServicioDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_tipo_servicio")));
+        System.out.println("holamundoeliminado" + tipoServicioDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_tipo_servicio"))));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
         tipoServicioDAO.eliminar(tipoServicio);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(tipoServicio));
     }
 }

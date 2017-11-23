@@ -1,6 +1,7 @@
 package com.ucol.mesa.ayuda.cgti.dao;
 import com.ucol.mesa.ayuda.cgti.model.TipoServicio;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
+import com.ucol.mesa.ayuda.cgti.model.Area;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,10 +18,13 @@ import java.util.List;
 public class TipoServicioDAO {
     private ConexionBD conexionBD;
     private Connection connection;
+    private AreaDAO areaDAO;
+
 
     public TipoServicioDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) throws SQLException {
         System.out.println(jdbcURL);
         conexionBD = new ConexionBD(jdbcURL, jdbcUsername, jdbcPassword);
+        areaDAO = new AreaDAO(jdbcURL, jdbcUsername, jdbcPassword);
     }
 
     //Agregar Tipo de servicio
@@ -32,7 +36,7 @@ public class TipoServicioDAO {
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, tiposervicio.getId_tipo_servicio());
         statement.setString(2, tiposervicio.getNombreTipoServicio());
-        statement.setInt(3, tiposervicio.getArea());
+        statement.setInt(3, tiposervicio.getAreaInt());
 
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
@@ -53,9 +57,10 @@ public class TipoServicioDAO {
         while (resulSet.next()) {
             int id_tipo_servicio = resulSet.getInt("id_tipo_servicio");
             String nombreTipoServicio = resulSet.getString("nombreTipoServicio");
-            int area = resulSet.getInt("area");
-
-            TipoServicio tiposervicio = new TipoServicio(nombreTipoServicio, area);
+            //int area = resulSet.getInt("area");
+            Area area = areaDAO.obtenerPorId(resulSet.getInt("area"));
+            
+            TipoServicio tiposervicio = new TipoServicio(id_tipo_servicio, nombreTipoServicio, area);
             listaTipoServicio.add(tiposervicio);
         }
         conexionBD.desconectar();
@@ -74,7 +79,7 @@ public class TipoServicioDAO {
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            tiposervicio = new TipoServicio(res.getString("nombre_tipo_servicio"), res.getInt("area"));
+            tiposervicio = new TipoServicio(res.getInt("id_tipo_servicio"), res.getString("nombre_tipo_servicio"), res.getInt("area"));
         }
         res.close();
         conexionBD.desconectar();
@@ -83,7 +88,7 @@ public class TipoServicioDAO {
     }
     
     //Actualizar
-    public boolean actualizar(TipoServicio tiposervicio) throws SQLException {
+    public boolean actualizar(TipoServicio tiposervicio, int id_tipo_servicioViejo) throws SQLException {
         boolean rowActualizar = false;
         String sql = "UPDATE TIPO_SERVICIO SET id_tipo_servicio=?, nombre_tipo_servicio=?, area=? WHERE id_tipo_servicio=?";
         conexionBD.conectar();
@@ -91,8 +96,8 @@ public class TipoServicioDAO {
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, tiposervicio.getId_tipo_servicio());
         statement.setString(2, tiposervicio.getNombreTipoServicio());
-        statement.setInt(3, tiposervicio.getArea());
-        statement.setInt(4, tiposervicio.getId_tipo_servicio());
+        statement.setInt(3, tiposervicio.getAreaInt());
+        statement.setInt(4, id_tipo_servicioViejo);
         
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();
