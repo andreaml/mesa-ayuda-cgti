@@ -174,7 +174,7 @@
                 <form id="formAgregarVehiculo" action="">
                     <div class="form-group row">
                         <label for="" class="col-form-label col-4">Numero de placa:</label>
-                        <input name="id_vehiculo" type="text" class="form-control col-8" id="">
+                        <input name="numero_placa" type="text" class="form-control col-8" id="">
                     </div>
                     <div class="form-group row">
                             <label for="" class="col-form-label col-4">Modelo:</label>
@@ -435,7 +435,21 @@
                });
            }
            cargarDependenciasEnSelect();
-       
+           
+           function mostrarNivelGasolina(nivelGasolina) {
+               switch(nivelGasolina) {
+                    case 1:
+                        return 'Vacío';
+                    case 2:
+                        return '1/4';
+                    case 3:
+                        return '1/2';
+                    case 4:
+                        return '3/4';
+                    case 5:
+                        return 'Lleno';
+               }
+           }
 
             function cargarTablaVehiculos() {
                 $.ajax({
@@ -459,7 +473,7 @@
                                 $('<td>').text(vehiculo.estado),
                                 $('<td>').text(vehiculo.dependencia.nombreDependencia),
                                 $('<td>').text(vehiculo.marca),
-                                $('<td>').text(vehiculo.nivelGasolina),
+                                $('<td>').text(mostrarNivelGasolina(vehiculo.nivelGasolina)),
                                 $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar + btnEliminar)
                             ); //.appendTo('#records_table');
                             $("table").append(tr);
