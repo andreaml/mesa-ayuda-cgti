@@ -29,7 +29,7 @@
     <div class="container-fluid bg-dark"> 
       <nav class="navbar navbar-dark bg-dark ml-md-5">
         <a class="navbar-brand" href="index.html">
-          <img src="images/logo.png" class="image-fluid" width="320px" alt="logo-udec">
+          <img src="<c:url value='/images/logo.png' />" class="image-fluid" width="320px" alt="logo-udec">
         </a>
       </nav>
     </div>
@@ -258,7 +258,7 @@
                     </div>
                     <div class="form-group row ">
                         <label for="" class="col-4">Área: </label>
-                        <select class="form-control col-8" id="selectArea">
+                        <select class="form-control col-8" id="selectArea" name="area">
                         </select> 
                     </div>
                 </form>
@@ -365,7 +365,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="<c:url value='/js/jquery-3.2.1.min.js' />"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="<c:url value='/js/bootstrap.js' />"></script>
     <script>
@@ -377,7 +377,7 @@
                let profesion = "&profesion=" + $("#formAgregarEspecialista #profesion").val() + "|" + $("#formAgregarEspecialista #nombreProfesion").val();
                $.ajax({
                     type: 'POST',
-                    url: './especialista?action=registrar',
+                    url: './especialistas?action=registrar',
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: $("#formAgregarEspecialista").serialize() + profesion,
@@ -399,7 +399,7 @@
                let profesion = "&profesion=" + $("#formAgregarEspecialista #profesion").val() + " " + $("#formAgregarEspecialista #nombreProfesion").val();
                $.ajax({
                     type: 'POST',
-                    url: './especialista?action=editar&correoViejo=' + $("#formEditarEspecialista #correoViejo").val(),
+                    url: './especialistas?action=editar&correoViejo=' + $("#formEditarEspecialista #correoViejo").val(),
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: $("#formEditarEspecialista").serialize() + profesion,
@@ -419,7 +419,7 @@
             $("#btnEliminarEspecialista").unbind('click').on('click', ()=>{
                $.ajax({
                     type: 'POST',
-                    url: './especialista?action=eliminar&correo=' + $("#formEliminarEspecialista #correo").val(),
+                    url: './especialistas?action=eliminar&correo=' + $("#formEliminarEspecialista #correo").val(),
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     success: function(data, textStatus, jqXHR){
@@ -460,7 +460,7 @@
             function cargarTablaEspecialistas() {
                 $.ajax({
                     type: 'GET',
-                    url: './especialista?action=mostrar',
+                    url: './especialistas?action=mostrar',
                     dataType: 'json',
                     success: function(especialistas, textStatus, jqXHR){
                         // access response data

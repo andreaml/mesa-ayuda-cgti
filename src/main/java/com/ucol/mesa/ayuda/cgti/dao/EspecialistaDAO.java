@@ -27,20 +27,20 @@ public class EspecialistaDAO {
     
     //Insertar especialista
     public boolean insertar(Especialista especialista)throws SQLException{
-        String sql="INSERT INTO ESPECIALISTA (correo, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, area, num_trabajador, contrasenia, profesion)VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql="INSERT INTO ESPECIALISTA (correo, num_trabajador, area, profesion, contrasenia, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno)VALUES (?,?,?,?,?,?,?,?,?)";
         System.out.println(especialista.getCorreo());
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, especialista.getCorreo());
-        statement.setString(2, especialista.getNombre1());
-        statement.setString(3, especialista.getNombre2());
-        statement.setString(4, especialista.getApellidoP());
-        statement.setString(5, especialista.getApellidoM());
-        statement.setInt(6, especialista.getAreaInt());
-        statement.setInt(7, especialista.getNumTrabajador());
-        statement.setString(8, especialista.getContrasenia());
-        statement.setString(9, especialista.getProfesion());
+        statement.setInt(2, especialista.getNumTrabajador());
+        statement.setInt(3, especialista.getAreaInt());
+        statement.setString(4, especialista.getProfesion());
+        statement.setString(5, especialista.getCorreo());
+        statement.setString(6, especialista.getNombre1());
+        statement.setString(7, especialista.getNombre2());
+        statement.setString(8, especialista.getApellidoP());
+        statement.setString(9, especialista.getApellidoM());
 
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
