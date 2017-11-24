@@ -69,37 +69,37 @@
     
     <div class="container align-items-center d-flex flex-column col-12 col-lg-8 p-1 border border-dark">
       <h3 class="align-self-center my-4 text-center">Valoración de servicio TI </h3> 
-      <form action="" class="col-md-10 col-12 justify-content-center">
+      <form action="" class="col-md-10 col-12 justify-content-center" name="form1" >
           
           <fieldset class="form-group col-12">
               <label for="">¿Cómo calificaría la solución que se le dió a su solicitud de servicio?</label>  
               
                <div class="btn btn-group col-12 px-0" data-toggle="buttons">
                   <label class="btn btn-outline-info btn-block active ">
-                    <input type="radio" name="evaluacion1" id="excelente">
+                    <input type="radio" name="evaluacion1" id="excelente" value="5">
                     <span class="d-none d-sm-block"> Excelente </span> 
                     <span class=" d-sm-none">5</span>
                     
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0 ">
-                    <input type="radio" name="evaluacion1" id="muyBueno">
+                      <input type="radio" name="evaluacion1" id="muyBueno" value="4">
                     <span class="d-none d-sm-block">Muy bueno</span>
                     <span class=" d-sm-none">4</span>
                   </label>
 
                   <label class="btn btn-outline-info btn-block mt-0 ">
-                    <input type="radio" name="evaluacion1" id="bueno">
+                    <input type="radio" name="evaluacion1" id="bueno" value="3">
                     <span class="d-none d-sm-block">Bueno</span>
                     <span class=" d-sm-none">3</span>                
                   </label>
 
                   <label class="btn btn-outline-info btn-block mt-0 ">
-                    <input type="radio" name="evaluacion1" id="regular" >
+                    <input type="radio" name="evaluacion1" id="regular" value="2">
                     <span class="d-none d-sm-block">Regular</span>
                     <span class=" d-sm-none">2</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0">
-                    <input type="radio" name="evaluacion1" id="deficiente" >
+                    <input type="radio" name="evaluacion1" id="deficiente" value="1">
                     <span class="d-none d-sm-block">Deficiente</span>
                     <span class=" d-sm-none">1</span>
                   </label>
@@ -112,27 +112,27 @@
               <label for="">¿Cómo calificaría la solución que se le dió a su solicitud de servicio?</label>  
               <div class="btn-group col-12 px-0" data-toggle="buttons">
                   <label class="btn btn-outline-info btn-block  active">
-                    <input type="radio" name="evaluacion2" id="excelente"> 
+                    <input type="radio" name="evaluacion2" id="excelente" value="5"> 
                     <span class="d-none d-sm-block"> Excelente </span> 
                     <span class=" d-sm-none">5</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0 ">
-                    <input type="radio" name="evaluacion2" id="muyBueno">
+                      <input type="radio" name="evaluacion2" id="muyBueno" value="4">
                     <span class="d-none d-sm-block">Muy bueno</span>
                     <span class=" d-sm-none">4</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0  ">
-                    <input type="radio" name="evaluacion2" id="bueno">
+                      <input type="radio" name="evaluacion2" id="bueno" value="3">
                     <span class="d-none d-sm-block">Bueno</span>
                     <span class=" d-sm-none">3</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0  ">
-                    <input type="radio" name="evaluacion2" id="regular" >
+                    <input type="radio" name="evaluacion2" id="regular" value="2">
                     <span class="d-none d-sm-block">Regular</span>
                     <span class=" d-sm-none">2</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0 ">
-                    <input type="radio" name="evaluacion2" id="deficiente" >
+                      <input type="radio" name="evaluacion2" id="deficiente" value="1">
                     <span class="d-none d-sm-block">Deficiente</span>
                     <span class=" d-sm-none">1</span>
                   </label>
@@ -143,27 +143,27 @@
               <label for="">¿Cómo calificaría el tiempo de respuesta?</label>  
               <div class="btn-group col-12 px-0" data-toggle="buttons">
                   <label class="btn btn-outline-info btn-block  active">
-                    <input type="radio" name="evaluacion3" id="excelente"> 
+                      <input type="radio" name="evaluacion3" id="excelente" value="5"> 
                     <span class="d-none d-sm-block"> Excelente </span> 
                     <span class=" d-sm-none">5</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0 ">
-                    <input type="radio" name="evaluacion3" id="muyBueno">
+                      <input type="radio" name="evaluacion3" id="muyBueno" value="4">
                     <span class="d-none d-sm-block">Muy bueno</span>
                     <span class=" d-sm-none">4</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0  ">
-                    <input type="radio" name="evaluacion3" id="bueno">
+                      <input type="radio" name="evaluacion3" id="bueno" value="3">
                     <span class="d-none d-sm-block">Bueno</span>
                     <span class=" d-sm-none">3</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0  ">
-                    <input type="radio" name="evaluacion3" id="regular" >
+                      <input type="radio" name="evaluacion3" id="regular" value="2">
                     <span class="d-none d-sm-block">Regular</span>
                     <span class=" d-sm-none">2</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0 ">
-                    <input type="radio" name="evaluacion3" id="deficiente" >
+                      <input type="radio" name="evaluacion3" id="deficiente" value="1">
                     <span class="d-none d-sm-block">Deficiente</span>
                     <span class=" d-sm-none">1</span>
                   </label>
@@ -174,27 +174,27 @@
               <label for="">¿Cómo calificaría la atención del especialista?</label>  
               <div class="btn-group col-12 px-0" data-toggle="buttons">
                   <label class="btn btn-outline-info btn-block  active">
-                    <input type="radio" name="evaluacion4" id="excelente"> 
+                      <input type="radio" name="evaluacion4" id="excelente" value="5"> 
                     <span class="d-none d-sm-block"> Excelente </span> 
                     <span class=" d-sm-none">5</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0 ">
-                    <input type="radio" name="evaluacion4" id="muyBueno">
+                      <input type="radio" name="evaluacion4" id="muyBueno" value="4">
                     <span class="d-none d-sm-block">Muy bueno</span>
                     <span class=" d-sm-none">4</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0  ">
-                    <input type="radio" name="evaluacion4" id="bueno">
+                      <input type="radio" name="evaluacion4" id="bueno" value="3">
                     <span class="d-none d-sm-block">Bueno</span>
                     <span class=" d-sm-none">3</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0  ">
-                    <input type="radio" name="evaluacion4" id="regular" >
+                      <input type="radio" name="evaluacion4" id="regular" value="2">
                     <span class="d-none d-sm-block">Regular</span>
                     <span class=" d-sm-none">2</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0 ">
-                    <input type="radio" name="evaluacion4" id="deficiente" >
+                      <input type="radio" name="evaluacion4" id="deficiente" value="1">
                     <span class="d-none d-sm-block">Deficiente</span>
                     <span class=" d-sm-none">1</span>
                   </label>
@@ -205,27 +205,27 @@
               <label for="">¿Cómo calificaría la atención del especialista?</label>  
               <div class="btn-group col-12 px-0" data-toggle="buttons">
                   <label class="btn btn-outline-info btn-block active">
-                    <input type="radio" name="evaluacion5" id="excelente"> 
+                      <input type="radio" name="evaluacion5" id="excelente" value="5"> 
                     <span class="d-none d-sm-block"> Excelente </span> 
                     <span class=" d-sm-none">5</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0 ">
-                    <input type="radio" name="evaluacion5" id="muyBueno">
+                      <input type="radio" name="evaluacion5" id="muyBueno" value="4">
                     <span class="d-none d-sm-block">Muy bueno</span>
                     <span class=" d-sm-none">4</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0  ">
-                    <input type="radio" name="evaluacion5" id="bueno">
+                      <input type="radio" name="evaluacion5" id="bueno" value="3">
                     <span class="d-none d-sm-block">Bueno</span>
                     <span class=" d-sm-none">3</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0  ">
-                    <input type="radio" name="evaluacion5" id="regular" >
+                      <input type="radio" name="evaluacion5" id="regular" value="2">
                     <span class="d-none d-sm-block">Regular</span>
                     <span class=" d-sm-none">2</span>
                   </label>
                   <label class="btn btn-outline-info btn-block mt-0 ">
-                    <input type="radio" name="evaluacion5" id="deficiente" >
+                      <input type="radio" name="evaluacion5" id="deficiente" value="1">
                     <span class="d-none d-sm-block">Deficiente</span>
                     <span class=" d-sm-none">1</span>
                   </label>
@@ -247,7 +247,7 @@
           </div>
 
           <div class="text-right mt-4 mb-5">
-            <button type="submit" class="btn btn-info">Enviar evaluación </button>
+              <button type="button" onclick="Suma(this.form)" class="btn btn-info">Enviar evaluación </button>
           </div>
       </form>
     </div>
@@ -270,5 +270,26 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="<c:url value='/js/bootstrap.js' />"></script>
+    <script>
+function Suma(formulario){
+var total=0;
+var promedio=0;
+var checados=0;
+var nombre="";
+for(i=0;i<formulario.elements.length;i++){
+    if(formulario.elements[i].type=="radio" && nombre!=formulario.elements[i].name){
+        nombre=formulario.elements[i].name;
+        grupo=document.getElementsByName(nombre);
+        for(j=0;j<grupo.length;j++){
+            if(grupo[j].checked){
+                total+=parseInt(grupo[j].value);
+            }
+        }
+    }
+}
+    promedio = Math.round(total/5);
+    console.log(promedio);
+}
+</script>
   </body>
 </html>
