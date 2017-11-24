@@ -74,7 +74,7 @@ public class TipoServicioServlet extends HttpServlet {
                 }
             } catch (SQLException e) {
                 PrintWriter out = response.getWriter();
-                out.print(e.getSQLState());
+                out.print(e);
             }
         } else {
             try {
@@ -94,11 +94,11 @@ public class TipoServicioServlet extends HttpServlet {
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         ServletContext servletContext = request.getServletContext();
-        servletContext.getRequestDispatcher("/tipo-servicio/mostrar.jsp").forward(request, response);
+        servletContext.getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        TipoServicio tipoServicio = new TipoServicio(Integer.parseInt(request.getParameter("id_tipo_servicio")),request.getParameter("nombre_tipo_servicio"), Integer.parseInt(request.getParameter("area")));
+        TipoServicio tipoServicio = new TipoServicio(request.getParameter("nombre_tipo_servicio"), Integer.parseInt(request.getParameter("area")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -124,14 +124,12 @@ public class TipoServicioServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        System.out.println( "HolaMundo" + tipoServicioDAO.actualizar(tipoServicio, Integer.parseInt(request.getParameter("id_tipo_servicioViejo"))));
-        tipoServicioDAO.actualizar(tipoServicio, Integer.parseInt(request.getParameter("id_tipo_servicioViejo")));
+        tipoServicioDAO.actualizar(tipoServicio);
         out.print(jsonBuilder.toJson(tipoServicio));
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         TipoServicio tipoServicio = tipoServicioDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_tipo_servicio")));
-        System.out.println("holamundoeliminado" + tipoServicioDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_tipo_servicio"))));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();

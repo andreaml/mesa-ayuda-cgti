@@ -58,13 +58,13 @@
 
 <!-- Seccion 1-->
   <section class="container mt-4">
-        <h3 class="text-center p-1">Consulta tu tickets</h3>
+        <h3 class="text-center p-1">Consulta tu ticket</h3>
         <div class="row col-12 d-flex justify-content-center align-items-center my-4 ml-0">
             <form class="form-group col-11 col-md-6 mx-md-5 px-0 mb-lg-0 mb-2">
                 <div class="input-group">
-                    <input class="form-control " type="search" placeholder="Buscar" aria-label="Search">
+                    <input class="form-control " type="search" placeholder="Número de ticket" aria-label="Search">
                     <span class="input-group-btn">
-                    <button class="btn btn-info " type="submit">Buscar</button>
+                        <button class="btn btn-info " type="submit"><i class="fa fa-search"></i> Buscar</button>
                     </span>
                 </div> 
             </form>
@@ -110,7 +110,7 @@
         <h3>Comentarios</h3>
         <div class="row mt-3">
             <div class="col-md-1 col-2 ">
-                <img src="images/user.png" alt="foto-usuario" class="rounded-circle img-fluid" width="50px">
+                <img src="<c:url value='/images/user.png' />" alt="foto-usuario" class="rounded-circle img-fluid" width="50px">
             </div>
             <div class="col-md-11 col-10">
                 <h4>Nombre Especialista 1 - Especialista</h4> 
