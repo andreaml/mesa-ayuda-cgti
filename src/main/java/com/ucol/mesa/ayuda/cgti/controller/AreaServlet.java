@@ -97,11 +97,10 @@ private static final long serialVersionUID = 1L;
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Area area = new Area( Integer.parseInt(request.getParameter("id_area")), request.getParameter("nombre_area"),  Integer.parseInt(request.getParameter("dependencia")));
+        Area area = new Area(request.getParameter("nombre_area"),  Integer.parseInt(request.getParameter("dependencia")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        System.out.println(response.toString());
         areaDAO.insertar(area);
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(area));
@@ -118,20 +117,18 @@ private static final long serialVersionUID = 1L;
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Area area = new Area( Integer.parseInt(request.getParameter("id_area")), request.getParameter("nombre_area"),  Integer.parseInt(request.getParameter("dependencia")));
+        Area area = new Area(Integer.parseInt(request.getParameter("id_area")), request.getParameter("nombre_area"),  Integer.parseInt(request.getParameter("dependencia")));
         Gson jsonBuilder = new Gson();
         System.out.println(jsonBuilder.toJson(request.getParameterMap()));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        System.out.println( "HolaMundo" + areaDAO.actualizar(area, Integer.parseInt(request.getParameter("id_areaVieja"))));
-        areaDAO.actualizar(area, Integer.parseInt(request.getParameter("id_areaVieja")));
+        areaDAO.actualizar(area);
         out.print(jsonBuilder.toJson(area));
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         Area area = areaDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_area")));
-        System.out.println("holamundoeliminado" + areaDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_area"))));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
