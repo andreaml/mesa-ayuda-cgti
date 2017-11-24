@@ -65,7 +65,7 @@
                             <!-- Fin de submenu -->      
                         </div>
                       
-                        <a class="nav-dependencia nav-link text-dark p-3 selected   px-4 px-md-5 mr-1" href="05-servicios.html">Servicios</a>
+                        <a class="nav-dependencia nav-link text-dark p-3 selected   px-4 px-md-5 mr-1" href="<c:url value='/atencion-usuarios/servicios' />">Servicios</a>
                         <div class="nav-dependencia dropSubmenu dropdown">
                             <a class="nav-link text-dark p-3 dropdown-toggle   px-4 px-md-5" href=""  role="button">Usuarios </a>
                             <!-- Inicio de submenu -->

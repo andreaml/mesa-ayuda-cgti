@@ -49,34 +49,34 @@
                 <button class="navbar-toggler align-self-center ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                  
+
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                    <a class="nav-item nav-link text-dark p-3 px-4 px-md-5 selected mr-1" href="01-inicio.html">Inicio</a>
-      
-                    <div class="nav-item dropSubmenu dropdown">
-                        <a class="nav-item nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 boton" href="" role="button">Especialistas </a>
+                    <a class="nav-dependencia nav-link text-dark p-3 px-4 px-md-5 selected mr-1" href="<c:url value='/atencion-usuarios' />">Inicio</a>
+
+                    <div class="nav-dependencia dropSubmenu dropdown">
+                        <a class="nav-dependencia nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 boton" href="" role="button">Dependencias </a>
                         <!-- Inicio de submenu -->
-                          <div class="contenido text-left ">
-                            <a href="02-dependencias.html" class="">Especialistas</a>
-                            <a href="03-areas.html" class="">Áreas</a>
-                            <a href="04-vehiculos.html" class="">Vehículos</a>
-                          </div>
+                        <div class="contenido text-left ">
+                            <a href="<c:url value='/atencion-usuarios/dependencias' />" class="">Dependencias</a>
+                            <a href="<c:url value='/atencion-usuarios/areas' />" class="">Áreas</a>
+                            <a href="<c:url value='/atencion-usuarios/vehiculos' />" class="">Vehículos</a>
+                        </div>
                         <!-- Fin de submenu -->      
                     </div>
-                  
-                    <a class="nav-item nav-link text-dark p-3 selected px-4 px-md-5 mr-1" href="05-servicios.html">Servicios</a>
-                    <div class="nav-item dropSubmenu dropdown">
-                        <a class="nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 active" href=""  role="button">Usuarios </a>
+
+                    <a class="nav-dependencia nav-link text-dark p-3 selected   px-4 px-md-5 mr-1" href="05-servicios.html">Servicios</a>
+                    <div class="nav-dependencia dropSubmenu dropdown">
+                        <a class="nav-link text-dark p-3 dropdown-toggle   px-4 px-md-5 act" href=""  role="button">Usuarios </a>
                         <!-- Inicio de submenu -->
-                          <div class="contenido text-left ">
-                            <a href="06-atencionUsuarios.html" class="">Atención a usuarios</a>
-                            <a href="07-especialistas.html" class="active">Especialistas</a>
-                            <a href="08-usuarios.html" class="">Usuarios</a>
-                          </div>
+                        <div class="contenido text-left ">
+                            <a href="<c:url value='/atencion-usuarios/atencion-usuarios' />" class="">Atención a usuarios</a>
+                            <a href="<c:url value='/atencion-usuarios/especialistas' />" class="">Especialistas</a>
+                            <a href="<c:url value='/atencion-usuarios/usuarios' />" class="">Usuarios</a>
+                        </div>
                         <!-- Fin de submenu -->  
                     </div>
-                    <a class="nav-item nav-link text-dark p-3 selected mr-1 px-4 px-md-5" href="09-tickets.html">Tickets</a>
-                    <a class="nav-item nav-link text-dark p-3 selected mr-1 px-4 px-md-5" href="10-evaluacion.html">Evaluación de servicio</a>          
+                    <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/atencion-usuarios/tickets' />">Tickets</a>
+                    <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/atencion-usuarios/evaluacion-servicio' />">Evaluación de servicio</a>          
                 </div>
             </nav>
         </div>

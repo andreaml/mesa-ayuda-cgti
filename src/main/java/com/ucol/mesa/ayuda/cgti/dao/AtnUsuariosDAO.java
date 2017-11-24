@@ -1,6 +1,7 @@
 package com.ucol.mesa.ayuda.cgti.dao;
 import com.ucol.mesa.ayuda.cgti.model.AtnUsuarios;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
+import com.ucol.mesa.ayuda.cgti.model.Dependencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,10 +18,12 @@ import java.util.List;
 public class AtnUsuariosDAO {
     private ConexionBD conexionBD;
     private Connection connection;
+    private DependenciaDAO dependenciaDAO;
 
     public AtnUsuariosDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) throws SQLException {
         System.out.println(jdbcURL);
         conexionBD = new ConexionBD(jdbcURL, jdbcUsername, jdbcPassword);
+        dependenciaDAO = new DependenciaDAO(jdbcURL, jdbcUsername, jdbcPassword);
     }
 
     //Agregar nombreUsuario
@@ -35,7 +38,7 @@ public class AtnUsuariosDAO {
         statement.setString(3, atnusuarios.getNombre2());
         statement.setString(4, atnusuarios.getApellidoP());
         statement.setString(5, atnusuarios.getApellidoM());
-        statement.setInt(6, atnusuarios.getDependencia());
+        statement.setInt(6, atnusuarios.getDependenciaInt());
         statement.setInt(7, atnusuarios.getNumTrabajador());
         statement.setString(8, atnusuarios.getContrasenia());
 
@@ -61,9 +64,9 @@ public class AtnUsuariosDAO {
             String segundo_nombre = resulSet.getString("segundo_nombre");
             String apellido_paterno = resulSet.getString("apellido_paterno");
             String apellido_materno = resulSet.getString("apellido_materno");
-            int dependencia = resulSet.getInt("dependencia");
+            //int dependencia = resulSet.getInt("dependencia");
+            Dependencia dependencia= dependenciaDAO.obtenerPorId(resulSet.getInt("dependencia"));
             int num_trabajador = resulSet.getInt("num_trabajador");
-            String contrasenia = resulSet.getString("contrasenia");
 
             AtnUsuarios atnusuarios = new AtnUsuarios(correo, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, dependencia, num_trabajador);
             listaAtnUsuarios.add(atnusuarios);
@@ -84,7 +87,8 @@ public class AtnUsuariosDAO {
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            atnusuarios = new AtnUsuarios(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), res.getInt("dependencia"), res.getInt("num_trabajador"));
+            Dependencia dependencia= dependenciaDAO.obtenerPorId(res.getInt("dependencia"));            
+            atnusuarios = new AtnUsuarios(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), dependencia, res.getInt("num_trabajador"));
         }
         res.close();
         conexionBD.desconectar();
@@ -104,7 +108,7 @@ public class AtnUsuariosDAO {
         statement.setString(3, atnusuarios.getNombre2());
         statement.setString(4, atnusuarios.getApellidoP());
         statement.setString(5, atnusuarios.getApellidoM());
-        statement.setInt(6, atnusuarios.getDependencia());
+        statement.setInt(6, atnusuarios.getDependenciaInt());
         statement.setInt(7, atnusuarios.getNumTrabajador());
         statement.setString(8, atnusuarios.getContrasenia());
         statement.setString(9, atnusuarios.getCorreo());

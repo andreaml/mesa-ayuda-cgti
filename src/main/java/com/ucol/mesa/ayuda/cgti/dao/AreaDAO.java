@@ -1,6 +1,7 @@
 package com.ucol.mesa.ayuda.cgti.dao;
 import com.ucol.mesa.ayuda.cgti.model.Area;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
+import com.ucol.mesa.ayuda.cgti.model.Dependencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,10 +18,12 @@ import java.util.List;
 public class AreaDAO {
     private ConexionBD conexionBD;
     private Connection connection;
-
+    private DependenciaDAO dependenciaDAO;
+    
     public AreaDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) throws SQLException {
         System.out.println(jdbcURL);
         conexionBD = new ConexionBD(jdbcURL, jdbcUsername, jdbcPassword);
+        dependenciaDAO = new DependenciaDAO(jdbcURL, jdbcUsername, jdbcPassword);
     }
 
     //Agregar Area
@@ -32,7 +35,7 @@ public class AreaDAO {
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, area.getId_area());
         statement.setString(2, area.getNombreArea());
-        statement.setInt(3, area.getDependencia());
+        statement.setInt(3, area.getDependenciaInt());
 
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
@@ -53,8 +56,9 @@ public class AreaDAO {
         while (resulSet.next()) {
             int id_area = resulSet.getInt("id_area");
             String nombreArea = resulSet.getString("nombre_area");
-            int dependencia = resulSet.getInt("dependencia");
-
+            //int dependencia = resulSet.getInt("dependencia");
+            Dependencia dependencia = dependenciaDAO.obtenerPorId(resulSet.getInt("dependencia"));
+            
             Area area = new Area(id_area, nombreArea, dependencia);
             listaArea.add(area);
         }
@@ -74,6 +78,7 @@ public class AreaDAO {
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
+            Dependencia dependencia = dependenciaDAO.obtenerPorId(res.getInt("dependencia"));
             area = new Area(res.getInt("id_area"), res.getString("nombre_area"), res.getInt("dependencia"));
         }
         res.close();
@@ -83,7 +88,7 @@ public class AreaDAO {
     }
     
     //Actualizar
-    public boolean actualizar(Area area) throws SQLException {
+    public boolean actualizar(Area area, int id_areaVieja) throws SQLException {
         boolean rowActualizar = false;
         String sql = "UPDATE AREA SET id_area=?, nombre_area=?, dependencia=? WHERE id_area=?";
         conexionBD.conectar();
@@ -91,9 +96,8 @@ public class AreaDAO {
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, area.getId_area());
         statement.setString(2, area.getNombreArea());
-        statement.setInt(3, area.getDependencia());
-        statement.setInt(4, area.getId_area());
-        
+        statement.setInt(3, area.getDependenciaInt());
+        statement.setInt(8, id_areaVieja);
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();
         conexionBD.desconectar();

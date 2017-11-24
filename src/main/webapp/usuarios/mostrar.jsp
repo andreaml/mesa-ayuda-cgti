@@ -7,6 +7,8 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="shortcut icon" href="<c:url value='/images/favicon.ico' />" type="image/x-icon">
+        <link rel="icon" href="<c:url value='/images/favicon.ico' />" type="image/x-icon">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet"  href="<c:url value='/css/font-awesome.css' />">
@@ -36,42 +38,43 @@
                 </div> 
             
                 <!-- Barra de menu -->
-                <div class="col-7 col-md-12 px-0 mt-lg-3">
-                    <nav class=" container nav navbar mr-0 mx-lg-auto pt-0 px-0 navbar-expand-lg navbar-light ">
-                        <button class="navbar-toggler align-self-center ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                            <a class="nav-item nav-link text-dark p-3 px-4 px-md-5 selected mr-1" href="01-inicio.html">Inicio</a>
-                            
-                            <div class="nav-item dropSubmenu dropdown">
-                            <a class="nav-item nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 boton" href="" role="button">Dependencias </a>
+            <div class="col-7 col-md-12 px-0 mt-lg-3">
+                <nav class=" container nav navbar mr-0 mx-lg-auto pt-0 px-0 navbar-expand-lg navbar-light ">
+                    <button class="navbar-toggler align-self-center ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                      
+                    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                        <a class="nav-dependencia nav-link text-dark p-3 px-4 px-md-5 selected mr-1" href="<c:url value='/atencion-usuarios' />">Inicio</a>
+          
+                        <div class="nav-dependencia dropSubmenu dropdown">
+                            <a class="nav-dependencia nav-link text-dark p-3 dropdown-toggle px-4 px-md-5 boton" href="" role="button">Dependencias </a>
                             <!-- Inicio de submenu -->
-                            <div class="contenido text-left ">
-                                <a href="<c:url value='/dependencias' />" class="">Dependencias</a>
-                                <a href="<c:url value='/AreaServlet' />" class="">Áreas</a>
-                                <a href="<c:url value='/vehiculo' />" class="">Vehículos</a>
-                            </div>
+                              <div class="contenido text-left ">
+                                <a href="<c:url value='/atencion-usuarios/dependencias' />" class="">Dependencias</a>
+                                <a href="<c:url value='/atencion-usuarios/areas' />" class="">Áreas</a>
+                                <a href="<c:url value='/atencion-usuarios/vehiculos' />" class="">Vehículos</a>
+                              </div>
                             <!-- Fin de submenu -->      
                         </div>
-                            
-                            <a class="nav-item nav-link text-dark p-3 selected px-4 px-md-5 mr-1" href="05-servicios.html">Servicios</a>
-                            <div class="nav-item dropSubmenu dropdown">
-                            <a class="nav-link text-dark p-3 dropdown-toggle px-4 px-md-5" href=""  role="button">Usuarios </a>
+                      
+                        <a class="nav-dependencia nav-link text-dark p-3 selected   px-4 px-md-5 mr-1" href="<c:url value='/atencion-usuarios/servicios' />">Servicios</a>
+                        <div class="nav-dependencia dropSubmenu dropdown">
+                            <a class="nav-link text-dark p-3 dropdown-toggle   px-4 px-md-5 act" href=""  role="button">Usuarios </a>
                             <!-- Inicio de submenu -->
-                            <div class="contenido text-left ">
-                                <a href="<c:url value='/atencion-usuarios' />" class="">Atención a usuarios</a>
-                                <a href="<c:url value='/especialista' />" class="">Especialistas</a>
-                                <a href="<c:url value='/usuario' />" class="">Usuarios</a>
-                            </div>
+                              <div class="contenido text-left ">
+                                <a href="<c:url value='/atencion-usuarios/atencion-usuarios' />" class="">Atención a usuarios</a>
+                                <a href="<c:url value='/atencion-usuarios/especialistas' />" class="">Especialistas</a>
+                                <a href="<c:url value='/atencion-usuarios/usuarios' />" class="">Usuarios</a>
+                              </div>
                             <!-- Fin de submenu -->  
                         </div>
-                            <a class="nav-item nav-link text-dark p-3 selected mr-1 px-4 px-md-5" href="<c:url value='/tickets' />">Tickets</a>
-                            <a class="nav-item nav-link text-dark p-3 selected mr-1 px-4 px-md-5" href="<c:url value='/evaluacionServicio' />">Evaluación de servicio</a>          
-                        </div>
-                    </nav>
-                </div>
-                <!-- Fin de barra de menu -->
+                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/atencion-usuarios/tickets' />">Tickets</a>
+                        <a class="nav-dependencia nav-link text-dark p-3 selected mr-1  px-4 px-md-5" href="<c:url value='/atencion-usuarios/evaluacion-servicio' />">Evaluación de servicio</a>          
+                    </div>
+                </nav>
+            </div>
+            <!-- Fin de barra de menu -->
             </div>
         </div>  
         <!-- Fin encabezado 2 -->
@@ -122,6 +125,7 @@
                     <th scope="col">Nombre completo</th>
                     <th scope="col">Tipo de usuario </th>
                     <th scope="col">Dependencia</th>
+                    <th scope="col" class="text-center">Opciones </th>
                 </tr>
             </thead>
             <tbody>
@@ -220,6 +224,7 @@
                         <form id="formEditarUsuario" action="">
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-4">Correo universitario:</label>
+                                <input type="hidden" class="form-control col-8" id="correoViejo" name="correoViejo">
                                 <input type="text" class="form-control col-8" id="correo" name="correo">
                             </div>
                             <div class="form-group row">
@@ -236,7 +241,7 @@
                             </div>
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-4">Apellido paterno:</label>
-                                <input type="text" class="form-control col-8" id="apellido_materno" name="apellido_paterno">
+                                <input type="text" class="form-control col-8" id="apellido_paterno" name="apellido_paterno">
                             </div>
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-4">Apellido materno:</label>
@@ -244,7 +249,7 @@
                             </div>
                             <div class="form-group row ">
                                 <label for="" class="col-4">Tipo de usuario: </label>
-                                <select class="form-control col-4" id="tipo">
+                                <select class="form-control col-4" id="tipo" name="tipo">
                                     <option value="Alumno">Alumno</option>
                                     <option value="Trabajador">Trabajador</option>
                                 </select> 
@@ -252,8 +257,7 @@
                                 
                             <div class="form-group row ">
                                 <label for="" class="col-4">Dependencia: </label>
-                                <select class="form-control col-8" id="selectDependencia">
-                                    
+                                <select class="form-control col-8" id="selectDependencia" name="dependencia">
                                 </select> 
                             </div>                        
                         </form>
@@ -280,11 +284,12 @@
                         </button>
                     </div>
                     <div class="modal-body p-5">
-                        ¿Realmente desea eliminar usuario <strong id="correo"></strong>?   
+                        ¿Realmente desea eliminar al usuario <strong id="idUsuario"></strong>?   
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <form id="formEliminarAtnUsuario" action="">
+                        <form id="formEliminarUsuario" action="">
+                            <input type="hidden" id="correo" name="correo">
                            <button id="btnEliminarUsuario" type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
                         </form>
                     </div>
@@ -328,22 +333,21 @@
                 
                 $("#btnEditarUsuario").unbind('click').on('click', function(){
                    console.log($("#formEditarUsuario").serialize()); 
-                   let dependencia="&dependencia="+$("#formEditarUsuario #selectDependencia").val();
                    $.ajax({
                         type: 'POST',
-                        url: './usuarios?action=editar&correo=' + $("#formEditarUsuario #correo").val(),
+                        url: './usuarios?action=editar',
                         dataType: 'json',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                        data: $("#formEditarUsuario").serialize()  + dependencia,
+                        data: $("#formEditarUsuario").serialize(),
                         success: function(data, textStatus, jqXHR){
                             // access response data
                             console.log(data, textStatus, jqXHR);
-                            $("#alertEditado #correoUsuariosNuevo").text(data.correo);
+                            $("#alertEditado #correoUsuarioNuevo").text(data.correo);
                             $("#alertEditado").toggle();
                             setTimeout(function(){
                                 $("#alertEditado").toggle();
                             }, 5000);
-                            cargaTablaUsaurios();
+                            cargarTablaUsuarios();
                         }
                     });
                 });
@@ -351,13 +355,14 @@
                 $("#btnEliminarUsuario").unbind('click').on('click', function(){
                    $.ajax({
                         type: 'POST',
-                        url: './usuarios?action=eliminar&correo=' + $("#formEliminarUsuario #correo").val(),
+                        url: './usuarios?action=eliminar',
                         dataType: 'json',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        data: $("#formEliminarUsuario").serialize(),
                         success: function(data, textStatus, jqXHR){
                             // access response data
                             console.log(data, textStatus, jqXHR);
-                            $("#alertEliminado #correoUsuariosNuevo").text(data.correo);
+                            $("#alertEliminado #correoUsuarioNuevo").text(data.correo);
                             $("#alertEliminado").toggle();
                             setTimeout(function(){
                                 $("#alertEliminado").toggle();
@@ -370,13 +375,14 @@
                 function mostrarEditarUsuario() {
                     $(".editar").unbind('click').on('click', function(){
                         let idObjUsuario = $(this).attr('data-idObjUsuario');
+                        $("#modal-editarUsuario #correoViejo").val(listaUsuarios[idObjUsuario].correo);
                         $("#modal-editarUsuario #correo").val(listaUsuarios[idObjUsuario].correo);
-                        $("#modal-editarUsuario #num_cuenta").val(listaUsuarios[idObjUsuario].num_cuenta);
-                        $("#modal-editarUsuario #primer_nombre").val(listaUsuarios[idObjUsuario].primer_nombre);
-                        $("#modal-editarUsuario #segundo_nombre").val(listaUsuarios[idObjUsuario].segundo_nombre);
-                        $("#modal-editarUsuario #apellido_paterno").val(listaUsuarios[idObjUsuario].apellido_paterno);
-                        $("#modal-editarUsuario #apellido_materno").val(listaUsuarios[idObjUsuario].apellido_materno);
-                        $("#modal-editarUsuario #selectDependencia").val(listaUsuarios[idObjUsuario].dependencia);
+                        $("#modal-editarUsuario #num_cuenta").val(listaUsuarios[idObjUsuario].numCuenta);
+                        $("#modal-editarUsuario #primer_nombre").val(listaUsuarios[idObjUsuario].nombre1);
+                        $("#modal-editarUsuario #segundo_nombre").val(listaUsuarios[idObjUsuario].nombre2);
+                        $("#modal-editarUsuario #apellido_paterno").val(listaUsuarios[idObjUsuario].apellidoP);
+                        $("#modal-editarUsuario #apellido_materno").val(listaUsuarios[idObjUsuario].apellidoM);
+                        $("#modal-editarUsuario #selectDependencia").val(listaUsuarios[idObjUsuario].dependencia.id_dependencia);
                         $("#modal-editarUsuario #tipo").val(listaUsuarios[idObjUsuario].tipo);
                     });
                 }
@@ -384,7 +390,7 @@
                 function mostrarEliminarUsuario() {
                     $(".eliminar").unbind('click').on('click', function(){
                         let idObjUsuario = $(this).attr('data-idObjUsuario');
-                        $("#modal-eliminarUsuario #num_cuenta").text(listaUsuarios[idObjUsuario].num_cuenta);
+                        $("#modal-eliminarUsuario #idUsuario").text(listaUsuarios[idObjUsuario].correo);
                         $("#modal-eliminarUsuario #correo").val(listaUsuarios[idObjUsuario].correo);
                     });
                 }
@@ -403,15 +409,15 @@
                             $.each(usuarios, function(id, usuario) {
                                 let btnEditar = '<button type="button" class="editar btn btn-info my-1" data-toggle="modal" data-target="#modal-editarUsuario" data-idObjUsuario="'+ id +'"><i class="fa fa-pencil"></i></button>';
                                 let btnEliminar = '<button type="button " class="eliminar btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarUsuario" data-idObjUsuario="'+ id +'"><i class="fa fa-trash-o"></i></button>';
-                                let nombreCompleto = usuario.primer_nombre+ " ";
-                                    nombreCompleto+= usuario.segundo_nombre+ " ";
-                                    nombreCompleto+= usuario.apellido_paterno+ " ";
-                                    nombreCompleto+= usuario.apellido_materno;
+                                let nombreCompleto = usuario.nombre1+ " ";
+                                    nombreCompleto+= usuario.nombre2+ " ";
+                                    nombreCompleto+= usuario.apellidoP+ " ";
+                                    nombreCompleto+= usuario.apellidoM;
                                 let tr = $('<tr class="text-truncate">').append(
                                     $('<td>').text(usuario.correo),                              
-                                    $('<td>').text(usuario.num_trabajador),
+                                    $('<td>').text(usuario.numCuenta),
                                     $('<td>').text(nombreCompleto),
-                                    $('<td>').text(usuario.dependencia),                              
+                                    $('<td>').text(usuario.dependencia.nombreDependencia),                              
                                     $('<td>').text(usuario.tipo),
                                     $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar + btnEliminar)
                                 ); //.appendTo('#records_table');
@@ -434,7 +440,8 @@
                             // access response data
                             $("#selectDependencia").empty();
                             $.each(dependencias, function(id, dependencia) {
-                                $('#selectDependencia').append(new Option(dependencia.nombreDependencia,dependencia.id_dependencia)); 
+                                $('#formAgregarUsuario #selectDependencia').append(new Option(dependencia.nombreDependencia,dependencia.id_dependencia));
+                                $('#formEditarUsuario #selectDependencia').append(new Option(dependencia.nombreDependencia,dependencia.id_dependencia));
                             });
                         }
                    });
