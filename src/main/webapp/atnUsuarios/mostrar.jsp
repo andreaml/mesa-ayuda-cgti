@@ -90,19 +90,19 @@
             <h3 class="text-center p-1">Usuarios tipo Atención a usuarios</h3>
             <div class="row col-12 d-flex justify-content-center align-items-center my-4 ml-0">
                 <div id="alertAgregado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
-                    Atención a usuarios <strong id="correoAtnUsuarioNuevo"></strong> agregado con éxito.
+                    Usuario <strong id="correoAtnUsuarioNuevo"></strong> agregado con éxito.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div id="alertEditado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
-                    Atención a usuarios <strong id="correoAtnUsuarioNuevo"></strong> editado con éxito.
+                    Usuario <strong id="correoAtnUsuarioNuevo"></strong> editado con éxito.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div id="alertEliminado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
-                    Atención a usuarios <strong id="correoAtnUsuarioNuevo"></strong> eliminado con éxito.
+                    Usuario <strong id="correoAtnUsuarioNuevo"></strong> eliminado con éxito.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -224,6 +224,7 @@
                         <form id="formEditarAtnUsuario" action="">
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-4">Correo universitario:</label>
+                                <input type="hidden" class="form-control col-8" id="correoViejo" name="correoViejo">
                                 <input type="text" class="form-control col-8" id="correo" name="correo">
                             </div>
                             <div class="form-group row">
@@ -249,8 +250,7 @@
                             
                             <div class="form-group row ">
                                 <label for="" class="col-4">Dependencia: </label>
-                                <select class="form-control col-8" id="selectDependencia">
-                                    
+                                <select class="form-control col-8" id="selectDependencia" name="dependencia">
                                 </select> 
                             </div>   
                         </form>
@@ -282,6 +282,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <form id="formEliminarAtnUsuario" action="">
+                            <input type="hidden" id="correoAtnUsuario" name="correo">
                             <button id="btnEliminarAtnUsuario" type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
                         </form>
                     </div>
@@ -325,19 +326,19 @@
                    console.log($("#formEditarAtnUsuario").serialize()); 
                    $.ajax({
                         type: 'POST',
-                        url: './atencion-usuarios?action=editar&correo=' + $("#formEditarAtnUsuario #correo").val(),
+                        url: './atencion-usuarios?action=editar',
                         dataType: 'json',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                         data: $("#formEditarAtnUsuario").serialize(),
                         success: function(data, textStatus, jqXHR){
                             // access response data
                             console.log(data, textStatus, jqXHR);
-                            $("#alertEditado #correoAtnUsuariosNuevo").text(data.correo);
+                            $("#alertEditado #correoAtnUsuarioNuevo").text(data.correo);
                             $("#alertEditado").toggle();
                             setTimeout(function(){
                                 $("#alertEditado").toggle();
                             }, 5000);
-                            cargaTablaAtnUsaurios();
+                            cargarTablaAtnUsuarios();
                         }
                     });
                 });
@@ -345,13 +346,14 @@
                 $("#btnEliminarAtnUsuario").unbind('click').on('click', function(){
                    $.ajax({
                         type: 'POST',
-                        url: './atencion-usuarios?action=eliminar&correo=' + $("#formEliminarAtnUsuario #correo").val(),
+                        url: './atencion-usuarios?action=eliminar',
                         dataType: 'json',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        data: $("#formEliminarAtnUsuario").serialize(),
                         success: function(data, textStatus, jqXHR){
                             // access response data
                             console.log(data, textStatus, jqXHR);
-                            $("#alertEliminado #correoAtnUsuariosNuevo").text(data.correo);
+                            $("#alertEliminado #correoAtnUsuarioNuevo").text(data.correo);
                             $("#alertEliminado").toggle();
                             setTimeout(function(){
                                 $("#alertEliminado").toggle();
@@ -364,12 +366,13 @@
                 function mostrarEditarAtnUsuario() {
                     $(".editar").unbind('click').on('click', function(){
                         let idObjAtnUsuario = $(this).attr('data-idObjAtnUsuario');
+                        $("#modal-editarAtnUsuario #correoViejo").val(listaAtnUsuarios[idObjAtnUsuario].correo);
                         $("#modal-editarAtnUsuario #correo").val(listaAtnUsuarios[idObjAtnUsuario].correo);
-                        $("#modal-editarAtnUsuario #num_trabajador").val(listaAtnUsuarios[idObjAtnUsuario].num_trabajador);
-                        $("#modal-editarAtnUsuario #primer_nombre").val(listaAtnUsuarios[idObjAtnUsuario].primer_nombre);
-                        $("#modal-editarAtnUsuario #segundo_nombre").val(listaAtnUsuarios[idObjAtnUsuario].segundo_nombre);
-                        $("#modal-editarAtnUsuario #apellido_paterno").val(listaAtnUsuarios[idObjAtnUsuario].apellido_paterno);
-                        $("#modal-editarAtnUsuario #apellido_materno").val(listaAtnUsuarios[idObjAtnUsuario].apellido_materno);
+                        $("#modal-editarAtnUsuario #num_trabajador").val(listaAtnUsuarios[idObjAtnUsuario].numTrabajador);
+                        $("#modal-editarAtnUsuario #primer_nombre").val(listaAtnUsuarios[idObjAtnUsuario].nombre1);
+                        $("#modal-editarAtnUsuario #segundo_nombre").val(listaAtnUsuarios[idObjAtnUsuario].nombre2);
+                        $("#modal-editarAtnUsuario #apellido_paterno").val(listaAtnUsuarios[idObjAtnUsuario].apellidoP);
+                        $("#modal-editarAtnUsuario #apellido_materno").val(listaAtnUsuarios[idObjAtnUsuario].apellidoM);
                         $("#modal-editarAtnUsuario #selectDependencia").val(listaAtnUsuarios[idObjAtnUsuario].dependencia.id_dependencia);
                     });
                 }
@@ -377,8 +380,8 @@
                 function mostrarEliminarAtnUsuario() {
                     $(".eliminar").unbind('click').on('click', function(){
                         let idObjAtnUsuario = $(this).attr('data-idObjAtnUsuario');
-                        $("#modal-eliminarAtnUsuario #num_trabajador").text(listaAtnUsuarios[idObjAtnUsuario].num_trabajador);
-                        $("#modal-eliminarAtnUsuario #correo").val(listaAtnUsuarios[idObjAtnUsuario].correo);
+                        $("#modal-eliminarAtnUsuario #correo").text(listaAtnUsuarios[idObjAtnUsuario].correo);
+                        $("#modal-eliminarAtnUsuario #correoAtnUsuario").val(listaAtnUsuarios[idObjAtnUsuario].correo);
                     });
                 }
                 function cargarTablaAtnUsuarios() {
@@ -396,13 +399,13 @@
                             $.each(atnUsuarios, function(id, atnUsuario) {
                                 let btnEditar = '<button type="button" class="editar btn btn-info my-1" data-toggle="modal" data-target="#modal-editarAtnUsuario" data-idObjAtnUsuario="'+ id +'"><i class="fa fa-pencil"></i></button>';
                                 let btnEliminar = '<button type="button " class="eliminar btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarAtnUsuario" data-idObjAtnUsuario="'+ id +'"><i class="fa fa-trash-o"></i></button>';
-                                let nombreCompleto = atnUsuario.primer_nombre+ " ";
-                                    nombreCompleto+= atnUsuario.segundo_nombre+ " ";
-                                    nombreCompleto+= atnUsuario.apellido_paterno+ " ";
-                                    nombreCompleto+= atnUsuario.apellido_materno;
+                                let nombreCompleto = atnUsuario.nombre1 + " ";
+                                    nombreCompleto+= atnUsuario.nombre2 + " ";
+                                    nombreCompleto+= atnUsuario.apellidoP + " ";
+                                    nombreCompleto+= atnUsuario.apellidoM;
                                 let tr = $('<tr class="text-truncate">').append(
                                     $('<td>').text(atnUsuario.correo),                              
-                                    $('<td>').text(atnUsuario.num_trabajador),
+                                    $('<td>').text(atnUsuario.numTrabajador),
                                     $('<td>').text(nombreCompleto),
                                     $('<td>').text(atnUsuario.dependencia.nombreDependencia),                               
                                     $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar + btnEliminar)
@@ -424,9 +427,11 @@
                         dataType: 'json',
                         success: function(dependencias, textStatus, jqXHR){
                             // access response data
-                            $("#selectDependencia").empty();
+                            $("#formAgregarAtnUsuario #selectDependencia").empty();
+                            $("#formEditarAtnUsuario #selectDependencia").empty();
                             $.each(dependencias, function(id, dependencia) {
-                                $('#selectDependencia').append(new Option(dependencia.nombreDependencia,dependencia.id_dependencia)); 
+                                $("#formAgregarAtnUsuario #selectDependencia").append(new Option(dependencia.nombreDependencia,dependencia.id_dependencia)); 
+                                $("#formEditarAtnUsuario #selectDependencia").append(new Option(dependencia.nombreDependencia,dependencia.id_dependencia)); 
                             });
                         }
                    });
