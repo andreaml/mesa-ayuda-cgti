@@ -28,19 +28,19 @@ public class AtnUsuariosDAO {
 
     //Agregar nombreUsuario
     public boolean insertar(AtnUsuarios atnusuarios) throws SQLException {
-        String sql = "INSERT INTO ATN_USUARIOS(correo, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, dependencia, num_trabajador, contrasenia) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO ATN_USUARIOS(correo, num_trabajador, dependencia, contrasenia, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno) VALUES (?,?,?,?,?,?,?,?)";
         System.out.println(atnusuarios.getCorreo());
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, atnusuarios.getCorreo());
-        statement.setString(2, atnusuarios.getNombre1());
-        statement.setString(3, atnusuarios.getNombre2());
-        statement.setString(4, atnusuarios.getApellidoP());
-        statement.setString(5, atnusuarios.getApellidoM());
-        statement.setInt(6, atnusuarios.getDependenciaInt());
-        statement.setInt(7, atnusuarios.getNumTrabajador());
-        statement.setString(8, atnusuarios.getContrasenia());
+        statement.setInt(2, atnusuarios.getNumTrabajador());
+        statement.setInt(3, atnusuarios.getDependenciaInt());
+        statement.setString(4, atnusuarios.getCorreo());
+        statement.setString(5, atnusuarios.getNombre1());
+        statement.setString(6, atnusuarios.getNombre2());
+        statement.setString(7, atnusuarios.getApellidoP());
+        statement.setString(8, atnusuarios.getApellidoM());
 
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
@@ -97,21 +97,21 @@ public class AtnUsuariosDAO {
     }
     
     //Actualizar
-    public boolean actualizar(AtnUsuarios atnusuarios) throws SQLException {
+    public boolean actualizar(AtnUsuarios atnusuarios, String correoViejo) throws SQLException {
         boolean rowActualizar = false;
-        String sql = "UPDATE ATN_USUARIOS SET correo=?, primer_nombre=?, segundo_nombre=?, apellido_paterno=?, apellido_materno=?, dependencia=?, num_trabajador=?, contrasenia=? WHERE correo=?";
+        String sql = "UPDATE ATN_USUARIOS SET correo=?, num_trabajador=?, dependencia=?, contrasenia=?, primer_nombre=?, segundo_nombre=?, apellido_paterno=?, apellido_materno=? WHERE correo=?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, atnusuarios.getCorreo());
-        statement.setString(2, atnusuarios.getNombre1());
-        statement.setString(3, atnusuarios.getNombre2());
-        statement.setString(4, atnusuarios.getApellidoP());
-        statement.setString(5, atnusuarios.getApellidoM());
-        statement.setInt(6, atnusuarios.getDependenciaInt());
-        statement.setInt(7, atnusuarios.getNumTrabajador());
-        statement.setString(8, atnusuarios.getContrasenia());
-        statement.setString(9, atnusuarios.getCorreo());
+        statement.setInt(2, atnusuarios.getNumTrabajador());
+        statement.setInt(3, atnusuarios.getDependenciaInt());
+        statement.setString(4, atnusuarios.getCorreo());
+        statement.setString(5, atnusuarios.getNombre1());
+        statement.setString(6, atnusuarios.getNombre2());
+        statement.setString(7, atnusuarios.getApellidoP());
+        statement.setString(8, atnusuarios.getApellidoM());
+        statement.setString(9, correoViejo);
         
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();
