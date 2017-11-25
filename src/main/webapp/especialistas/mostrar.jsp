@@ -89,19 +89,19 @@
   <section class="container mt-5">
     <h3 class="text-center p-1">Usuarios tipo Especialistas</h3>
             <div id="alertAgregado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
-                Dependencia <strong id="nombreDependenciaNueva"></strong> agregada con éxito.
+                Especialista <strong id="correoEspecialistaNuevo"></strong> agregado con éxito.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div id="alertEditado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
-                Dependencia <strong id="nombreDependenciaNueva"></strong> editada con éxito.
+                Especialista <strong id="correoEspecialistaNuevo"></strong> editado con éxito.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div id="alertEliminado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
-                Dependencia <strong id="nombreDependenciaNueva"></strong> eliminada con éxito.
+                Especialista <strong id="correoEspecialistaNuevo"></strong> eliminado con éxito.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -138,61 +138,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="text-truncate"> 
-            <td>usuario@ucol.mx</td>
-            <td>1234</td>
-            <td>Lorem ipsum, dolor sit amet consectetur elit</td>
-            <td>Lorem ipsum, dolor sit</td>
-            <td>Área 1</td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button " class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarEspecialista"><i class="fa fa-pencil"></i></button>              
-              <button type="button " class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarEspecialista"><i class="fa fa-trash-o"></i></button>
-            </td>
-          </tr>
-          <tr>
-              <td>usuario@ucol.mx</td>
-              <td>1234</td>
-              <td>Lorem ipsum, dolor sit amet consectetur elit</td>
-              <td>Lorem ipsum, dolor sit</td>
-              <td>Área 2</td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarEspecialista"><i class="fa fa-pencil"></i></button>
-              <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarEspecialista"><i class="fa fa-trash-o"></i></button>
-            </td>
-          </tr>
-          <tr>
-              <td>usuario@ucol.mx</td>
-              <td>1234</td>
-              <td>Lorem ipsum, dolor sit amet consectetur elit</td>
-              <td>Lorem ipsum, dolor sit</td>
-              <td>Área 3</td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarEspecialista"><i class="fa fa-pencil"></i></button>
-              <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarEspecialista"><i class="fa fa-trash-o"></i></button>
-            </td>
-          </tr>
-          <tr>
-              <td>usuario@ucol.mx</td>
-              <td>1234</td>
-              <td>Lorem ipsum, dolor sit amet consectetur elit</td>
-              <td>Lorem ipsum, dolor sit</td>
-              <td>Área 4</td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarEspecialista"><i class="fa fa-pencil"></i></button>
-              <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarEspecialista"><i class="fa fa-trash-o"></i></button>
-            </td>
-          </tr>
-          <tr>
-              <td>usuario@ucol.mx</td>
-              <td>1234</td>
-              <td>Lorem ipsum, dolor sit amet consectetur elit</td>
-              <td>Lorem ipsum, dolor sit</td>
-              <td>Área 5</td>
-              <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-                <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarEspecialista"><i class="fa fa-pencil"></i></button>
-                <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarEspecialista"><i class="fa fa-trash-o"></i></button>
-              </td>
-          </tr> 
         </tbody>
       </table>
   
@@ -494,9 +439,11 @@
                     dataType: 'json',
                     success: function(areas, textStatus, jqXHR){
                         // access response data
-                        $("#selectDependencia").empty();
+                        $("#formAgregarEspecialista #selectArea").empty();
+                        $("#formEditarEspecialista #selectArea").empty();
                         $.each(areas, function(id, area) {
-                            $('#selectArea').append(new Option(area.nombreArea,area.id_area)); 
+                            $('#formAgregarEspecialista #selectArea').append(new Option(area.nombreArea,area.id_area)); 
+                            $('#formEditarEspecialista #selectArea').append(new Option(area.nombreArea,area.id_area)); 
                         });
                     }
                });
