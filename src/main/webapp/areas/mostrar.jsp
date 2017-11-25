@@ -153,19 +153,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="text-truncate"> 
-            <td>Área 1 </td>
-            <td>Dependencia 1</td>
-            <td>
-                <div>Lorem ipsum  <a href="" data-toggle="modal" data-target="#modal-editarTipoServicio"> <i class="fa fa-pencil" aria-hidden="true"></i> </a></div>
-                <div>Lorem ipsum  <a href="" data-toggle="modal" data-target="#modal-editarTipoServicio"> <i class="fa fa-pencil" aria-hidden="true"></i> </a></div>                 
-            </td>
-            <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-              <button type="button " class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarArea"><i class="fa fa-pencil"></i></button>              
-              <button type="button " class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarArea"><i class="fa fa-trash-o"></i></button>
-              <button type="button" class="btn btn-success my-1" data-toggle="modal" data-target="#modal-agregarTipoServicio"><i class="fa fa-plus-circle"></i> Tipo de servicio</button>            
-            </td>
-          </tr>
         </tbody>
       </table>
   
