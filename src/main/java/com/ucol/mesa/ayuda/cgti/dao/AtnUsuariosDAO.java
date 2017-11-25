@@ -97,7 +97,7 @@ public class AtnUsuariosDAO {
     }
     
     //Actualizar
-    public boolean actualizar(AtnUsuarios atnusuarios) throws SQLException {
+    public boolean actualizar(AtnUsuarios atnusuarios, String correoViejo) throws SQLException {
         boolean rowActualizar = false;
         String sql = "UPDATE ATN_USUARIOS SET correo=?, num_trabajador=?, dependencia=?, contrasenia=?, primer_nombre=?, segundo_nombre=?, apellido_paterno=?, apellido_materno=? WHERE correo=?";
         conexionBD.conectar();
@@ -111,7 +111,7 @@ public class AtnUsuariosDAO {
         statement.setString(6, atnusuarios.getNombre2());
         statement.setString(7, atnusuarios.getApellidoP());
         statement.setString(8, atnusuarios.getApellidoM());
-        statement.setString(9, atnusuarios.getCorreo());
+        statement.setString(9, correoViejo);
         
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();
