@@ -64,12 +64,19 @@
 <!-- Fin encabezado 2 --> 
  
  <!-- Formulario -->
- <section class="container-fluid mt-4  ">
+ <section class="container-fluid mt-4 modal" id="modal-editarEvaluacion">
     <h3 class="text-center p-1 mb-3">Evaluación de servicio</h3>
-    
+
     <div class="container align-items-center d-flex flex-column col-12 col-lg-8 p-1 border border-dark">
+        
+        <div id="alertEditado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+            Tus comentarios del ticket <strong id="nombreEvaluacionNueva"></strong> han sido enviados satisfactoriamente. Gracias por utilizar el Sistema de Mesa de Ayuda CGTI.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
       <h3 class="align-self-center my-4 text-center">Valoración de servicio TI </h3> 
-      <form action="" class="col-md-10 col-12 justify-content-center" name="form1" >
+      <form action="" class="col-md-10 col-12 justify-content-center" name="form1" id="formAgregarEvaluacion">
           
           <fieldset class="form-group col-12">
               <label for="">¿Cómo calificaría la solución que se le dió a su solicitud de servicio?</label>  
@@ -238,16 +245,17 @@
         
           <div class="form-group">
               <label for="">Quejas o sugerencias</label>
-              <textarea class="form-control" id="" rows="4"></textarea>
+              <textarea class="form-control" id="comentarios" name="comentarios" rows="4"></textarea>
           </div>
 
           <div class="form-group row mt-3">
               <label for="" class="col-md-4 col-12 ">Número de ticket: </label>
-              <input type="text" id="" class="form-control col-md-4 col-6 ml-3"> 
+              <input type="text" id="idTicket" name="id_ticket" class="form-control col-md-4 col-6 ml-3"> 
           </div>
 
           <div class="text-right mt-4 mb-5">
-              <button type="button" onclick="Suma(this.form)" class="btn btn-info">Enviar evaluación </button>
+              <input type="hidden" id="satisfaccion" name="estado_satisfaccion">
+              <button id="btnEditarEvaluacion" type="button" onclick="Suma(this.form)" class="btn btn-info" data-dismiss="modal">Enviar evaluación </button>
           </div>
       </form>
     </div>
@@ -271,25 +279,87 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="<c:url value='/js/bootstrap.js' />"></script>
     <script>
-function Suma(formulario){
-var total=0;
-var promedio=0;
-var checados=0;
-var nombre="";
-for(i=0;i<formulario.elements.length;i++){
-    if(formulario.elements[i].type=="radio" && nombre!=formulario.elements[i].name){
-        nombre=formulario.elements[i].name;
-        grupo=document.getElementsByName(nombre);
-        for(j=0;j<grupo.length;j++){
-            if(grupo[j].checked){
-                total+=parseInt(grupo[j].value);
+    $(function(){
+            var listaTickets;
+            cargarTablaEvaluacion();
+    $("#btnEditarEvaluacion").unbind('click').on('click', ()=>{
+               console.log($("#formEditarEvaluacion").serialize()); 
+               $.ajax({
+                    type: 'POST',
+                    url: './atencion-usuarios/tickets?action=editarEva',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formEditarEvaluacion").serialize(),
+                    success: function(data, textStatus, jqXHR){
+                        // access response data
+                        console.log(data, textStatus, jqXHR);
+                        $("#alertEditado #nombreEvaluacionNueva").text(data.id_ticket);
+                        $("#alertEditado").toggle();
+                        setTimeout(function(){
+                            $("#alertEditado").toggle();
+                        }, 5000);
+                        //cargarTablaEvaluacion();
+                    }
+                });
+            });    
+    
+    
+    function Suma(formulario){
+    var total=0;
+    var promedio=0;
+    var nombre="";
+    for(i=0;i<formulario.elements.length;i++){
+        if(formulario.elements[i].type=="radio" && nombre!=formulario.elements[i].name){
+            nombre=formulario.elements[i].name;
+            grupo=document.getElementsByName(nombre);
+            for(j=0;j<grupo.length;j++){
+                if(grupo[j].checked){
+                    total+=parseInt(grupo[j].value);
+                }
             }
         }
     }
-}
-    promedio = Math.round(total/5);
-    console.log(promedio);
-}
-</script>
+        promedio = Math.round(total/5);
+        //console.log(promedio);
+        return promedio;
+    }
+    
+    function mostrarEditarEvaluacion() {
+                $(".editar").unbind('click').on('click', function(){
+                    let idObjEvaluacion = $(this).attr('data-idObjEvaluacion');
+                    $("#modal-editarEvaluacion #comentarios").val(listaTickets[idObjEvaluacion].comentarios);
+                    $("#modal-editarEvaluacion #formAgregarEvaluacion").val(listaTickets[idObjEvaluacion].estado_satisfaccion);      
+                });
+            }
+            
+    function cargarTablaEvaluacion() {
+                $.ajax({
+                    type: 'GET',
+                    url: './atencion-usuarios/tickets?action=mostrar',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formEditarEvaluacion").serialize(),
+                    success: function(tickets, textStatus, jqXHR){
+                        //access response data
+                        console.log(tickets, textStatus, jqXHR);
+                        listaTickets = tickets;
+                        $("tbody").empty();
+                        $.each(tickets, function(id, tickets) {
+                            let btnEditar = '<button type="button" class="editar btn btn-info my-1" data-toggle="modal" data-target="#modal-editarEvaluacion" data-idObjEvaluacion="'+ id +'"><i class="fa fa-pencil"></i></button>';
+                            let tr = $('<tr class="text-truncate">').append(
+                                $('<td>').text(tickets.id_ticket),
+                                $('<td>').text(tickets.comentarios),
+                                $('<td>').text(Suma(tickets.estado_satisfaccion)),
+                                $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar)
+                            ); //.appendTo('#records_table');
+                            $("table").append(tr);
+                            //console.log(tr.wrap('<tr>').html());
+                        });
+                        mostrarEditarEvaluacion();
+                    }
+                });
+            }
+        });
+    </script>
   </body>
 </html>

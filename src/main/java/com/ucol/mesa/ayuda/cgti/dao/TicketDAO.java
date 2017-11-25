@@ -50,6 +50,7 @@ public class TicketDAO {
         return rowInserted;
     }
     
+    
     // listar todos los productos
     public List<Ticket> listarTickets() throws SQLException {
 
@@ -139,6 +140,21 @@ public class TicketDAO {
         statement.setInt(10, ticket.getEstadoSatisfaccion());
         statement.setInt(11, ticket.getEstadoTicket());
         
+        rowActualizar = statement.executeUpdate() > 0;
+        statement.close();
+        conexionBD.desconectar();
+        return rowActualizar;
+    }
+    
+    public boolean actualizarEva(Ticket eva) throws SQLException {
+        boolean rowActualizar = false;
+        String sql = "UPDATE TICKETS SET comentarios=?, estado_satisfaccion=? WHERE id_ticket=?";
+        conexionBD.conectar();
+        connection = conexionBD.getJdbcConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, eva.getComentarios());
+        statement.setInt(2, eva.getEstadoSatisfaccion());
+        statement.setInt(3, eva.getId_ticket());
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();
         conexionBD.desconectar();

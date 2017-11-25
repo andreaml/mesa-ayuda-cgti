@@ -141,7 +141,20 @@ public class TicketServlet extends HttpServlet {
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(ticket));
     }
-
+    
+    private void editarEva(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        
+        Ticket eva = new Ticket(request.getParameter("comentarios"), Integer.parseInt(request.getParameter("estado_satisfaccion")));
+        //eva.setId_ticket(Integer.parseInt(request.getParameter("id_ticket")));
+        ticketDAO.actualizarEva(eva);
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(eva));
+    }
+    
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         Ticket ticket = ticketDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_ticket")));
         ticketDAO.eliminar(ticket);
