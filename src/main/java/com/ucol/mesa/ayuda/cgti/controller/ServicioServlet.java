@@ -78,7 +78,7 @@ public class ServicioServlet extends HttpServlet {
             } catch (SQLException e) {
                 e.getStackTrace();
                 PrintWriter out = response.getWriter();
-                out.print(e.getSQLState());
+                out.print(e.getSQLState() + ' ' + e.getErrorCode() + ' ' + e.getMessage());
             }
         }else{
             try {
@@ -104,13 +104,12 @@ public class ServicioServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Servicio servicio = new Servicio(Integer.parseInt(request.getParameter("id_servicio")), request.getParameter("nombre_servicio"), request.getParameter("especialista"), request.getParameter("id_vehiculo"), Integer.parseInt(request.getParameter("nivel_gasolina_inicio")), request.getParameter("fecha"), request.getParameter("hora"));
+        Servicio servicio = new Servicio(request.getParameter("nombre_servicio"), request.getParameter("especialista"), request.getParameter("id_vehiculo"), Integer.parseInt(request.getParameter("nivel_gas_inicio")), request.getParameter("fecha"), request.getParameter("hora"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());
-        //servicioDAO.insertar(servicio);
-
+        servicioDAO.insertar(servicio);
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(servicio));
     }

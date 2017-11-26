@@ -2,6 +2,7 @@ package com.ucol.mesa.ayuda.cgti.dao;
 import com.ucol.mesa.ayuda.cgti.model.Servicio;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
 import com.ucol.mesa.ayuda.cgti.model.Especialista;
+import com.ucol.mesa.ayuda.cgti.model.Vehiculo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,25 +20,29 @@ public class ServicioDAO {
     private ConexionBD conexionBD;
     private Connection connection;
     private EspecialistaDAO especialistaDAO;
+    private VehiculoDAO vehiculoDAO;
 
     public ServicioDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) throws SQLException {
         System.out.println(jdbcURL);
         conexionBD = new ConexionBD(jdbcURL, jdbcUsername, jdbcPassword);
         especialistaDAO = new EspecialistaDAO(jdbcURL, jdbcUsername, jdbcPassword);
+        vehiculoDAO = new VehiculoDAO(jdbcURL, jdbcUsername, jdbcPassword);
     }
 
     //Agregar servicio
     public boolean insertar(Servicio servicio) throws SQLException {
-        String sql = "INSERT INTO SERVICIO(nombre_servicio, especialista, id_vehiculo, nivel_gas_inicio, nivel_gas_fin) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO SERVICIO(nombre_servicio, id_vehiculo, nivel_gas_inicio, nivel_gas_fin, especialista, fecha, hora) VALUES (?,?,?,?,?,?,?)";
         System.out.println(servicio.getId_servicio());
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, servicio.getNombreServicio());
-        statement.setString(2, servicio.getEspecialistaString());
-        statement.setString(3, servicio.getId_vehiculo());
-        statement.setInt(4, servicio.getNivelGasolinaInicio());
-        statement.setInt(5, servicio.getNivelGasolinaFin());
+        statement.setString(2, servicio.getId_vehiculo());
+        statement.setInt(3, servicio.getNivelGasolinaInicio());
+        statement.setInt(4, servicio.getNivelGasolinaFin());
+        statement.setString(5, servicio.getEspecialistaString());
+        statement.setString(6, servicio.getFecha());
+        statement.setString(7, servicio.getHora());
 
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
@@ -52,21 +57,22 @@ public class ServicioDAO {
         String sql = "SELECT * FROM SERVICIO";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
-        Statement statement = connection.createStatement();
-        ResultSet resulSet = statement.executeQuery(sql);
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resulSet = statement.executeQuery();
 
         while (resulSet.next()) {
             int id_servicio = resulSet.getInt("id_servicio");
             String nombreServicio = resulSet.getString("nombre_servicio");
             //int dependencia = resulSet.getInt("dependencia");
             Especialista especialista= especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
-            String id_vehiculo = resulSet.getString("id_vehiculo");
-            int nivelGasolinaInicio = resulSet.getInt("nivel_gasolina_inicio");
-            int nivelGasolinaFin = resulSet.getInt("nivelGasolinaFin");
+            Vehiculo vehiculo = vehiculoDAO.obtenerPorId(resulSet.getString("id_vehiculo"));
+            int nivelGasolinaInicio = resulSet.getInt("nivel_gas_inicio");
+            int nivelGasolinaFin = resulSet.getInt("nivel_gas_fin");
             String fecha = resulSet.getString("fecha");
             String hora = resulSet.getString("hora");
 
-            Servicio servicio = new Servicio(id_servicio, nombreServicio, especialista, id_vehiculo, nivelGasolinaInicio, fecha, hora);
+            Servicio servicio = new Servicio(id_servicio, nombreServicio, especialista, vehiculo, nivelGasolinaInicio, fecha, hora);
+            servicio.setNivelGasolinaFin(nivelGasolinaFin);
             listaServicio.add(servicio);
         }
         conexionBD.desconectar();
@@ -89,13 +95,14 @@ public class ServicioDAO {
             String nombreServicio = resulSet.getString("nombreServicio");
             //String especialista = resulSet.getString("especialista");
             Especialista especialista= especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
-            String id_vehiculo = resulSet.getString("id_vehiculo");
+            Vehiculo vehiculo = vehiculoDAO.obtenerPorId(resulSet.getString("id_vehiculo"));
             int nivelGasolinaInicio = resulSet.getInt("nivel_gasolina_inicio");
             int nivelGasolinaFin = resulSet.getInt("nivelGasolinaFin");
             String fecha = resulSet.getString("fecha");
             String hora = resulSet.getString("hora");
 
-            Servicio servicio = new Servicio(id_servicio, nombreServicio, especialista, id_vehiculo, nivelGasolinaInicio,fecha, hora);
+            Servicio servicio = new Servicio(id_servicio, nombreServicio, especialista, vehiculo, nivelGasolinaInicio, fecha, hora);
+            servicio.setNivelGasolinaFin(nivelGasolinaFin);
             listaServicioPorEspecialista.add(servicio);
         }
         conexionBD.desconectar();
