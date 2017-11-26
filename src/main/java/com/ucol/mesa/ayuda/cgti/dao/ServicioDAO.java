@@ -110,7 +110,7 @@ public class ServicioDAO {
     }
     
     //Obtener por id
-    public Servicio obtenerPorId(Integer id_servicio) throws SQLException {
+    public Servicio obtenerPorId(int id_servicio) throws SQLException {
         Servicio servicio = null;
 
         String sql = "SELECT * FROM SERVICIO WHERE id_servicio=?";
@@ -122,7 +122,8 @@ public class ServicioDAO {
         ResultSet res = statement.executeQuery();
         if (res.next()) {
             Especialista especialista=especialistaDAO.obtenerPorId(res.getString("especialista"));
-            servicio = new Servicio(res.getInt("id_servicio"), res.getString("nombreServicio"), especialista, res.getString("id_vehiculo"), res.getInt("nivel_gasolina_inicio"), res.getInt("nivel_gasolina_fin"), res.getString("fecha"), res.getString("hora"));
+            servicio = new Servicio(res.getInt("id_servicio"), res.getString("nombre_servicio"), especialista, res.getString("id_vehiculo"), res.getInt("nivel_gas_inicio"), res.getInt("nivel_gas_fin"), res.getString("fecha"), res.getString("hora"));
+            System.out.println(servicio);
         }
         res.close();
         conexionBD.desconectar();

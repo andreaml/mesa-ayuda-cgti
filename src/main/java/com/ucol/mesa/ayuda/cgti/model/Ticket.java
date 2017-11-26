@@ -47,6 +47,11 @@ public class Ticket {
         this.hora= hora;
         this.estadoTicket= estadoTicket;
     }
+    
+    public Ticket(String comentarios, int estadoSatisfaccion){
+        this.comentarios= comentarios;
+        this.estadoSatisfaccion= estadoSatisfaccion;
+    }
 
     public int getId_ticket() {
         return id_ticket;

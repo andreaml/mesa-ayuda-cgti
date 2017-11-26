@@ -70,6 +70,8 @@ public class TicketServlet extends HttpServlet {
                     case "editar":
                         editar(request, response);
                         break;
+                    case "editarEva":
+                        editarEva(request, response);
                     case "eliminar":
                         eliminar(request, response);
                         break;
@@ -80,8 +82,10 @@ public class TicketServlet extends HttpServlet {
                         break;
                 }
             } catch (SQLException e) {
+                Gson jsonBuilder = new Gson();
+        
                 PrintWriter out = response.getWriter();
-                out.print(e.getSQLState());
+                out.print(jsonBuilder.toJson(e));
             }
         } else {
             try {
@@ -100,10 +104,8 @@ public class TicketServlet extends HttpServlet {
     }
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        ServletContext servletContext= request.getServletContext();
-        servletContext.getRequestDispatcher("/tickets/mostrar.jsp").forward(request, response);
-        //RequestDispatcher dispatcher = request.getRequestDispatcher("tickets/mostrar.jsp");
-        //dispatcher.forward(request, response);
+        ServletContext servletContext = request.getServletContext();
+        servletContext.getRequestDispatcher("/atencion-usuarios/tickets/mostrar.jsp").forward(request, response);
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -147,7 +149,20 @@ public class TicketServlet extends HttpServlet {
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(ticket));
     }
-
+    
+    private void editarEva(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        
+        Ticket eva = new Ticket(request.getParameter("comentarios"), Integer.parseInt(request.getParameter("estado_satisfaccion")));
+        eva.setId_ticket(Integer.parseInt(request.getParameter("id_ticket")));
+        ticketDAO.actualizarEva(eva);
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(eva));
+    }
+    
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         Ticket ticket = ticketDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_ticket")));
         ticketDAO.eliminar(ticket);
