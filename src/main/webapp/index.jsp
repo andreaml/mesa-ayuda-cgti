@@ -81,7 +81,7 @@
                 <div class="col-12 col-md-8">
                     <div class="row">
                         <h3 class="col-10"><output id="tituloTicket"/> </h3>
-                        <span class="col-2 col-lg-1 align-self-center badge badge-success"><output id=estado_Ticket"/> </span>
+                        <span class="col-2 col-lg-1 align-self-center badge badge-info"><output id="estadoTicket"/> </span>
                     </div>
                     <p>Por: <output id="correoUsuarioTicket"/> el <output id="fechaRegistroTicket"/> a las <output id="horaRegistroTicket"/> hrs </p>
                     <!--<p>Por: usuario@ucol.mx el 27-10-2017 a las 18:26 hrs </p>-->
@@ -93,16 +93,16 @@
                     <table class="table table-striped">
                         <tbody>
                             <tr>
-                                <th>Tipo de servicio: <output id="nombreServicio"/></th>                        
+                                <th>Tipo de servicio: <output id="nombreTipoServicio"/></th>                        
                             </tr>
                             <tr>
                                 <td>Especialista: <output id="correoEspecialistaTicket"/></td>
                             </tr>
                             <tr>
-                                <td>Servicio: <output id=estado_Ticket"/></td>
+                                <td>Servicio: <output id="nombreServicio"/></td>
                             </tr>
                             <tr>
-                                <td>Fecha de servicio: <output id=fechaServicio"/> </td>
+                                <td>Fecha de servicio: <output id="fechaServicio"/> </td>
                             </tr>
                         </tbody>
                     </table>
@@ -168,13 +168,15 @@
                                     nombreCompletoEspecialista+= data.especialista.apellidoM;
                                 console.log(data, textStatus, jqXHR);
                                 $("#tituloTicket").text(data.titulo);
-                                $("#estado_Ticket").text(mostrarEstadoTicket(data.estadoTicket));
+                                $("#estadoTicket").text(mostrarEstadoTicket(data.estadoTicket));
+                                console.log(mostrarEstadoTicket(data.estadoTicket))
                                 $("#correoUsuarioTicket").text(data.emisor.correo);
                                 $("#fechaRegistroTicket").text(data.fecha);
                                 $("#horaRegistroTicket").text(data.hora);
                                 $("#descripcionTicket").text(data.descripcion);
                                 $("#idTicket1").text(data.id_ticket);
-                                $("#nombreServicio").text(data.tipoServicio.nombreTipoServicio);
+                                $("#nombreTipoServicio").text(data.tipoServicio.nombreTipoServicio);
+                                $("#nombreServicio").text(data.servicio.nombreServicio);
                                 $("#correoEspecialistaTicket").text(data.especialista.correo);
                                 $("#fechaServicio").text(data.servicio.fecha);
                                 $("#nombreEspecialista").text(nombreCompletoEspecialista);
@@ -184,9 +186,10 @@
                     });
                 });
                 
-                function mostrarEstadoTicket(estadoTicket) {
+                function mostrarEstadoTicket(estadoTicket) { 
                     switch(estadoTicket){
                         case 1: 
+                            console.log(estadoTicket);
                             return 'Asignado';
                         case 2: 
                             return 'Sin asignar';
