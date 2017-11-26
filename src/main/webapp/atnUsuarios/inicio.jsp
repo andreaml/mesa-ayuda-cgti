@@ -17,6 +17,7 @@
     <link rel="icon" href="<c:url value='/images/favicon.ico' />" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet"  href="<c:url value='/css/jquery-ui.min.css' />">
     <link rel="stylesheet"  href="<c:url value='/css/font-awesome.css' />">
     <link rel="stylesheet"  href="<c:url value='/css/bootstrap.css' />">
     <link rel="stylesheet"  href="<c:url value='/css/style.css' />">
@@ -92,46 +93,36 @@
     <div class="container d-flex flex-column col-12 col-md-8 col-lg-6 p-1">
       <h3 class="align-self-center my-4">Levantar Ticket</h3>
       <!-- Contenido del formulario -->
-      <form action="">
+      <form id="formAgregarTicket">
         <div class="form-group row mr-md-3 ml-md-3 p-2 mt-3">
           <label for="" class="col-4">Emisor: </label>
-          <input type="text" id="emisor-ticket" class="form-control col-8" placeholder="usuario@ucol.mx"> 
+          <input type="text" id="emisor" name="emisor" class="form-control col-8" placeholder="usuario@ucol.mx" autofocus> 
         </div>
 
         <div class="form-group row mr-md-3 ml-md-3 p-2">
             <label for="" class="col-4">Titulo: </label>
-            <input type="text" id="titulo-ticket" class="form-control col-8" placeholder="Escriba el titulo del ticket"> 
+            <input type="text" id="titulo" name="titulo" class="form-control col-8" placeholder="Escriba el titulo del ticket"> 
         </div>
 
         <div class="form-group row mr-md-3 ml-md-3 p-2">
             <label for="" class="col-4">Descripción: </label>
-            <textarea class="form-control col-8" id="" rows="3" placeholder="Escriba la descripción del problema"></textarea>
+            <textarea class="form-control col-8" id="descripcion" name="descripcion" rows="3" placeholder="Escriba la descripción del problema"></textarea>
         </div>
 
         <div class="form-group row mr-md-3 ml-md-3 p-2">
             <label for="" class="col-4">Tipo de servicio: </label>
-            <select class="form-control col-8" id="tipoServicio-ticket">
-                <option>Tipo de servicio 1</option>
-                <option>Tipo de servicio 2</option>
-                <option>Tipo de servicio 3</option>
-                <option>Tipo de servicio 4</option>
-                <option>Tipo de servicio 5</option>
+            <select class="form-control col-8" id="tipoServicio" name="tipo_servicio">
             </select> 
         </div>
 
         <div class="form-group row mr-md-3 ml-md-3 p-2 ">
             <label for="" class="col-4">Especialista: </label>
-            <select class="form-control col-8" id="especialista-ticket">
-                <option>Especialista 1</option>
-                <option>Espacialista 2</option>
-                <option>Especialista 3</option>
-                <option>Especialista 4</option>
-                <option>Especialista 5</option>
+            <select class="form-control col-8" id="especialista" name="especialista">
             </select> 
         </div>
         
         <div class="text-right px-md-4 mt-3 mb-5 pt-2">
-          <button type="submit" class="btn btn-info">Guardar cambios </button>
+          <button id="btnAgregarTicket" class="btn btn-info">Guardar cambios </button>
         </div>
       </form>
       <!-- Fin del contenido del formulario -->
@@ -139,7 +130,15 @@
   </section>
 <!-- Fin de formulario -->
  
- 
+<div class="container">
+    <h1>jQuery UI Autocomplete with Bootstrap Styling</h1>
+    <form>
+        <div class="form-group">
+            <label for="tags">Tags</label>
+            <input type="text" class="form-control" id="tags">
+        </div>
+    </form>
+</div>
 <!-- Pie de pagina -->
   <footer class="mt-5 container-fluid bg-dark text-center">
     <div class="container navbar navbar-dark bg-dark ">
@@ -152,6 +151,113 @@
     <!-- Optional JavaScript -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="<c:url value='/js/jquery-ui.min.js' />"></script>
     <script src="<c:url value='/js/bootstrap.js' />"></script>
+    <script>
+        $(function(){
+            var listaUsuarios = [];
+           function cargarEmisoresEnSelect() {
+               $.ajax({
+                    type: 'GET',
+                    url: './atencion-usuarios/usuarios?action=mostrar',
+                    dataType: 'json',
+                    success: function(usuarios, textStatus, jqXHR){
+                        // access response data
+                        $("#selectEmisor").empty();
+                        $.each(usuarios, function(id, usuario) {
+                            let objUsuario = { label: usuario.correo, value: usuario.correo };
+                            listaUsuarios.push(objUsuario);
+                            $('#selectEmisor').append(new Option(usuario.correo,usuario.correo)); 
+                        });
+                        $("#emisor").autocomplete({
+                            source: listaUsuarios
+                        });
+                    }
+               });
+           }
+           function cargarEspecialistasEnSelect() {
+               console.log('entraespecialista')
+               /*$.ajax({
+                    type: 'GET',
+                    url: './especialista?action=mostrar',
+                    dataType: 'json',
+                    success: function(especialistas, textStatus, jqXHR){
+                        // access response data
+                        $("#selectEspecialista").empty();
+                        $.each(especialistas, function(id, especialista) {
+                            $('#selectEspecialista').append(new Option(especialista.correo,especialista.correo)); 
+                        });
+                    }
+               });*/
+               $("#selectEspecialista").change(function(){
+                   console.log('clickselect')
+                    cargarServiciosEnSelect($("#selectEspecialista option:selected").val());
+               });
+           }
+           function cargarServiciosEnSelect(id_especialista) {
+               console.log(id_especialista)
+               /*$.ajax({
+                    type: 'GET',
+                    url: './servicios?action=mostrarPorEspecialista?id_especialista=' + id_especialista,
+                    dataType: 'json',
+                    success: function(servicios, textStatus, jqXHR){
+                        // access response data
+                        $("#selectServicios").empty();
+                        $.each(servicios, function(id, servicio) {
+                            $('#selectServicios').append(new Option(servicio.nombreServicio,servicio.id_servicio)); 
+                        });
+                    }
+               });*/
+           } 
+           function cargarTipoServicioEnSelect() {
+               $.ajax({
+                    type: 'GET',
+                    url: './atencion-usuarios/tipo-servicio?action=mostrar',
+                    dataType: 'json',
+                    success: function(tiposServicio, textStatus, jqXHR){
+                        // access response data
+                        $("#selectTipoServicio").empty();
+                        $.each(tiposServicio, function(id, tipoServicio) {
+                            $('#selectTipoServicio').append(new Option(tipoServicio.nombreTipoServicio,tipoServicio.id_tipo_servicio)); 
+                        });
+                    }
+               });
+               $("#selectTipoServicio").change(function(){
+                    cargarEspecialistasEnSelect($("#selectTipoServicio option:selected").val());
+               });
+           } 
+           cargarEmisoresEnSelect();
+           cargarTipoServicioEnSelect();
+           //cargarEspecialistasEnSelect();
+        });
+        
+                $(function() {
+          var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+          ];
+          
+        });
+    </script>
   </body>
 </html>
