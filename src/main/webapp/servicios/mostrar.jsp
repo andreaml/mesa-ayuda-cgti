@@ -177,7 +177,7 @@
                             </div>
                             <div class="form-group row ">
                                 <label for="" class="col-4">Especialista: </label>
-                                <select class="form-control col-8" id="selectEspecialista">
+                                <select class="form-control col-8" id="selectEspecialista" name="especialista">
                                 
                                 </select> 
                             </div>
@@ -188,7 +188,7 @@
 
                             <div class="form-group row mt-3">
                                 <label for="" class="col-4">Vehículo: </label>
-                                <select class="form-control col-8" id="selectVehiculo">
+                                <select class="form-control col-8" id="selectVehiculo" name="id_vehiculo">
                                 
                                 </select> 
                             </div>
@@ -283,7 +283,7 @@
                                     <option value="3">1/2</option>
                                     <option value="2">1/4</option>
                                     <option value="1">Vacío</option>
-                                    <option value="Null">Null</option>
+                                    <option value="0">Sin nivel de gasolina</option>
                                 </select> 
                             </div>
                             <div class="form-group row mt-3">
@@ -385,7 +385,7 @@
                    let fechaSeleccionada=$('#selectFecha1').data("DateTimePicker").date();
                    let fecha="&fecha="+ fechaSeleccionada.toISOString().substring(0,10);
                    let horaSeleccionada=$('#selectHora1').data("DateTimePicker").date();
-                   let hora="&hora="+ horaSeleccionada.hour()+ ":"+ horaSeleccionada.minute();
+                   let hora="&hora="+ horaSeleccionada.toString().substring(16,24);
                    $.ajax({
                         type: 'POST',
                         url: './servicios?action=editar&id_servicio=' + $("#formEditarServicio #id_servicio").val(),
@@ -427,13 +427,19 @@
                 function mostrarEditarServicio() {
                     $(".editar").unbind('click').on('click', function(){
                         let idObjServicio = $(this).attr('data-idObjServicio');
-                        $("#modal-editarServicio #nombre_servicio").val(listaServicios[idObjServicio].nombre_servicio);
-                        $("#modal-editarServicio #selectEspecialista").val(listaServicios[idObjServicio].especialista);
-                        $("#modal-editarServicio #selectVehiculo").val(listaServicios[idObjServicio].id_vehiculo);
+                        $("#modal-editarServicio #nombre_servicio").val(listaServicios[idObjServicio].nombreServicio);
+                        $("#modal-editarServicio #selectEspecialista").val(listaServicios[idObjServicio].especialista.correo);
+                        $("#modal-editarServicio #selectVehiculo").val(listaServicios[idObjServicio].vehiculo.id_vehiculo);
                         $("#modal-editarServicio #nivel_gas_inicio").val(listaServicios[idObjServicio].nivelGasolinaInicio);
                         $("#modal-editarServicio #nivel_gas_fin").val(listaServicios[idObjServicio].nivelGasolinaFin);
-                        $("#modal-editarServicio #selectFecha1").val(listaServicios[idObjServicio].fecha);
-                        $("#modal-editarServicio #selectHora1").val(listaServicios[idObjServicio].hora);
+                        console.log(listaServicios[idObjServicio].fecha)
+                        let anio = listaServicios[idObjServicio].fecha.substring(0,4);
+                        let mes = listaServicios[idObjServicio].fecha.substring(5,7);
+                        let dia = listaServicios[idObjServicio].fecha.substring(8,10);
+                        let fechaSeleccionada = $('#selectFecha2').data("DateTimePicker");
+                        fechaSeleccionada.date(new Date(anio, mes, dia));
+                        let horaSeleccionada = $('#selectHora2').data("DateTimePicker");
+                        horaSeleccionada.date(listaServicios[idObjServicio].hora);
                         
                     });
                 }
@@ -460,11 +466,11 @@
                                 let btnEditar = '<button type="button" class="editar btn btn-info my-1" data-toggle="modal" data-target="#modal-editarServicio" data-idObjServicio="'+ id +'"><i class="fa fa-pencil"></i></button>';
                                 let btnEliminar = '<button type="button " class="eliminar btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarServicio" data-idObjServicio="'+ id +'"><i class="fa fa-trash-o"></i></button>';
                                 let tr = $('<tr class="text-truncate">').append(
-                                    $('<td>').text(servicio.nombre_servicio),                              
+                                    $('<td>').text(servicio.nombreServicio),                              
                                     $('<td>').text(servicio.especialista.correo),    
-                                    $('<td>').text(servicio.id_vehiculo),
-                                    $('<td>').text(servicio.nivelGasolinaInicio),
-                                    $('<td>').text(servicio.nivelGasolinaFin),
+                                    $('<td>').text(servicio.vehiculo.id_vehiculo),
+                                    $('<td>').text(mostrarNivelGasolina(servicio.nivelGasolinaInicio)),
+                                    $('<td>').text(mostrarNivelGasolina(servicio.nivelGasolinaFin)),
                                     $('<td>').text(servicio.fecha),
                                     $('<td>').text(servicio.hora),
                                     $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar + btnEliminar)
@@ -486,9 +492,11 @@
                         dataType: 'json',
                         success: function(especialistas, textStatus, jqXHR){
                             // access response data
-                            $("#selectEspecialista").empty();
+                            $("#formAgregarServicio #selectEspecialista").empty();
+                            $("#formEditarServicio #selectEspecialista").empty();
                             $.each(especialistas, function(id, especialista) {
-                                $('#selectEspecialista').append(new Option(especialista.correo,especialista.correo)); 
+                                $("#formAgregarServicio #selectEspecialista").append(new Option(especialista.correo,especialista.correo)); 
+                                $("#formEditarServicio #selectEspecialista").append(new Option(especialista.correo,especialista.correo)); 
                             });
                         }
                    });
@@ -502,14 +510,30 @@
                         dataType: 'json',
                         success: function(vehiculos, textStatus, jqXHR){
                             // access response data
-                            $("#selectVehiculo").empty();
+                            $("#formAgregarServicio #selectVehiculo").empty();
+                            $("#formEditarServicio #selectVehiculo").empty();
                             $.each(vehiculos, function(id, vehiculo) {
-                                $('#selectVehiculo').append(new Option(vehiculo.id_vehiculo,vehiculo.id_vehiculo)); 
+                                $("#formAgregarServicio #selectVehiculo").append(new Option(vehiculo.id_vehiculo,vehiculo.id_vehiculo));
+                                $("#formEditarServicio #selectVehiculo").append(new Option(vehiculo.id_vehiculo,vehiculo.id_vehiculo));
                             });
                         }
                    });
                 }  
                 
+                function mostrarNivelGasolina(nivelGasolina) {
+                    switch(nivelGasolina) {
+                         case 1:
+                             return 'Vacío';
+                         case 2:
+                             return '1/4';
+                         case 3:
+                             return '1/2';
+                         case 4:
+                             return '3/4';
+                         case 5:
+                             return 'Lleno';
+                    }
+                }
                 $('#selectFecha1').datetimepicker({
                     format: 'YYYY/MM/DD',
                     locale: 'es',
