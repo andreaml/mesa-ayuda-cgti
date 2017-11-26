@@ -59,11 +59,11 @@
         <section class="container mt-4">
             <h3 class="text-center p-1">Consulta tu ticket</h3>
             <div class="row col-12 d-flex justify-content-center align-items-center my-4 ml-0">
-                <form class="form-group col-11 col-md-6 mx-md-5 px-0 mb-lg-0 mb-2">
+                <form id="buscarTicket"class="form-group col-11 col-md-6 mx-md-5 px-0 mb-lg-0 mb-2" action="">
                     <div class="input-group">
-                        <input class="form-control " type="search" placeholder="Número de ticket" aria-label="Search" name="num_ticket">
+                        <input class="form-control " type="search" placeholder="Número de ticket" aria-label="Search" name="id_ticket">
                         <span class="input-group-btn">
-                            <button id="btnConsultarTicket" class="btn btn-info " type="submit"><i class="fa fa-search"></i> Buscar</button>
+                            <button id="btnConsultarTicket" class="btn btn-info "><i class="fa fa-search"></i> Buscar</button>
                         </span>
                     </div> 
                 </form>
@@ -71,38 +71,38 @@
         </section>
         <!-- Fin de seccion 1 -->
 
-        <div id="ticketNoEncontrado" class="container-fluid d-flex flex-column mt-5 col-12 col-md-11 col-lg-10 " style='display:none;'>
-            <p> Contenido a ocultar, puede ser bloques de texto, imágenes, videos o cualquier otro elemento.</p>
+        <div id="ticketNoEncontrado" class="container-fluid d-flex flex-column mt-5 col-12 col-md-11 col-lg-10 " style='display: none !important'>
+            <p> El ticket <output id_ticket/> no se ha encontrado.</p>
         </div>
         
         <!-- Inicio de descripción de los tickets -->
-        <div id="descripcionTicket"class="container-fluid d-flex flex-column mt-5 col-12 col-md-11 col-lg-10 ">
+        <div id="divDescripcionTicket"class="container-fluid d-flex flex-column mt-5 col-12 col-md-11 col-lg-10 "style='display: none !important'>
             <div class="row mt-5">
                 <div class="col-12 col-md-8">
                     <div class="row">
                         <h3 class="col-10"><output id="tituloTicket"/> </h3>
-                        <span class="col-2 col-lg-1 align-self-center badge badge-success"><output id=estado_Ticket"/> </span>
+                        <span class="col-2 col-lg-1 align-self-center badge badge-info"><output id="estadoTicket"/> </span>
                     </div>
                     <p>Por: <output id="correoUsuarioTicket"/> el <output id="fechaRegistroTicket"/> a las <output id="horaRegistroTicket"/> hrs </p>
                     <!--<p>Por: usuario@ucol.mx el 27-10-2017 a las 18:26 hrs </p>-->
                     <p class="text-justify"> <output id="descripcionTicket"/>
                     </p>
-                    <p>Ticket número: <output id="idTicket"/></p>
+                    <p>Ticket número: <output id="idTicket1"/></p>
                 </div>
                 <div class="col-lg-3 col-md-4 col-12 ml-auto">
                     <table class="table table-striped">
                         <tbody>
                             <tr>
-                                <th>Tipo de servicio: <output id="nombreServicio"/></th>                        
+                                <th>Tipo de servicio: <output id="nombreTipoServicio"/></th>                        
                             </tr>
                             <tr>
                                 <td>Especialista: <output id="correoEspecialistaTicket"/></td>
                             </tr>
                             <tr>
-                                <td>Servicio: <output id=estado_Ticket"/></td>
+                                <td>Servicio: <output id="nombreServicio"/></td>
                             </tr>
                             <tr>
-                                <td>Fecha de servicio: <output id=fechaServicio"/> </td>
+                                <td>Fecha de servicio: <output id="fechaServicio"/> </td>
                             </tr>
                         </tbody>
                     </table>
@@ -146,43 +146,63 @@
         <script src="js/bootstrap.js"></script>
         <script>
             $(function(){               
-                $("#btnConsultarTicket").unbind('click').on('click', function(){
+                $("#btnConsultarTicket").unbind('click').on('click', function(e){
+                    e.preventDefault();
                    $.ajax({
                         type: 'GET',
-                        //duda
-                        url: './atencion-usuarios/tickets?action=mostrarPorId&id_ticket=' + $("#num_ticket").val(),
+                        url: './atencion-usuarios/tickets?action=mostrarPorId',
                         dataType: 'json',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        data: $("#buscarTicket").serialize(),
                         success: function(data, textStatus, jqXHR){
-                            if (data==={}){
-                                $("#descripcionTicket").hide();
+                            if (data===null){
+                                $("#divDescripcionTicket").hide();
                                 $("#ticketNoEncontrado").show();
                             }else{
                                 // access response data
                                 $("#ticketNoEncontrado").hide();
-                                $("#descripcionTicket").show();
-                                
+                                $("#divDescripcionTicket").show();
                                 let nombreCompletoEspecialista = data.especialista.nombre1+ " ";
-                                        nombreCompletoEspecialista+= data.especialista.nombre2+ " ";
-                                        nombreCompletoEspecialista+= data.especialista.apellidoP+ " ";
-                                        nombreCompletoEspecialista+= data.especialista.apellidoM;
+                                    nombreCompletoEspecialista+= data.especialista.nombre2+ " ";
+                                    nombreCompletoEspecialista+= data.especialista.apellidoP+ " ";
+                                    nombreCompletoEspecialista+= data.especialista.apellidoM;
                                 console.log(data, textStatus, jqXHR);
                                 $("#tituloTicket").text(data.titulo);
-                                $("#estado_Ticket".text(data.estadoTicket);
-                                $("#correoUsuarioTicket".text(data.emisor.correo);
-                                $("#fechaRegistroTicket".text(data.fecha);
-                                $("#horaRegistroTicket".text(data.hora);
-                                $("#descripcionTicket".text(data.descripcion);
-                                $("#idTicket".text(data.id_ticket);
-                                $("#nombreServicio".text(data.tipoServicio.nombreServicio);
-                                $("#correoEspecialistaTicket".text(data.especialista);
-                                $("#fechaServicio".text(data.tipoServicio.fecha);
-                                $("#nombreEspecialista".text(nombreCompletoEspecialista);
-                                $("#comentarioDeEspecialista".text(data.comentarios);  
+                                $("#estadoTicket").text(mostrarEstadoTicket(data.estadoTicket));
+                                console.log(mostrarEstadoTicket(data.estadoTicket))
+                                $("#correoUsuarioTicket").text(data.emisor.correo);
+                                $("#fechaRegistroTicket").text(data.fecha);
+                                $("#horaRegistroTicket").text(data.hora);
+                                $("#descripcionTicket").text(data.descripcion);
+                                $("#idTicket1").text(data.id_ticket);
+                                $("#nombreTipoServicio").text(data.tipoServicio.nombreTipoServicio);
+                                $("#nombreServicio").text(data.servicio.nombreServicio);
+                                $("#correoEspecialistaTicket").text(data.especialista.correo);
+                                $("#fechaServicio").text(data.servicio.fecha);
+                                $("#nombreEspecialista").text(nombreCompletoEspecialista);
+                                $("#comentarioDeEspecialista").text(data.comentarios);
                             }
                         }
                     });
-                });                         
+                });
+                
+                function mostrarEstadoTicket(estadoTicket) { 
+                    switch(estadoTicket){
+                        case 1: 
+                            console.log(estadoTicket);
+                            return 'Asignado';
+                        case 2: 
+                            return 'Sin asignar';
+                        case 3: 
+                            return 'Atendiendo';
+                        case 4: 
+                            return 'Cerrado';
+                        case 5: 
+                            return 'Solucionado';
+                        case 6: 
+                            return 'Calendarizado';
+                    }
+                }
             });
         </script>
     </body>
