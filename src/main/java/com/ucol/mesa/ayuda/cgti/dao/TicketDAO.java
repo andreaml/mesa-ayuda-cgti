@@ -125,7 +125,9 @@ public class TicketDAO {
             //DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
             //LocalTime hora = LocalTime.parse(res.getString("hora"),dtf2);
             
-            ticket = new Ticket (res.getString("titulo"), res.getString("descripcion"), res.getInt("tipo_servicio"),res.getString("emisor"), res.getString("fecha"), res.getString("hora"), res.getInt("estado_ticket"));
+            Usuario usuario= usuarioDAO.obtenerPorId(res.getString("emisor"));
+            TipoServicio tipoServicio=tipoServicioDAO.obtenerPorId(res.getInt("tipo_servicio"));
+            ticket = new Ticket (res.getString("titulo"), res.getString("descripcion"),tipoServicio ,usuario, res.getString("fecha"), res.getString("hora"), res.getInt("estado_ticket"));
             ticket.setId_ticket(res.getInt("id_ticket"));
             Servicio servicio= servicioDAO.obtenerPorId(res.getInt("servicio"));
             ticket.setServicio(servicio);
@@ -133,6 +135,7 @@ public class TicketDAO {
             ticket.setEstadoSatisfaccion(res.getInt("estado_satisfaccion"));
             Especialista especialista= especialistaDAO.obtenerPorId(res.getString("especialista"));
             ticket.setEspecialista(especialista);
+            
             
         }
         res.close();
