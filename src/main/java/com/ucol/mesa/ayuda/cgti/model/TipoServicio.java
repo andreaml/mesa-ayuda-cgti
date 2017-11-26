@@ -6,9 +6,22 @@ package com.ucol.mesa.ayuda.cgti.model;
 public class TipoServicio {
     private int id_tipo_servicio;
     private String nombreTipoServicio;
-    private int area;
-
+    private int areaInt;
+    private Area area;
+    
     public TipoServicio(String nombreTipoServicio, int area){
+        this.nombreTipoServicio=nombreTipoServicio;
+        this.areaInt=area;
+    }
+
+    public TipoServicio(int id_tipo_servicio, String nombreTipoServicio, int area){
+        this.id_tipo_servicio= id_tipo_servicio;
+        this.nombreTipoServicio=nombreTipoServicio;
+        this.areaInt=area;
+    }
+    
+     public TipoServicio(int id_tipo_servicio, String nombreTipoServicio, Area area){
+        this.id_tipo_servicio= id_tipo_servicio;
         this.nombreTipoServicio=nombreTipoServicio;
         this.area=area;
     }
@@ -29,11 +42,19 @@ public class TipoServicio {
         this.nombreTipoServicio = nombreTipoServicio;
     }
 
-    public int getArea() {
+    public Area getArea() {
         return area;
     }
 
-    public void setArea(int area) {
+    public void setArea(Area area) {
         this.area = area;
+    }
+    
+    public int getAreaInt() {
+        return areaInt;
+    }
+
+    public void setAreaInt(int area) {
+        this.areaInt = area;
     }
 }

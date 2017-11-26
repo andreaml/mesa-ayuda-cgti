@@ -8,11 +8,21 @@ public class Vehiculo {
     private String modelo;
     private int anio;
     private String estado;
-    private int dependencia;
+    private int dependenciaInt;
+    private Dependencia dependencia;
     private String marca;
     private int nivelGasolina;
 
     public Vehiculo(String id_vehiculo, String modelo, int anio, String estado, int dependencia, String marca, int nivelGasolina){
+        this.id_vehiculo=id_vehiculo;
+        this.modelo=modelo;
+        this.anio=anio;
+        this.estado=estado;
+        this.dependenciaInt=dependencia;
+        this.marca=marca;
+        this.nivelGasolina=nivelGasolina;
+    }
+     public Vehiculo(String id_vehiculo, String modelo, int anio, String estado, Dependencia dependencia, String marca, int nivelGasolina){
         this.id_vehiculo=id_vehiculo;
         this.modelo=modelo;
         this.anio=anio;
@@ -54,11 +64,19 @@ public class Vehiculo {
         this.estado = estado;
     }
 
-    public int getDependencia() {
+    public int getDependenciaInt() {
+        return dependenciaInt;
+    }
+
+    public void setDependenciaInt(int dependencia) {
+        this.dependenciaInt = dependencia;
+    }
+    
+    public Dependencia getDependencia() {
         return dependencia;
     }
 
-    public void setDependencia(int dependencia) {
+    public void setDependencia(Dependencia dependencia) {
         this.dependencia = dependencia;
     }
 

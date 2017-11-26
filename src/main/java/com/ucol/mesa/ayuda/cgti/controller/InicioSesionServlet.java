@@ -5,8 +5,14 @@
  */
 package com.ucol.mesa.ayuda.cgti.controller;
 
+import com.google.gson.Gson;
+import com.ucol.mesa.ayuda.cgti.dao.AtnUsuariosDAO;
+import com.ucol.mesa.ayuda.cgti.dao.EspecialistaDAO;
+import com.ucol.mesa.ayuda.cgti.model.Especialista;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,17 +24,65 @@ import javax.servlet.http.HttpServletResponse;
  * @author andreaml
  */
 public class InicioSesionServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    AtnUsuariosDAO atnUsuariosDAO;
+    EspecialistaDAO especialistaDAO;
 
-    @Override
+    public void init() {
+        String jdbcURL = getServletContext().getInitParameter("jdbcURL");
+        String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
+        String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
+        try {
+            atnUsuariosDAO = new AtnUsuariosDAO(jdbcURL, jdbcUsername, jdbcPassword);
+            especialistaDAO = new EspecialistaDAO(jdbcURL, jdbcUsername, jdbcPassword);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
+
+    public InicioSesionServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ServletContext servletContext = request.getServletContext();
-        servletContext.getRequestDispatcher("/inicio-sesion.jsp").forward(request, response);
+        System.out.println("Hola Servlet..");
+        if (request.getParameter("action") != null) {
+            String action = request.getParameter("action");
+            System.out.println(action);
+            try {
+                switch (action) {
+                    default:
+                        iniciarSesion(request, response);
+                        break;
+                }
+            } catch (SQLException e) {
+                PrintWriter out = response.getWriter();
+                out.print(e.getSQLState());
+            }
+        } else {
+            try {
+                iniciarSesion(request, response);
+            } catch (SQLException e) {
+                PrintWriter out = response.getWriter();
+                out.print(e.getSQLState());
+            }
+        }
     }
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("Hola Servlet..");
+        doGet(request, response);
     }
-
+    
+    private void iniciarSesion(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+        /*aqui va funcionalidad de inicio de sesion:
+            -Se recibe el tipo de usuario (especialista o atnUsuario), correo y contraseña
+            -Se busca en bd si existe un usuario con correo y contraseña enviados (con un select)
+                -Si se obtiene el usuario, devuelve estatus aprobatorio
+                -Si no se obtiene el usuario, devolver error (porque puede ser problema de red) o estatus denegado
+        */
+    }
 }

@@ -217,7 +217,7 @@
         <h3>Comentarios</h3>
         <div class="row mt-3">
             <div class="col-md-1 col-2 ">
-                <img src="images/user.png" alt="foto-usuario" class="rounded-circle img-fluid" width="50px">
+                <img src="<c:url value='/images/user.png' />" alt="foto-usuario" class="rounded-circle img-fluid" width="50px">
             </div>
             <div class="col-md-11 col-10">
                 <h4>Nombre Especialista 1 - Especialista</h4> 

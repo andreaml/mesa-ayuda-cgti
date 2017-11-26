@@ -89,19 +89,19 @@
   <section class="container mt-5">
     <h3 class="text-center p-1">Usuarios tipo Especialistas</h3>
             <div id="alertAgregado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
-                Dependencia <strong id="nombreDependenciaNueva"></strong> agregada con éxito.
+                Especialista <strong id="correoEspecialistaNuevo"></strong> agregado con éxito.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div id="alertEditado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
-                Dependencia <strong id="nombreDependenciaNueva"></strong> editada con éxito.
+                Especialista <strong id="correoEspecialistaNuevo"></strong> editado con éxito.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div id="alertEliminado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
-                Dependencia <strong id="nombreDependenciaNueva"></strong> eliminada con éxito.
+                Especialista <strong id="correoEspecialistaNuevo"></strong> eliminado con éxito.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -203,7 +203,7 @@
                     </div>
                     <div class="form-group row ">
                         <label for="" class="col-4">Área: </label>
-                        <select class="form-control col-8" id="selectArea">
+                        <select class="form-control col-8" id="selectArea" name="area">
                         </select> 
                     </div>
                 </form>
@@ -310,7 +310,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="<c:url value='/js/jquery-3.2.1.min.js' />"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="<c:url value='/js/bootstrap.js' />"></script>
     <script>
@@ -439,9 +439,11 @@
                     dataType: 'json',
                     success: function(areas, textStatus, jqXHR){
                         // access response data
-                        $("#selectDependencia").empty();
+                        $("#formAgregarEspecialista #selectArea").empty();
+                        $("#formEditarEspecialista #selectArea").empty();
                         $.each(areas, function(id, area) {
-                            $('#selectArea').append(new Option(area.nombreArea,area.id_area)); 
+                            $('#formAgregarEspecialista #selectArea').append(new Option(area.nombreArea,area.id_area)); 
+                            $('#formEditarEspecialista #selectArea').append(new Option(area.nombreArea,area.id_area)); 
                         });
                     }
                });

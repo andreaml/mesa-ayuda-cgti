@@ -6,28 +6,57 @@ package com.ucol.mesa.ayuda.cgti.model;
 public class Servicio {
     private int id_servicio;
     private String nombreServicio;
-    private String especialista;
+    private String especialistaString;
+    private Especialista especialista;
     private String id_vehiculo;
+    private Vehiculo vehiculo;
     private int nivelGasolinaInicio;
     private int nivelGasolinaFin;
+    private String fecha;
+    private String hora;
+    
     
     public Servicio(){}
     
-    public Servicio(int id_servicio, String nombreServicio, String especialista, String id_vehiculo, int nivelGasolinaInicio){
+    public Servicio(String nombreServicio, String especialista, String id_vehiculo, int nivelGasolinaInicio, String fecha, String hora){
+        this.nombreServicio=nombreServicio;
+        this.especialistaString=especialista;
+        this.id_vehiculo=id_vehiculo;
+        this.nivelGasolinaInicio=nivelGasolinaInicio;   
+        this.fecha=fecha;
+        this.hora=hora;
+    }
+    
+    public Servicio(int id_servicio, String nombreServicio, Especialista especialista, Vehiculo vehiculo, int nivelGasolinaInicio, String fecha, String hora){
         this.id_servicio=id_servicio; 
         this.nombreServicio=nombreServicio;
         this.especialista=especialista;
-        this.id_vehiculo=id_vehiculo;
-        this.nivelGasolinaInicio=nivelGasolinaInicio;   
+        this.vehiculo=vehiculo;
+        this.nivelGasolinaInicio=nivelGasolinaInicio; 
+        this.fecha=fecha;
+        this.hora=hora;
     }
     
-    public Servicio(int id_servicio, String nombreServicio, String especialista, String id_vehiculo, int nivelGasolinaInicio, int nivelGasolinaFin){
+    public Servicio(int id_servicio, String nombreServicio, String especialista, String id_vehiculo, int nivelGasolinaInicio, int nivelGasolinaFin, String fecha, String hora){
+        this.id_servicio=id_servicio; 
+        this.nombreServicio=nombreServicio;
+        this.especialistaString=especialista;
+        this.id_vehiculo=id_vehiculo;
+        this.nivelGasolinaInicio=nivelGasolinaInicio;
+        this.nivelGasolinaFin=nivelGasolinaFin;
+        this.fecha=fecha;
+        this.hora=hora;
+    }
+    
+    public Servicio(int id_servicio, String nombreServicio, Especialista especialista, String id_vehiculo, int nivelGasolinaInicio, int nivelGasolinaFin, String fecha, String hora){
         this.id_servicio=id_servicio; 
         this.nombreServicio=nombreServicio;
         this.especialista=especialista;
         this.id_vehiculo=id_vehiculo;
         this.nivelGasolinaInicio=nivelGasolinaInicio;
         this.nivelGasolinaFin=nivelGasolinaFin;
+        this.fecha=fecha;
+        this.hora=hora;
     }
 
     public int getId_servicio() {
@@ -46,11 +75,19 @@ public class Servicio {
         this.nombreServicio = nombreServicio;
     }
 
-    public String getEspecialista() {
+    public String getEspecialistaString() {
+        return especialistaString;
+    }
+
+    public void setEspecialistaString(String especialista) {
+        this.especialistaString = especialista;
+    }
+    
+    public Especialista getEspecialista() {
         return especialista;
     }
 
-    public void setEspecialista(String especialista) {
+    public void setEspecialistaString(Especialista especialista) {
         this.especialista = especialista;
     }
 
@@ -60,6 +97,14 @@ public class Servicio {
 
     public void setId_vehiculo(String vehiculo) {
         this.id_vehiculo = vehiculo;
+    }
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
     }
     
     public int getNivelGasolinaInicio() {
@@ -77,4 +122,22 @@ public class Servicio {
     public void setNivelGasolinaFin(int nivelGasolinaFin) {
         this.nivelGasolinaFin = nivelGasolinaFin;
     }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+    
+    
 }
