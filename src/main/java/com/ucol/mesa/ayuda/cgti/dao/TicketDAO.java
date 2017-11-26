@@ -62,6 +62,7 @@ public class TicketDAO {
         return rowInserted;
     }
     
+    
     // listar todos los productos
     public List<Ticket> listarTickets() throws SQLException {
 
@@ -88,7 +89,7 @@ public class TicketDAO {
             //DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
             //LocalTime hora = LocalTime.parse(resulSet.getString("hora"),dtf2);
             String hora = resulSet.getString("hora");
-            String comentarios = resulSet.getString("comentarios");
+            String comentarios = resulSet.getString("comentario_atencion_usuario");
             int estado_satisfaccion = resulSet.getInt("estado_satisfaccion");
             int estado_ticket = resulSet.getInt("estado_ticket");
             //String especialista = resulSet.getString("especialista");
@@ -129,7 +130,7 @@ public class TicketDAO {
             ticket.setId_ticket(res.getInt("id_ticket"));
             Servicio servicio= servicioDAO.obtenerPorId(res.getInt("servicio"));
             ticket.setServicio(servicio);
-            ticket.setComentarios(res.getString("comentarios"));
+            ticket.setComentarios(res.getString("comentario_especialista"));
             ticket.setEstadoSatisfaccion(res.getInt("estado_satisfaccion"));
             Especialista especialista= especialistaDAO.obtenerPorId(res.getString("especialista"));
             ticket.setEspecialista(especialista);
@@ -144,7 +145,7 @@ public class TicketDAO {
     //Actualizar
     public boolean actualizar(Ticket ticket) throws SQLException {
         boolean rowActualizar = false;
-        String sql = "UPDATE TICKETS SET id_ticket=?, titulo=?, descripcion=?, servicio=?,tipo_servicio=?, emisor=?, fecha=?, hora=?, comentarios=?, estado_satisfaccion=?, estado_ticket=?, especialista=? WHERE id_ticket=?";
+        String sql = "UPDATE TICKETS SET id_ticket=?, titulo=?, descripcion=?, servicio=?,tipo_servicio=?, emisor=?, fecha=?, hora=?, comentario_atencion_usuario=?, estado_satisfaccion=?, estado_ticket=?, especialista=? WHERE id_ticket=?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -160,6 +161,21 @@ public class TicketDAO {
         statement.setInt(10, ticket.getEstadoSatisfaccion());
         statement.setInt(11, ticket.getEstadoTicket());
         
+        rowActualizar = statement.executeUpdate() > 0;
+        statement.close();
+        conexionBD.desconectar();
+        return rowActualizar;
+    }
+    
+    public boolean actualizarEva(Ticket eva) throws SQLException {
+        boolean rowActualizar = false;
+        String sql = "UPDATE TICKETS SET comentario_usuario=?, estado_satisfaccion=? WHERE id_ticket=?";
+        conexionBD.conectar();
+        connection = conexionBD.getJdbcConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, eva.getComentarios());
+        statement.setInt(2, eva.getEstadoSatisfaccion());
+        statement.setInt(3, eva.getId_ticket());
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();
         conexionBD.desconectar();

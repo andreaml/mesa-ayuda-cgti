@@ -13,6 +13,18 @@
         <param-name>jdbcPassword</param-name>
         <param-value>r00tt0mc4t</param-value>
     </context-param>
+    <!--<context-param>
+        <param-name>jdbcURL</param-name>
+        <param-value>jdbc:mysql://andreaml.ddns.net:3306/mesa-ayuda?allowMultiQueries=true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>jdbcUsername</param-name>
+        <param-value>root</param-value>
+    </context-param>
+    <context-param>
+        <param-name>jdbcPassword</param-name>
+        <param-value>asd123</param-value>
+    </context-param>-->
     <servlet>
         <servlet-name>AtnUsuarios-Inicio</servlet-name>
         <jsp-file>/atnUsuarios/inicio.jsp</jsp-file>
