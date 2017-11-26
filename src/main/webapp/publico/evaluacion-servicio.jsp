@@ -300,6 +300,13 @@
                             $("#alertEditado").toggle();
                         }, 5000);
                         //cargarTablaEvaluacion();
+                    },
+                    complete: function(data, textStatus, jqXHR) {
+                        $("#alertEditado #nombreEvaluacionNueva").text(data.id_ticket);
+                        $("#alertEditado").toggle();
+                        setTimeout(function(){
+                            $("#alertEditado").toggle();
+                        }, 5000);
                     }
                 });
             
