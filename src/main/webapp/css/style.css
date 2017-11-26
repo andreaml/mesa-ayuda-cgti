@@ -8,23 +8,29 @@
 }
 
 .contenido{	
-	 display: none;
-     position: absolute;
-	 width: 100%;
-	 z-index: 555;    
+        display: none;
+        position: absolute;
+        width: 100%;
+        z-index: 555;    
 }
 
 .contenido a{			
-	background-color:rgb(24, 22, 22); 
-    padding: 18px 16px;
-	text-decoration: none;
-	color:white;
-    display: block;
+        background-color:rgb(24, 22, 22); 
+        padding: 18px 16px;
+        text-decoration: none;
+        color:white;
+        display: block;
 }
 
 .contenido a:hover{
 	background-color: rgb(180, 175, 176);
 	color: black;
+
+}
+
+a:hover {
+    cursor: pointer; 
+    text-decoration: underline !important;
 }
 
 .dropSubmenu:hover .contenido {

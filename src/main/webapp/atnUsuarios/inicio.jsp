@@ -96,7 +96,12 @@
       <form id="formAgregarTicket">
         <div class="form-group row mr-md-3 ml-md-3 p-2 mt-3">
           <label for="" class="col-4">Emisor: </label>
-          <input type="text" id="emisor" name="emisor" class="form-control col-8" placeholder="usuario@ucol.mx" autofocus> 
+          <div class="col-8 form-group px-0 my-0">
+            <input type="text" id="emisor" name="emisor" class="form-control" placeholder="usuario@ucol.mx" autofocus>
+            <div id="mensajeUsuarioNoEncontrado" class="oculto-inicio">
+                <a class="text-danger">Usuario no encontrado, hacer click aquí para crear un usuario nuevo.</a>
+            </div>
+          </div>
         </div>
 
         <div class="form-group row mr-md-3 ml-md-3 p-2">
@@ -129,16 +134,7 @@
     </div>  
   </section>
 <!-- Fin de formulario -->
- 
-<div class="container">
-    <h1>jQuery UI Autocomplete with Bootstrap Styling</h1>
-    <form>
-        <div class="form-group">
-            <label for="tags">Tags</label>
-            <input type="text" class="form-control" id="tags">
-        </div>
-    </form>
-</div>
+
 <!-- Pie de pagina -->
   <footer class="mt-5 container-fluid bg-dark text-center">
     <div class="container navbar navbar-dark bg-dark ">
@@ -170,7 +166,14 @@
                             $('#selectEmisor').append(new Option(usuario.correo,usuario.correo)); 
                         });
                         $("#emisor").autocomplete({
-                            source: listaUsuarios
+                            source: listaUsuarios,
+                            response: function(event, ui) {
+                                if (ui.content.length === 0) {
+                                    $("#mensajeUsuarioNoEncontrado").show();
+                                } else {
+                                    $("#mensajeUsuarioNoEncontrado").hide();
+                                }
+                            }
                         });
                     }
                });
@@ -229,34 +232,6 @@
            cargarEmisoresEnSelect();
            cargarTipoServicioEnSelect();
            //cargarEspecialistasEnSelect();
-        });
-        
-                $(function() {
-          var availableTags = [
-            "ActionScript",
-            "AppleScript",
-            "Asp",
-            "BASIC",
-            "C",
-            "C++",
-            "Clojure",
-            "COBOL",
-            "ColdFusion",
-            "Erlang",
-            "Fortran",
-            "Groovy",
-            "Haskell",
-            "Java",
-            "JavaScript",
-            "Lisp",
-            "Perl",
-            "PHP",
-            "Python",
-            "Ruby",
-            "Scala",
-            "Scheme"
-          ];
-          
         });
     </script>
   </body>
