@@ -22,6 +22,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 
 /**
  *
@@ -69,6 +70,8 @@ public class TicketServlet extends HttpServlet {
                     case "editar":
                         editar(request, response);
                         break;
+                    case "editarEva":
+                        editarEva(request, response);
                     case "eliminar":
                         eliminar(request, response);
                         break;
@@ -79,8 +82,10 @@ public class TicketServlet extends HttpServlet {
                         break;
                 }
             } catch (SQLException e) {
+                Gson jsonBuilder = new Gson();
+        
                 PrintWriter out = response.getWriter();
-                out.print(e.getSQLState());
+                out.print(jsonBuilder.toJson(e));
             }
         } else {
             try {
@@ -99,8 +104,8 @@ public class TicketServlet extends HttpServlet {
     }
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("tickets/mostrar.jsp");
-        dispatcher.forward(request, response);
+        ServletContext servletContext = request.getServletContext();
+        servletContext.getRequestDispatcher("/atencion-usuarios/tickets/mostrar.jsp").forward(request, response);
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -148,7 +153,7 @@ public class TicketServlet extends HttpServlet {
     private void editarEva(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         
         Ticket eva = new Ticket(request.getParameter("comentarios"), Integer.parseInt(request.getParameter("estado_satisfaccion")));
-        //eva.setId_ticket(Integer.parseInt(request.getParameter("id_ticket")));
+        eva.setId_ticket(Integer.parseInt(request.getParameter("id_ticket")));
         ticketDAO.actualizarEva(eva);
         
         response.setContentType("application/json");
