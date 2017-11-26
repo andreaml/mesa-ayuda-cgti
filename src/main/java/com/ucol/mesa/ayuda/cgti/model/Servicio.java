@@ -9,6 +9,7 @@ public class Servicio {
     private String especialistaString;
     private Especialista especialista;
     private String id_vehiculo;
+    private Vehiculo vehiculo;
     private int nivelGasolinaInicio;
     private int nivelGasolinaFin;
     private String fecha;
@@ -17,8 +18,7 @@ public class Servicio {
     
     public Servicio(){}
     
-    public Servicio(int id_servicio, String nombreServicio, String especialista, String id_vehiculo, int nivelGasolinaInicio, String fecha, String hora){
-        this.id_servicio=id_servicio; 
+    public Servicio(String nombreServicio, String especialista, String id_vehiculo, int nivelGasolinaInicio, String fecha, String hora){
         this.nombreServicio=nombreServicio;
         this.especialistaString=especialista;
         this.id_vehiculo=id_vehiculo;
@@ -27,11 +27,11 @@ public class Servicio {
         this.hora=hora;
     }
     
-    public Servicio(int id_servicio, String nombreServicio, Especialista especialista, String id_vehiculo, int nivelGasolinaInicio, String fecha, String hora){
+    public Servicio(int id_servicio, String nombreServicio, Especialista especialista, Vehiculo vehiculo, int nivelGasolinaInicio, String fecha, String hora){
         this.id_servicio=id_servicio; 
         this.nombreServicio=nombreServicio;
         this.especialista=especialista;
-        this.id_vehiculo=id_vehiculo;
+        this.vehiculo=vehiculo;
         this.nivelGasolinaInicio=nivelGasolinaInicio; 
         this.fecha=fecha;
         this.hora=hora;
@@ -98,6 +98,14 @@ public class Servicio {
     public void setId_vehiculo(String vehiculo) {
         this.id_vehiculo = vehiculo;
     }
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
     
     public int getNivelGasolinaInicio() {
         return nivelGasolinaInicio;
@@ -114,4 +122,22 @@ public class Servicio {
     public void setNivelGasolinaFin(int nivelGasolinaFin) {
         this.nivelGasolinaFin = nivelGasolinaFin;
     }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+    
+    
 }
