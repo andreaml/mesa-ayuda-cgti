@@ -76,6 +76,35 @@ public class EspecialistaDAO {
         return listaEspecialistas;
     }
     
+    // listar todos los especialistas por area
+    public List<Especialista> listarEspecialistasPorArea(int idArea) throws SQLException {
+
+        List<Especialista> listaEspecialistas = new ArrayList<Especialista>();
+        String sql = "SELECT * FROM ESPECIALISTA WHERE area=?";
+        conexionBD.conectar();
+        connection = conexionBD.getJdbcConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, idArea);
+        ResultSet resulSet = statement.executeQuery();
+
+        while (resulSet.next()) {
+            String correo = resulSet.getString("correo");
+            String nombre1 = resulSet.getString("primer_nombre");
+            String nombre2 = resulSet.getString("segundo_nombre");
+            String apellidoP = resulSet.getString("apellido_paterno");
+            String apellidoM = resulSet.getString("apellido_materno");
+            //int area = resulSet.getInt("area");
+            Area area = areaDAO.obtenerPorId(resulSet.getInt("area"));
+            int numTrabajador = resulSet.getInt("num_trabajador");
+            String profesion = resulSet.getString("profesion");
+
+            Especialista especialista = new Especialista(correo, nombre1, nombre2, apellidoP, apellidoM, area, numTrabajador, profesion);
+            listaEspecialistas.add(especialista);
+        }
+        conexionBD.desconectar();
+        return listaEspecialistas;
+    }
+    
     //Obtener especialista por id
     public Especialista obtenerPorId(String correo) throws SQLException {
         Especialista especialista = null;

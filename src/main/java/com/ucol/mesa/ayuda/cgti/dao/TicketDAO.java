@@ -108,6 +108,44 @@ public class TicketDAO {
         return listaTickets;
     }
     
+        // listar todos los productos
+    public List<Ticket> mostrarPorServicio(int id_servicio) throws SQLException {
+
+        List<Ticket> listaTickets = new ArrayList<Ticket>();
+        String sql = "SELECT * FROM TICKETS WHERE servicio=?";
+        conexionBD.conectar();
+        connection = conexionBD.getJdbcConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id_servicio);
+        ResultSet resulSet = statement.executeQuery();
+
+        while (resulSet.next()) {
+            int id_ticket = resulSet.getInt("id_ticket");
+            String titulo = resulSet.getString("titulo");
+            String descripcion = resulSet.getString("descripcion");
+            Servicio servicio= servicioDAO.obtenerPorId(resulSet.getInt("servicio"));
+            TipoServicio tipo_servicio=tipoServicioDAO.obtenerPorId(resulSet.getInt("tipo_servicio"));
+            Usuario emisor = usuarioDAO.obtenerPorId(resulSet.getString("emisor"));
+            String fecha = resulSet.getString("fecha");
+            String hora = resulSet.getString("hora");
+            String comentarios = resulSet.getString("comentario_atencion_usuario");
+            int estado_satisfaccion = resulSet.getInt("estado_satisfaccion");
+            int estado_ticket = resulSet.getInt("estado_ticket");
+            Especialista especialista = especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
+
+            Ticket ticket = new Ticket(titulo, descripcion, tipo_servicio, emisor, fecha, hora, estado_ticket);
+            ticket.setId_ticket(id_ticket);
+
+            ticket.setServicio(servicio);
+            ticket.setComentarios(comentarios);
+            ticket.setEstadoSatisfaccion(estado_satisfaccion);
+            ticket.setEspecialista(especialista);
+            listaTickets.add(ticket);
+        }
+        conexionBD.desconectar();
+        return listaTickets;
+    }
+    
     //Obtener ticket por id
     public Ticket obtenerPorId(int id_ticket) throws SQLException {
         Ticket ticket = null;

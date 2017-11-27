@@ -28,7 +28,7 @@
     <div class="container-fluid bg-dark"> 
       <nav class="navbar navbar-dark bg-dark ml-md-5">
         <a class="navbar-brand" href="index.html">
-          <img src="images/logo.png" class="image-fluid" width="320px" alt="logo-udec">
+          <img src="<c:url value='/images/logo.png' />" class="image-fluid" width="320px" alt="logo-udec">
         </a>
       </nav>
     </div>
@@ -97,7 +97,7 @@
                     </span>
                 </div> 
             </form>
-        <button type="button" class="btn btn-info col-md-3 col-11" data-toggle="modal" data-target="#modal-agregarTicket"><i class="fa fa-user-plus"></i> Agregar ticket</button>
+        <a href="<c:url value='/atencion-usuarios' />" class="btn btn-info col-md-3 col-11"><i class="fa fa-user-plus"></i> Agregar ticket</a>
     </div>
   </section>
 <!-- Fin de seccion 1 -->
@@ -254,7 +254,7 @@
         <h3>Comentarios</h3>
         <div class="row mt-3">
             <div class="col-md-1 col-2 ">
-                <img src="images/user.png" alt="foto-usuario" class="rounded-circle img-fluid" width="50px">
+                <img src="<c:url value='/images/user.png' />" alt="foto-usuario" class="rounded-circle img-fluid" width="50px">
             </div>
             <div class="col-md-11 col-10">
                 <h4>Nombre Especialista 1 - Especialista</h4> 
@@ -270,7 +270,7 @@
         </div>
         <div class="row mt-3">
             <div class="col-md-1 col-2">
-                <img src="images/user.png" alt="foto-usuario" class="rounded-circle img-fluid" width="50px">
+                <img src="<c:url value='/images/user.png' />" alt="foto-usuario" class="rounded-circle img-fluid" width="50px">
             </div>
             <div class="col-md-11 col-10">
                 <form action="" class="d-flex flex-column">

@@ -88,16 +88,16 @@ public class ServicioDAO {
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, id_especialista);
-        ResultSet resulSet = statement.executeQuery(sql);
+        ResultSet resulSet = statement.executeQuery();
         
         while (resulSet.next()) {
             int id_servicio = resulSet.getInt("id_servicio");
-            String nombreServicio = resulSet.getString("nombreServicio");
+            String nombreServicio = resulSet.getString("nombre_servicio");
             //String especialista = resulSet.getString("especialista");
             Especialista especialista= especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
             Vehiculo vehiculo = vehiculoDAO.obtenerPorId(resulSet.getString("id_vehiculo"));
-            int nivelGasolinaInicio = resulSet.getInt("nivel_gasolina_inicio");
-            int nivelGasolinaFin = resulSet.getInt("nivelGasolinaFin");
+            int nivelGasolinaInicio = resulSet.getInt("nivel_gas_inicio");
+            int nivelGasolinaFin = resulSet.getInt("nivel_gas_fin");
             String fecha = resulSet.getString("fecha");
             String hora = resulSet.getString("hora");
 

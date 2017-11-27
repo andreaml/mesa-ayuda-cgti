@@ -17,6 +17,7 @@
     <link rel="icon" href="<c:url value='/images/favicon.ico' />" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet"  href="<c:url value='/css/jquery-ui.min.css' />">
     <link rel="stylesheet"  href="<c:url value='/css/font-awesome.css' />">
     <link rel="stylesheet"  href="<c:url value='/css/bootstrap.css' />">
     <link rel="stylesheet"  href="<c:url value='/css/style.css' />">
@@ -92,54 +93,49 @@
     <div class="container d-flex flex-column col-12 col-md-8 col-lg-6 p-1">
       <h3 class="align-self-center my-4">Levantar Ticket</h3>
       <!-- Contenido del formulario -->
-      <form action="">
+      <form id="formAgregarTicket">
         <div class="form-group row mr-md-3 ml-md-3 p-2 mt-3">
           <label for="" class="col-4">Emisor: </label>
-          <input type="text" id="emisor-ticket" class="form-control col-8" placeholder="usuario@ucol.mx"> 
+          <div class="col-8 form-group px-0 my-0">
+            <input type="text" id="emisor" name="emisor" class="form-control" placeholder="usuario@ucol.mx" autofocus>
+            <div id="mensajeUsuarioNoEncontrado" class="oculto-inicio">
+                <a class="text-danger" id="btnAgregarUsuario">Usuario no encontrado, hacer click aquí para crear un usuario nuevo.</a>
+            </div>
+          </div>
         </div>
 
         <div class="form-group row mr-md-3 ml-md-3 p-2">
             <label for="" class="col-4">Titulo: </label>
-            <input type="text" id="titulo-ticket" class="form-control col-8" placeholder="Escriba el titulo del ticket"> 
+            <input type="text" id="titulo" name="titulo" class="form-control col-8" placeholder="Escriba el titulo del ticket"> 
         </div>
 
         <div class="form-group row mr-md-3 ml-md-3 p-2">
             <label for="" class="col-4">Descripción: </label>
-            <textarea class="form-control col-8" id="" rows="3" placeholder="Escriba la descripción del problema"></textarea>
+            <textarea class="form-control col-8" id="descripcion" name="descripcion" rows="3" placeholder="Escriba la descripción del problema"></textarea>
         </div>
 
         <div class="form-group row mr-md-3 ml-md-3 p-2">
             <label for="" class="col-4">Tipo de servicio: </label>
-            <select class="form-control col-8" id="tipoServicio-ticket">
-                <option>Tipo de servicio 1</option>
-                <option>Tipo de servicio 2</option>
-                <option>Tipo de servicio 3</option>
-                <option>Tipo de servicio 4</option>
-                <option>Tipo de servicio 5</option>
+            <select class="form-control col-8" id="selectTipoServicio" name="tipo_servicio">
             </select> 
+            <input type="hidden" id="idArea" name="id_area">
         </div>
 
         <div class="form-group row mr-md-3 ml-md-3 p-2 ">
             <label for="" class="col-4">Especialista: </label>
-            <select class="form-control col-8" id="especialista-ticket">
-                <option>Especialista 1</option>
-                <option>Espacialista 2</option>
-                <option>Especialista 3</option>
-                <option>Especialista 4</option>
-                <option>Especialista 5</option>
+            <select class="form-control col-8" id="selectEspecialista" name="especialista">
             </select> 
         </div>
         
         <div class="text-right px-md-4 mt-3 mb-5 pt-2">
-          <button type="submit" class="btn btn-info">Guardar cambios </button>
+          <button id="btnAgregarTicket" class="btn btn-info">Guardar cambios </button>
         </div>
       </form>
       <!-- Fin del contenido del formulario -->
     </div>  
   </section>
 <!-- Fin de formulario -->
- 
- 
+
 <!-- Pie de pagina -->
   <footer class="mt-5 container-fluid bg-dark text-center">
     <div class="container navbar navbar-dark bg-dark ">
@@ -148,10 +144,168 @@
   </footer>
 <!-- Fin de pie de pagina -->
 
+<!--Inicio de modal agregar usuario tipo usuario -->
+<div class="modal" id="modal-agregarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Agregar Usuario tipo Usuario</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body p-5 col-11 ">
+                <form id="formAgregarUsuario" action="">
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-4">Correo universitario:</label>
+                        <input name="correo" type="text" class="form-control col-8" id="correo">
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-4">Número de cuenta:</label>
+                        <input name="num_cuenta" type="text" class="form-control col-4" id="">
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-4">Primer nombre:</label>
+                        <input name="primer_nombre" type="text" class="form-control col-8" id="">
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-4">Segundo nombre:</label>
+                        <input name="segundo_nombre" type="text" class="form-control col-8" id="">
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-4">Apellido paterno:</label>
+                        <input name="apellido_paterno" type="text" class="form-control col-8" id="">
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-form-label col-4">Apellido materno:</label>
+                        <input name="apellido_materno" type="text" class="form-control col-8" id="">
+                    </div>
+
+                    <div class="form-group row ">
+                        <label for="" class="col-4">Tipo de usuario: </label>
+                        <select name="tipo" class="form-control col-4" id="">
+                            <option value="Alumno">Alumno</option>
+                            <option value="Trabajador">Trabajador</option>
+                        </select> 
+                    </div>
+                    <div class="form-group row ">
+                        <label for="" class="col-4">Dependencia: </label>
+                        <select class="form-control col-8" id="selectDependencia">
+
+                        </select> 
+                    </div>                        
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button id="btnAgregarUsuario" type="button" class="btn btn-success" data-dismiss="modal">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin de modal agregar -->
+
 
     <!-- Optional JavaScript -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="<c:url value='/js/jquery-ui.min.js' />"></script>
     <script src="<c:url value='/js/bootstrap.js' />"></script>
+    <script>
+        $(function(){
+            var listaUsuarios = [];
+            function cargarEmisoresEnSelect() {
+               $.ajax({
+                    type: 'GET',
+                    url: './atencion-usuarios/usuarios?action=mostrar',
+                    dataType: 'json',
+                    success: function(usuarios, textStatus, jqXHR){
+                        $('#emisor').attr('readonly', false);
+                        $('#emisor').val('');
+                        // access response data
+                        $.each(usuarios, function(id, usuario) {
+                            let objUsuario = { label: usuario.correo, value: usuario.correo };
+                            listaUsuarios.push(objUsuario);
+                        });
+                        $("#emisor").autocomplete({
+                            source: listaUsuarios,
+                            response: function(event, ui) {
+                                if (ui.content.length === 0) {
+                                    $("#mensajeUsuarioNoEncontrado").show();
+                                    mostrarAgregarUsuarioModal();
+                                } else {
+                                    $("#mensajeUsuarioNoEncontrado").hide();
+                                }
+                            },
+                            select: function(event, ui) {
+                                $("#emisor").val(ui.item.value);
+                            }
+                        });
+                        
+                    }
+               });
+           }
+           function mostrarAgregarUsuarioModal() {
+                $("#btnAgregarUsuario").unbind('click').on('click', () => {
+                    $('#modal-agregarUsuario').modal();
+                    $("#formAgregarUsuario #correo").val($("#emisor").val());
+                });
+            }
+
+           function cargarTipoServicioEnSelect() {
+               $.ajax({
+                    type: 'GET',
+                    url: './atencion-usuarios/tipo-servicio?action=mostrar',
+                    dataType: 'json',
+                    success: function(tiposServicio, textStatus, jqXHR){
+                        // access response data
+                        $("#selectTipoServicio").empty();
+                        $('#selectTipoServicio').append(new Option('Seleccionar Tipo de servicio', 0));
+                        $('#selectTipoServicio').attr('readonly', false); 
+                        $.each(tiposServicio, function(id, tipoServicio) {
+                            console.log(tipoServicio)
+                            $('#selectTipoServicio').append(new Option(tipoServicio.nombreTipoServicio,tipoServicio.id_tipo_servicio + ',' + tipoServicio.areaInt)); 
+                        });
+                        seleccionTipoServicio();
+                    }
+               });
+            } 
+            function seleccionTipoServicio() {
+                $("#selectTipoServicio").on('change', ()=>{
+                    let idArea = $("#selectTipoServicio").val().split(',')[1];
+                    $("#idArea").val(idArea);
+                    $("#selectEspecialista").empty();
+                    $('#selectEspecialista').attr('readonly', true);
+                    $('#selectEspecialista').append(new Option('Cargando...','')); 
+                    cargarEspecialistasEnSelect();
+                });
+            }
+           function cargarEspecialistasEnSelect() {
+                $.ajax({
+                    type: 'GET',
+                    url: './atencion-usuarios/especialistas?action=mostrarPorArea',
+                    dataType: 'json',
+                    data: $("#idArea").serialize(),
+                    success: function(especialistas, textStatus, jqXHR){
+                        // access response data
+                        $("#selectEspecialista").empty();
+                        $('#selectEspecialista').append(new Option('Seleccionar Especialista', 0));
+                        $('#selectEspecialista').attr('readonly', false);
+                        $.each(especialistas, function(id, especialista) {
+                            $('#selectEspecialista').append(new Option(especialista.correo,especialista.correo)); 
+                        });
+                    }
+                });
+            }
+            $('#emisor').attr('readonly', true);
+            $('#emisor').val('Cargando...'); 
+            cargarEmisoresEnSelect();
+            $('#selectTipoServicio').attr('readonly', true);
+            $('#selectTipoServicio').append(new Option('Cargando...','')); 
+           cargarTipoServicioEnSelect();
+        });
+    </script>
   </body>
 </html>
