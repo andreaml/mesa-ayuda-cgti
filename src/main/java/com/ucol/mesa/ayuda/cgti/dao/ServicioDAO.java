@@ -23,6 +23,7 @@ public class ServicioDAO {
     public ServicioDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) throws SQLException {
         System.out.println(jdbcURL);
         conexionBD = new ConexionBD(jdbcURL, jdbcUsername, jdbcPassword);
+        especialistaDAO = new EspecialistaDAO(jdbcURL, jdbcUsername, jdbcPassword);
     }
 
     //Agregar servicio
@@ -60,8 +61,8 @@ public class ServicioDAO {
             //int dependencia = resulSet.getInt("dependencia");
             Especialista especialista= especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
             String id_vehiculo = resulSet.getString("id_vehiculo");
-            int nivelGasolinaInicio = resulSet.getInt("nivel_gasolina_inicio");
-            int nivelGasolinaFin = resulSet.getInt("nivelGasolinaFin");
+            int nivelGasolinaInicio = resulSet.getInt("nivel_gas_inicio");
+            int nivelGasolinaFin = resulSet.getInt("nivel_gas_fin");
             String fecha = resulSet.getString("fecha");
             String hora = resulSet.getString("hora");
 
@@ -81,16 +82,16 @@ public class ServicioDAO {
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, id_especialista);
-        ResultSet resulSet = statement.executeQuery(sql);
+        ResultSet resulSet = statement.executeQuery();
         
         while (resulSet.next()) {
             int id_servicio = resulSet.getInt("id_servicio");
-            String nombreServicio = resulSet.getString("nombreServicio");
+            String nombreServicio = resulSet.getString("nombre_servicio");
             //String especialista = resulSet.getString("especialista");
             Especialista especialista= especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
             String id_vehiculo = resulSet.getString("id_vehiculo");
-            int nivelGasolinaInicio = resulSet.getInt("nivel_gasolina_inicio");
-            int nivelGasolinaFin = resulSet.getInt("nivelGasolinaFin");
+            int nivelGasolinaInicio = resulSet.getInt("nivel_gas_inicio");
+            int nivelGasolinaFin = resulSet.getInt("nivel_gas_fin");
             String fecha = resulSet.getString("fecha");
             String hora = resulSet.getString("hora");
 

@@ -78,7 +78,7 @@ public class ServicioServlet extends HttpServlet {
             } catch (SQLException e) {
                 e.getStackTrace();
                 PrintWriter out = response.getWriter();
-                out.print(e.getSQLState());
+                out.print(e.getSQLState() + ' ' + e.getMessage());
             }
         }else{
             try {
