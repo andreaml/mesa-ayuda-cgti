@@ -119,12 +119,11 @@ public class AtnUsuariosServlet extends HttpServlet {
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         AtnUsuarios atnUsuario = new AtnUsuarios(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_trabajador")));
-        atnUsuario.setNumTrabajador(Integer.parseInt(request.getParameter("num_trabajador")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString()); 
-        atnUsuariosDAO.actualizar(atnUsuario);
+        atnUsuariosDAO.actualizar(atnUsuario, request.getParameter("correoViejo"));
         
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(atnUsuario));

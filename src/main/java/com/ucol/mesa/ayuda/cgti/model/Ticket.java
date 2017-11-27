@@ -11,18 +11,34 @@ public class Ticket {
     private int id_ticket;
     private String titulo;
     private String descripcion;
-    private int tipoServicio;
-    private String emisor;
-    private String especialista;
-    private LocalDate fecha;
-    private LocalTime hora;
-    private int servicio;
+    private int tipoServicioInt;
+    private TipoServicio tipoServicio;
+    private String emisorString;
+    private Usuario emisor;
+    private String especialistaString;
+    private Especialista especialista;
+    private String fecha;
+    private String hora;
+    private int servicioInt;
+    private Servicio servicio;
+    
     private String comentarios;
     private int estadoSatisfaccion;
     private int estadoTicket;
     
     public Ticket(String titulo, String descripcion, int tipoServicio,
-            String emisor, LocalDate fecha, LocalTime hora, int estadoTicket){
+            String emisor, String fecha, String hora, int estadoTicket){
+        this.titulo= titulo;
+        this.descripcion= descripcion;
+        this.tipoServicioInt= tipoServicio;
+        this.emisorString= emisor;
+        this.fecha= fecha;
+        this.hora= hora;
+        this.estadoTicket= estadoTicket;
+    }
+    
+    public Ticket(String titulo, String descripcion, TipoServicio tipoServicio,
+            Usuario emisor, String fecha, String hora, int estadoTicket){
         this.titulo= titulo;
         this.descripcion= descripcion;
         this.tipoServicio= tipoServicio;
@@ -30,6 +46,11 @@ public class Ticket {
         this.fecha= fecha;
         this.hora= hora;
         this.estadoTicket= estadoTicket;
+    }
+    
+    public Ticket(String comentarios, int estadoSatisfaccion){
+        this.comentarios= comentarios;
+        this.estadoSatisfaccion= estadoSatisfaccion;
     }
 
     public int getId_ticket() {
@@ -56,51 +77,83 @@ public class Ticket {
         this.descripcion = descripcion;
     }
 
-    public int getTipoServicio() {
-        return tipoServicio;
+    public int getTipoServicioInt() {
+        return tipoServicioInt;
     }
 
-    public void setTipoServicio(int tipoServicio) {
+    public void setTipoServicioInt(int tipoServicio) {
+        this.tipoServicioInt = tipoServicio;
+    }
+    
+    public TipoServicio getTipoServicio() {
+        return tipoServicio;
+    }
+    
+    public void setTipoServicio(TipoServicio tipoServicio) {
         this.tipoServicio = tipoServicio;
     }
 
-    public String getEmisor() {
-        return emisor;
+    public String getEmisorString() {
+        return emisorString;
     }
 
-    public void setEmisor(String emisor) {
+    public void setEmisorString(String emisor) {
+        this.emisorString = emisor;
+    }
+    
+    public Usuario getEmisor() {
+        return emisor;
+    }
+    
+    public void setEmisor(Usuario emisor) {
         this.emisor = emisor;
     }
 
-    public String getEspecialista() {
-        return especialista;
+    public String getEspecialistaString() {
+        return especialistaString;
     }
 
-    public void setEspecialista(String especialista) {
+    public void setEspecialistaString(String especialista) {
+        this.especialistaString = especialista;
+    }
+    
+        public Especialista getEspecialista() {
+        return especialista;
+    }
+    
+    public void setEspecialista(Especialista especialista) {
         this.especialista = especialista;
     }
     
-    public LocalDate getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
-    public LocalTime getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(LocalTime hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 
-    public int getServicio() {
-        return servicio;
+    public int getServicioInt() {
+        return servicioInt;
     }
 
-    public void setServicio(int servicio) {
+    public void setServicioInt(int servicio) {
+        this.servicioInt = servicio;
+    }
+    
+    public Servicio getServicio() {
+        return servicio;
+    }
+    
+    public void setServicio(Servicio servicio) {
         this.servicio = servicio;
     }
 
@@ -126,5 +179,5 @@ public class Ticket {
 
     public void setEstadoTicket(int estadoTicket) {
         this.estadoTicket = estadoTicket;
-    }
+    }                
 }

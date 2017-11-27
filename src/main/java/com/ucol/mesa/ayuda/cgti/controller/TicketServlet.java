@@ -70,15 +70,22 @@ public class TicketServlet extends HttpServlet {
                     case "editar":
                         editar(request, response);
                         break;
+                    case "editarEva":
+                        editarEva(request, response);
                     case "eliminar":
                         eliminar(request, response);
+                        break;
+                    case "mostrarPorId":
+                        mostrarPorId(request, response);
                         break;
                     default:
                         break;
                 }
             } catch (SQLException e) {
+                Gson jsonBuilder = new Gson();
+        
                 PrintWriter out = response.getWriter();
-                out.print(e.getSQLState());
+                out.print(jsonBuilder.toJson(e));
             }
         } else {
             try {
@@ -98,16 +105,20 @@ public class TicketServlet extends HttpServlet {
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         ServletContext servletContext = request.getServletContext();
+<<<<<<< HEAD
         servletContext.getRequestDispatcher("/tickets/mostrar.jsp").forward(request, response);
+=======
+        servletContext.getRequestDispatcher("/atencion-usuarios/tickets/mostrar.jsp").forward(request, response);
+>>>>>>> e55e39f5e692b887b59cc08469765062a50cbee5
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
-        LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
-        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
-        LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
+        //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        //LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
+        //DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
+        //LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
  
-        Ticket ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), request.getParameter("emisor"), fecha, hora, Integer.parseInt(request.getParameter("estado_ticket")));
+        Ticket ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), request.getParameter("emisor"), request.getParameter("fecha"), request.getParameter("hora"), Integer.parseInt(request.getParameter("estado_ticket")));
         ticketDAO.insertar(ticket);
 
         response.setContentType("application/json");
@@ -127,12 +138,12 @@ public class TicketServlet extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
-        LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
-        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
-        LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
+        //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        //LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
+        //DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
+        //LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
         
-        Ticket ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), request.getParameter("emisor"), fecha, hora, Integer.parseInt(request.getParameter("estado_ticket")));
+        Ticket ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), request.getParameter("emisor"), request.getParameter("fecha"), request.getParameter("hora"), Integer.parseInt(request.getParameter("estado_ticket")));
         ticket.setId_ticket(Integer.parseInt(request.getParameter("id_ticket")));
         ticketDAO.actualizar(ticket);
         
@@ -142,10 +153,33 @@ public class TicketServlet extends HttpServlet {
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(ticket));
     }
-
+    
+    private void editarEva(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        
+        Ticket eva = new Ticket(request.getParameter("comentarios"), Integer.parseInt(request.getParameter("estado_satisfaccion")));
+        eva.setId_ticket(Integer.parseInt(request.getParameter("id_ticket")));
+        ticketDAO.actualizarEva(eva);
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(eva));
+    }
+    
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         Ticket ticket = ticketDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_ticket")));
         ticketDAO.eliminar(ticket);
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(ticket));
+    }
+    
+    private void mostrarPorId(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        Ticket ticket = ticketDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_ticket")));
         
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");

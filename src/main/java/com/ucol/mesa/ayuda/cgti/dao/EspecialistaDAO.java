@@ -115,7 +115,6 @@ public class EspecialistaDAO {
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, correo);
-       
         ResultSet res = statement.executeQuery();
         if (res.next()) {
             Area area = areaDAO.obtenerPorId(res.getInt("area"));
