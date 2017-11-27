@@ -105,7 +105,11 @@ public class TicketServlet extends HttpServlet {
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         ServletContext servletContext = request.getServletContext();
+<<<<<<< HEAD
+        servletContext.getRequestDispatcher("/tickets/mostrar.jsp").forward(request, response);
+=======
         servletContext.getRequestDispatcher("/atencion-usuarios/tickets/mostrar.jsp").forward(request, response);
+>>>>>>> e55e39f5e692b887b59cc08469765062a50cbee5
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
