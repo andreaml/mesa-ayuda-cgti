@@ -105,19 +105,10 @@ public class TicketServlet extends HttpServlet {
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         ServletContext servletContext = request.getServletContext();
-<<<<<<< HEAD
         servletContext.getRequestDispatcher("/tickets/mostrar.jsp").forward(request, response);
-=======
-        servletContext.getRequestDispatcher("/atencion-usuarios/tickets/mostrar.jsp").forward(request, response);
->>>>>>> e55e39f5e692b887b59cc08469765062a50cbee5
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
-        //LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
-        //DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
-        //LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
- 
         Ticket ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), request.getParameter("emisor"), request.getParameter("fecha"), request.getParameter("hora"), Integer.parseInt(request.getParameter("estado_ticket")));
         ticketDAO.insertar(ticket);
 
@@ -138,11 +129,6 @@ public class TicketServlet extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
-        //LocalDate fecha = LocalDate.parse(request.getParameter("fecha"), dtf);
-        //DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
-        //LocalTime hora = LocalTime.parse(request.getParameter("hora"),dtf2);
-        
         Ticket ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), request.getParameter("emisor"), request.getParameter("fecha"), request.getParameter("hora"), Integer.parseInt(request.getParameter("estado_ticket")));
         ticket.setId_ticket(Integer.parseInt(request.getParameter("id_ticket")));
         ticketDAO.actualizar(ticket);
