@@ -21,12 +21,14 @@ public class ServicioDAO {
     private Connection connection;
     private EspecialistaDAO especialistaDAO;
     private VehiculoDAO vehiculoDAO;
+    private TicketDAO ticketDAO;
 
     public ServicioDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) throws SQLException {
         System.out.println(jdbcURL);
         conexionBD = new ConexionBD(jdbcURL, jdbcUsername, jdbcPassword);
         especialistaDAO = new EspecialistaDAO(jdbcURL, jdbcUsername, jdbcPassword);
         vehiculoDAO = new VehiculoDAO(jdbcURL, jdbcUsername, jdbcPassword);
+        ticketDAO = new TicketDAO(jdbcURL, jdbcUsername, jdbcPassword);
     }
 
     //Agregar servicio
@@ -46,6 +48,7 @@ public class ServicioDAO {
 
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
+        connection.close();
         conexionBD.desconectar();
         return rowInserted;
     }
@@ -75,36 +78,47 @@ public class ServicioDAO {
             servicio.setNivelGasolinaFin(nivelGasolinaFin);
             listaServicio.add(servicio);
         }
+
+        resulSet.close();        
+        statement.close();
+        connection.close();
         conexionBD.desconectar();
         return listaServicio;
     }
     
     // listar todos los servicios que tengan idEspecialista en común
     public List<Servicio> listarServicioPorEspecialista(String id_especialista) throws SQLException {
-
+        
         List<Servicio> listaServicioPorEspecialista = new ArrayList<Servicio>();
         String sql = "SELECT * FROM SERVICIO WHERE especialista = ?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, id_especialista);
-        ResultSet resulSet = statement.executeQuery(sql);
+        ResultSet resulSet = statement.executeQuery();
         
         while (resulSet.next()) {
+            System.out.println("Servicio");
             int id_servicio = resulSet.getInt("id_servicio");
-            String nombreServicio = resulSet.getString("nombreServicio");
+            String nombreServicio = resulSet.getString("nombre_servicio");
             //String especialista = resulSet.getString("especialista");
             Especialista especialista= especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
             Vehiculo vehiculo = vehiculoDAO.obtenerPorId(resulSet.getString("id_vehiculo"));
-            int nivelGasolinaInicio = resulSet.getInt("nivel_gasolina_inicio");
-            int nivelGasolinaFin = resulSet.getInt("nivelGasolinaFin");
+            int nivelGasolinaInicio = resulSet.getInt("nivel_gas_inicio");
+            int nivelGasolinaFin = resulSet.getInt("nivel_gas_fin");
             String fecha = resulSet.getString("fecha");
             String hora = resulSet.getString("hora");
 
             Servicio servicio = new Servicio(id_servicio, nombreServicio, especialista, vehiculo, nivelGasolinaInicio, fecha, hora);
             servicio.setNivelGasolinaFin(nivelGasolinaFin);
+            //System.out.println(id_servicio + " - " + id_especialista);
+            //servicio.setListaTickets(ticketDAO.obtenerPorServicioyEspecialista(id_servicio, id_especialista));
             listaServicioPorEspecialista.add(servicio);
         }
+
+        resulSet.close();
+        statement.close();
+        connection.close();
         conexionBD.desconectar();
         return listaServicioPorEspecialista;
     }
@@ -125,7 +139,10 @@ public class ServicioDAO {
             servicio = new Servicio(res.getInt("id_servicio"), res.getString("nombre_servicio"), especialista, res.getString("id_vehiculo"), res.getInt("nivel_gas_inicio"), res.getInt("nivel_gas_fin"), res.getString("fecha"), res.getString("hora"));
             System.out.println(servicio);
         }
+
         res.close();
+        statement.close();
+        connection.close();
         conexionBD.desconectar();
 
         return servicio;
@@ -148,6 +165,7 @@ public class ServicioDAO {
         
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();
+        connection.close();
         conexionBD.desconectar();
         return rowActualizar;
     }
@@ -163,6 +181,7 @@ public class ServicioDAO {
 
         rowEliminar = statement.executeUpdate() > 0;
         statement.close();
+        connection.close();
         conexionBD.desconectar();
 
         return rowEliminar;

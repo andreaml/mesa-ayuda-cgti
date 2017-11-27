@@ -58,6 +58,7 @@ public class TicketDAO {
 
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
+        connection.close();
         conexionBD.desconectar();
         return rowInserted;
     }
@@ -77,11 +78,8 @@ public class TicketDAO {
             int id_ticket = resulSet.getInt("id_ticket");
             String titulo = resulSet.getString("titulo");
             String descripcion = resulSet.getString("descripcion");
-            //int servicioInt = resulSet.getInt("servicio");
             Servicio servicio= servicioDAO.obtenerPorId(resulSet.getInt("servicio"));
-            //int tipo_servicioInt = resulSet.getInt("tipo_servicio");
             TipoServicio tipo_servicio=tipoServicioDAO.obtenerPorId(resulSet.getInt("tipo_servicio"));
-            //String emisor = resulSet.getString("emisor");
             Usuario emisor = usuarioDAO.obtenerPorId(resulSet.getString("emisor"));
             //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
             //LocalDate fecha = LocalDate.parse(resulSet.getString("fecha"), dtf);
@@ -99,11 +97,14 @@ public class TicketDAO {
             ticket.setId_ticket(id_ticket);
 
             ticket.setServicio(servicio);
-            ticket.setComentarios(comentarios);
+            ticket.setComentariosAtnUsuarios(comentarios);
             ticket.setEstadoSatisfaccion(estado_satisfaccion);
             ticket.setEspecialista(especialista);
             listaTickets.add(ticket);
         }
+        resulSet.close();
+        statement.close();
+        connection.close();
         conexionBD.desconectar();
         return listaTickets;
     }
@@ -132,7 +133,7 @@ public class TicketDAO {
             ticket.setId_ticket(res.getInt("id_ticket"));
             Servicio servicio= servicioDAO.obtenerPorId(res.getInt("servicio"));
             ticket.setServicio(servicio);
-            ticket.setComentarios(res.getString("comentario_especialista"));
+            ticket.setComentariosAtnUsuarios(res.getString("comentario_especialista"));
             ticket.setEstadoSatisfaccion(res.getInt("estado_satisfaccion"));
             Especialista especialista= especialistaDAO.obtenerPorId(res.getString("especialista"));
             ticket.setEspecialista(especialista);
@@ -140,9 +141,54 @@ public class TicketDAO {
             
         }
         res.close();
+        statement.close();
+        connection.close();
         conexionBD.desconectar();
 
         return ticket;
+    }
+    
+    //Listar tickets por servicio
+    public List<Ticket> obtenerPorServicio(int id_servicio, String correo) throws SQLException {
+        System.out.println("asdf");
+        List<Ticket> listaTicketsServicio = new ArrayList<Ticket>();
+        String sql = "SELECT * FROM TICKETS WHERE servicio=? ";//and epecialista=?";
+        conexionBD.conectar();
+        connection = conexionBD.getJdbcConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1,id_servicio);
+        //statement.setString(2,correo);
+        ResultSet resulSet = statement.executeQuery();
+
+        while (resulSet.next()) {
+            System.out.println("Ticket");
+            int id_ticket = resulSet.getInt("id_ticket");
+            String titulo = resulSet.getString("titulo");
+            String descripcion = resulSet.getString("descripcion");
+            Servicio servicio= servicioDAO.obtenerPorId(resulSet.getInt("servicio"));
+            TipoServicio tipo_servicio=tipoServicioDAO.obtenerPorId(resulSet.getInt("tipo_servicio"));
+            Usuario emisor = usuarioDAO.obtenerPorId(resulSet.getString("emisor"));
+            String fecha = resulSet.getString("fecha");
+            String hora = resulSet.getString("hora");
+            String comentarios = resulSet.getString("comentario_atencion_usuario");
+            int estado_satisfaccion = resulSet.getInt("estado_satisfaccion");
+            int estado_ticket = resulSet.getInt("estado_ticket");
+            Especialista especialista = especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
+
+            Ticket ticket = new Ticket(titulo, descripcion, tipo_servicio, emisor, fecha, hora, estado_ticket);
+            ticket.setId_ticket(id_ticket);
+
+            ticket.setServicio(servicio);
+            ticket.setComentariosAtnUsuarios(comentarios);
+            ticket.setEstadoSatisfaccion(estado_satisfaccion);
+            ticket.setEspecialista(especialista);
+            listaTicketsServicio.add(ticket);
+        }
+        resulSet.close();
+        statement.close();
+        connection.close();
+        conexionBD.desconectar();
+        return listaTicketsServicio;
     }
     
     //Actualizar
@@ -160,12 +206,13 @@ public class TicketDAO {
         statement.setString(6, ticket.getEmisorString());
         statement.setString(7, ticket.getFecha());
         statement.setString(8, ticket.getHora());
-        statement.setString(9, ticket.getComentarios());
+        statement.setString(9, ticket.getComentariosAtnUsuarios());
         statement.setInt(10, ticket.getEstadoSatisfaccion());
         statement.setInt(11, ticket.getEstadoTicket());
         
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();
+        connection.close();
         conexionBD.desconectar();
         return rowActualizar;
     }
@@ -176,11 +223,12 @@ public class TicketDAO {
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, eva.getComentarios());
+        statement.setString(1, eva.getComentariosAtnUsuarios());
         statement.setInt(2, eva.getEstadoSatisfaccion());
         statement.setInt(3, eva.getId_ticket());
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();
+        connection.close();
         conexionBD.desconectar();
         return rowActualizar;
     }
@@ -196,6 +244,7 @@ public class TicketDAO {
 
         rowEliminar = statement.executeUpdate() > 0;
         statement.close();
+        connection.close();
         conexionBD.desconectar();
 
         return rowEliminar;

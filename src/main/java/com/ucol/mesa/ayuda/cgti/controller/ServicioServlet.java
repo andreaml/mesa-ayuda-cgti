@@ -125,7 +125,8 @@ public class ServicioServlet extends HttpServlet {
     }
 
     private void mostrarPorEspecialista(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Servicio> listaServiciosPorEspecialista = servicioDAO.listarServicioPorEspecialista(request.getParameter("id_especialista"));
+        System.out.println("Llegó a Servlet");
+        List<Servicio> listaServiciosPorEspecialista = servicioDAO.listarServicioPorEspecialista(request.getParameter("correo"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();

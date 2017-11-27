@@ -78,6 +78,8 @@ public class TicketServlet extends HttpServlet {
                     case "mostrarPorId":
                         mostrarPorId(request, response);
                         break;
+                    case "mostrarPorServicioyEspecialista":
+                        mostrarPorServicioyEspecialista(request, response);
                     default:
                         break;
                 }
@@ -183,4 +185,13 @@ public class TicketServlet extends HttpServlet {
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(ticket));
     }
+    
+    private void mostrarPorServicioyEspecialista(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+        List<Ticket> listaTicket = ticketDAO.obtenerPorServicioyEspecialista(Integer.parseInt(request.getParameter("id_servicio")),request.getParameter("especialista"));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(listaTicket));
+    }    
 }

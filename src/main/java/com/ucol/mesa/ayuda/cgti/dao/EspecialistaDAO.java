@@ -44,6 +44,7 @@ public class EspecialistaDAO {
 
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
+        connection.close();        
         conexionBD.desconectar();
         return rowInserted;
     }
@@ -73,6 +74,8 @@ public class EspecialistaDAO {
             Especialista especialista = new Especialista(correo, nombre1, nombre2, apellidoP, apellidoM, area, numTrabajador, profesion);
             listaEspecialistas.add(especialista);
         }
+        resulSet.close();
+        connection.close();
         conexionBD.desconectar();
         return listaEspecialistas;
     }
@@ -92,6 +95,7 @@ public class EspecialistaDAO {
             especialista = new Especialista(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), area, res.getInt("num_trabajador"), res.getString("profesion"));
         }
         res.close();
+        connection.close();
         conexionBD.desconectar();
 
         return especialista;
@@ -118,6 +122,7 @@ public class EspecialistaDAO {
         
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();
+        connection.close();
         conexionBD.desconectar();
         return rowActualizar;
     }
@@ -133,6 +138,7 @@ public class EspecialistaDAO {
 
         rowEliminar = statement.executeUpdate() > 0;
         statement.close();
+        connection.close();
         conexionBD.desconectar();
 
         return rowEliminar;

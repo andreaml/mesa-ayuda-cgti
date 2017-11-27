@@ -1,5 +1,7 @@
 package com.ucol.mesa.ayuda.cgti.model;
 
+import java.util.List;
+
 /**
  * @author 20126225
  */
@@ -14,7 +16,7 @@ public class Servicio {
     private int nivelGasolinaFin;
     private String fecha;
     private String hora;
-    
+    private List<Ticket> listaTickets;
     
     public Servicio(){}
     
@@ -139,5 +141,11 @@ public class Servicio {
         this.hora = hora;
     }
     
-    
+    public List<Ticket> getListaTickets() {
+        return listaTickets;
+    }
+
+    public void setListaTickets(List<Ticket> listaTickets) {
+        this.listaTickets = listaTickets;
+    }   
 }

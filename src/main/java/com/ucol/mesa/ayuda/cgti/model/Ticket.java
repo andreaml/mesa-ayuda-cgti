@@ -22,7 +22,9 @@ public class Ticket {
     private int servicioInt;
     private Servicio servicio;
     
-    private String comentarios;
+    private String comentariosAtnUsuarios;
+    private String comentariosUsuario;
+    private String comentariosEspecialista;
     private int estadoSatisfaccion;
     private int estadoTicket;
     
@@ -48,8 +50,8 @@ public class Ticket {
         this.estadoTicket= estadoTicket;
     }
     
-    public Ticket(String comentarios, int estadoSatisfaccion){
-        this.comentarios= comentarios;
+    public Ticket(String comentariosUsuario, int estadoSatisfaccion){
+        this.comentariosUsuario= comentariosUsuario;
         this.estadoSatisfaccion= estadoSatisfaccion;
     }
 
@@ -157,13 +159,31 @@ public class Ticket {
         this.servicio = servicio;
     }
 
-    public String getComentarios() {
-        return comentarios;
+    public String getComentariosAtnUsuarios() {
+        return comentariosAtnUsuarios;
     }
 
-    public void setComentarios(String comentarios) {
-        this.comentarios = comentarios;
+    public void setComentariosAtnUsuarios(String comentariosAtnUsuarios) {
+        this.comentariosAtnUsuarios = comentariosAtnUsuarios;
     }
+
+    public String getComentariosUsuario() {
+        return comentariosUsuario;
+    }
+
+    public void setComentariosUsuario(String comentariosUsuario) {
+        this.comentariosUsuario = comentariosUsuario;
+    }
+
+    public String getComentariosEspecialista() {
+        return comentariosEspecialista;
+    }
+
+    public void setComentariosEspecialista(String comentariosEspecialista) {
+        this.comentariosEspecialista = comentariosEspecialista;
+    }
+    
+    
 
     public int getEstadoSatisfaccion() {
         return estadoSatisfaccion;
