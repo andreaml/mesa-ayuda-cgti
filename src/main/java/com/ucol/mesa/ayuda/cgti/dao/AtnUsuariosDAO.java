@@ -96,6 +96,28 @@ public class AtnUsuariosDAO {
         return atnusuarios;
     }
     
+    public AtnUsuarios obtenerPorCorreoContrasenia(String correo, String contrasenia) throws SQLException {
+        AtnUsuarios atnusuarios = null;
+
+        String sql = "SELECT * FROM ATN_USUARIOS WHERE correo=? AND contrasenia=?";
+        conexionBD.conectar();
+        connection = conexionBD.getJdbcConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, correo);
+        statement.setString(2, contrasenia);
+
+        ResultSet res = statement.executeQuery();
+        if (res.next()) {
+            Dependencia dependencia= dependenciaDAO.obtenerPorId(res.getInt("dependencia"));            
+            atnusuarios = new AtnUsuarios(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), dependencia, res.getInt("num_trabajador"));
+            atnusuarios.setContrasenia(res.getString("contrasenia"));
+        }
+        res.close();
+        conexionBD.desconectar();
+
+        return atnusuarios;
+    }
+    
     //Actualizar
     public boolean actualizar(AtnUsuarios atnusuarios, String correoViejo) throws SQLException {
         boolean rowActualizar = false;

@@ -7,8 +7,8 @@ package com.ucol.mesa.ayuda.cgti.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.ucol.mesa.ayuda.cgti.dao.EspecialistaDAO;
-import com.ucol.mesa.ayuda.cgti.model.Especialista;
+import com.ucol.mesa.ayuda.cgti.dao.AtnUsuariosDAO;
+import com.ucol.mesa.ayuda.cgti.model.AtnUsuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -23,22 +23,22 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author andreaml
  */
-public class InicioSesionServlet extends HttpServlet {
+public class InicioSesionServletAtn extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    EspecialistaDAO especialistaDAO;
+    AtnUsuariosDAO atnUsuariosDAO;
 
     public void init() {
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
         String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
         try {
-            especialistaDAO = new EspecialistaDAO(jdbcURL, jdbcUsername, jdbcPassword);
+            atnUsuariosDAO = new AtnUsuariosDAO(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
 
-    public InicioSesionServlet() {
+    public InicioSesionServletAtn() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -83,7 +83,7 @@ public class InicioSesionServlet extends HttpServlet {
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         ServletContext servletContext = request.getServletContext();
-        servletContext.getRequestDispatcher("/inicio-sesion.jsp").forward(request, response);
+        servletContext.getRequestDispatcher("/inicio-sesion-atn.jsp").forward(request, response);
     }
     
     private void iniciarSesion(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
@@ -97,14 +97,15 @@ public class InicioSesionServlet extends HttpServlet {
         String correo = request.getParameter("correo").replace("%40", "@");
         String contrasenia = request.getParameter("contrasenia").replace("%40", "@");
         System.out.println(correo);
-        Especialista especialista = especialistaDAO.obtenerPorCorreoContrasenia(correo,contrasenia);
+        AtnUsuarios atnusuarios = atnUsuariosDAO.obtenerPorCorreoContrasenia(correo,contrasenia);
         System.out.println(correo);
-        System.out.println(especialista);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
                 
-        if(especialista == null)
+        
+        
+        if(atnusuarios == null)
         {
         String mensaje = "Correo, Tipo usuario o Contraseña incorrecta";
         JsonObject jsonObject = new JsonObject();
@@ -124,6 +125,5 @@ public class InicioSesionServlet extends HttpServlet {
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(jsonObject));        
         }
-        
     }
 }

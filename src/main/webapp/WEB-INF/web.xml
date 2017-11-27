@@ -97,6 +97,14 @@
         <servlet-name>InicioSesionServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.InicioSesionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SeleccionServlet</servlet-name>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.SeleccionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InicioSesionServletAtn</servlet-name>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.InicioSesionServletAtn</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AtnUsuarios-Inicio</servlet-name>
         <url-pattern>/atencion-usuarios</url-pattern>
@@ -168,5 +176,13 @@
     <servlet-mapping>
         <servlet-name>InicioSesionServlet</servlet-name>
         <url-pattern>/inicio-sesion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SeleccionServlet</servlet-name>
+        <url-pattern>/seleccion-usuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InicioSesionServletAtn</servlet-name>
+        <url-pattern>/inicio-sesion-atn</url-pattern>
     </servlet-mapping>
 </web-app>

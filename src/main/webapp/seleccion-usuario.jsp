@@ -1,7 +1,7 @@
 <%-- 
     Document   : inicio-sesion
     Created on : 20/11/2017, 10:24:45 PM
-    Author     : andreaml
+    Author     : ricardo
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -59,37 +59,28 @@
 
   <!-- Formulario -->
     <section class="container-fluid p-3 pb-5">
-      <div id="alertEditado" class="alert alert-danger alert-dismissible fade show col-12 oculto-inicio" role="alert">
-            El correo o la contraseña ingresada son erroneas.
+      <div class="container d-flex flex-column border border-dark col-12 col-md-8 col-lg-6 ">
+        
+        <div id="alertEditado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+            Se ha ingresado con el correo <strong id="nombreCorreo"></strong> de manera satisfactoria.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="container d-flex flex-column border border-dark col-12 col-md-8 col-lg-6 ">
-        
-        
           
-        <h3 class="align-self-center mt-5">Iniciar sesión</h3>
+        <h3 class="align-self-center mt-5">Seleccione su proveedor de identidad</h3>
         
-        <form id="formIngresar" action="">
+        <form id="formIngresar" action="./inicio-sesion-atn">
             
-          <div class="form-group row mx-3 p-4">
-            <label for="">Correo universitario: </label>
-            <input type="email" name="correo" id="" class="form-control border border-dark border-top-0 border-right-0 border-left-0 rounded-0" placeholder="Ingresa tu correo aquí">
-            <p class="text-danger ">Ingrese un correo válido (extensión @ucol.mx)</p> 
-          </div>
-          <div class="form-group row mx-3 p-4 ">
-            <label for="">Contraseña: </label>
-            <input type="password" id=""  name="contrasenia" class="form-control border border-dark border-top-0 border-right-0 border-left-0 rounded-0" placeholder="Ingresa tu contraseña aquí">
-            <p class="text-danger ">Ingrese una contraseña</p> 
-          </div>
           <div class="text-center p-2 mb-3">
-            <button type="submit" id="btnIngresar" class="btn btn-info">Ingresar </button>
+              <button type="submit"  value="Redirect" id="btnIngresarAtencion" class="btn btn-info">Atención de Usuarios</button>
           </div>
         </form>
-      </div>
-      <div class="text-center mt-2">
-        <a href="" data-toggle="modal" data-target="#modal-visible">¿Aún no tienes cuenta? Solicita tu registro a un administrador</a>
+        <form id="formIngresar" action="./inicio-sesion">
+            <div class="text-center p-2 mb-3">
+            <button type="submit" id="btnIngresarEspecialista" class="btn btn-info">Especialista</button>
+          </div>
+        </form>
       </div>
     </section>
   <!-- Fin de formulario -->
@@ -125,33 +116,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="<c:url value='/js/bootstrap.js' />"></script>
     <script>
-    $(function(){
+       
+
+    /*$(function(){
             //cargarTablaEvaluacion();
-    $("#btnIngresar").unbind('click').on('click', function(e){
+            
+   // $("#btnIngresarAtencion").unbind('click').on('click', function(e){
                 e.preventDefault();
                $.ajax({
                     type: 'GET',
-                    url: './inicio-sesion?action=iniciarSesion',
+                    url: './inicio-sesion',
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    data: $("#formIngresar").serialize(),
-                    success: function(data, textStatus, jqXHR){
-                        // access response data 
+                    //data: $("#formIngresar").serialize(),
+                    success: function(data, textStatus, jqXHR){ 
                        console.log(data, textStatus, jqXHR);
-                        if(data.status === 200){
-                            window.location = "./especialista"
-                        }
-                        else{
+                        //if(data.status === 200){
+                          window.location = "./inicio-sesion"
+                       // }
+                        //else{
                         //$("#alertEditado #nombreCorreo").text(data.correo);
-                            $("#alertEditado").toggle();
-                            setTimeout(function(){
-                                $("#alertEditado").toggle();
-                            }, 5000);
-                        }
+                          //  $("#alertEditado").toggle();
+                            //setTimeout(function(){
+                              // $("#alertEditado").toggle();
+                      //     }, 5000);
+                        //}
                     }
                 });
         });    
-});
+});*/
     </script>
   </body>
 </html>

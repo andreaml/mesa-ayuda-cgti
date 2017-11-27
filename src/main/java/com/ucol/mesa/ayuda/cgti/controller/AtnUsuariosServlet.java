@@ -57,6 +57,9 @@ public class AtnUsuariosServlet extends HttpServlet {
                     case "mostrar":
                         mostrar(request, response);
                         break;
+                    case "mostrarPorId":
+                        mostrarPorId(request, response);
+                        break;
                     case "editar":
                         editar(request, response);
                         break;
@@ -115,6 +118,16 @@ public class AtnUsuariosServlet extends HttpServlet {
         
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(listaAtnUsuarios));
+    }
+    
+    private void mostrarPorId(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+        AtnUsuarios atnUsuarios = atnUsuariosDAO.obtenerPorId(request.getParameter("correo"));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(atnUsuarios));
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
