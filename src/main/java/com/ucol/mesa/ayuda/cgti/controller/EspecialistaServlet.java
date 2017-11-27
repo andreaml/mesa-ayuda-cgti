@@ -57,6 +57,9 @@ public class EspecialistaServlet extends HttpServlet {
                     case "mostrar":
                         mostrar(request, response);
                         break;
+                    case "mostrarPorId":
+                        mostrarPorId(request, response);
+                        break;
                     case "editar":
                         editar(request, response);
                         break;
@@ -109,6 +112,16 @@ public class EspecialistaServlet extends HttpServlet {
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(listaEspecialista));
     }
+    
+    private void mostrarPorId(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+        Especialista especialista = especialistaDAO.obtenerPorId(request.getParameter("correo"));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(especialista));
+    }
+    
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         Especialista especialista = new Especialista(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("area")), Integer.parseInt(request.getParameter("num_trabajador")), request.getParameter("profesion"));

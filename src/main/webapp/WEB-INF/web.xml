@@ -167,6 +167,6 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InicioSesionServlet</servlet-name>
-        <url-pattern>/iniciar-sesion</url-pattern>
+        <url-pattern>/inicio-sesion</url-pattern>
     </servlet-mapping>
 </web-app>

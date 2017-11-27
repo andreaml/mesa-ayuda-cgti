@@ -6,9 +6,11 @@
 package com.ucol.mesa.ayuda.cgti.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.ucol.mesa.ayuda.cgti.dao.AtnUsuariosDAO;
 import com.ucol.mesa.ayuda.cgti.dao.EspecialistaDAO;
 import com.ucol.mesa.ayuda.cgti.model.Especialista;
+import com.ucol.mesa.ayuda.cgti.model.Usuario_;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -53,8 +55,14 @@ public class InicioSesionServlet extends HttpServlet {
             System.out.println(action);
             try {
                 switch (action) {
-                    default:
+                    case "index":
+                        index(request, response);
+                        break;
+                    case "iniciarSesion":
+                        System.out.println("entro");
                         iniciarSesion(request, response);
+                        break;
+                    default:         
                         break;
                 }
             } catch (SQLException e) {
@@ -63,7 +71,7 @@ public class InicioSesionServlet extends HttpServlet {
             }
         } else {
             try {
-                iniciarSesion(request, response);
+                index(request, response);
             } catch (SQLException e) {
                 PrintWriter out = response.getWriter();
                 out.print(e.getSQLState());
@@ -77,6 +85,11 @@ public class InicioSesionServlet extends HttpServlet {
         doGet(request, response);
     }
     
+    private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        ServletContext servletContext = request.getServletContext();
+        servletContext.getRequestDispatcher("/inicio-sesion.jsp").forward(request, response);
+    }
+    
     private void iniciarSesion(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         /*aqui va funcionalidad de inicio de sesion:
             -Se recibe el tipo de usuario (especialista o atnUsuario), correo y contraseña
@@ -84,5 +97,37 @@ public class InicioSesionServlet extends HttpServlet {
                 -Si se obtiene el usuario, devuelve estatus aprobatorio
                 -Si no se obtiene el usuario, devolver error (porque puede ser problema de red) o estatus denegado
         */
+        //Usuario_ user = new Usuario_(request.getParameter("correo"), request.getParameter("contrasenia"));
+        ServletContext servletContext = request.getServletContext();
+        String correo = request.getParameter("correo").replace("%40", "@");
+        String contrasenia = request.getParameter("contrasenia").replace("%40", "@");
+        System.out.println(correo);
+        Especialista especialista = especialistaDAO.obtenerPorCorreoContrasenia(correo,contrasenia);
+        System.out.println(correo);
+        System.out.println(especialista);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+                
+        if(especialista == null)
+        {
+        String mensaje = "Correo o Contraseña incorrecta";
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("mensaje", mensaje);
+        jsonObject.addProperty("status", 404);
+        
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(jsonObject));
+        }
+        else
+        {
+        String mensaje = "Ingreso correcto";
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("mensaje", mensaje);
+        jsonObject.addProperty("status", 200);
+        
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(jsonObject));        
+        }
     }
 }

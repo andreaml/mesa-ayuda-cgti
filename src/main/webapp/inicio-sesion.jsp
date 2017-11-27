@@ -60,20 +60,29 @@
   <!-- Formulario -->
     <section class="container-fluid p-3 pb-5">
       <div class="container d-flex flex-column border border-dark col-12 col-md-8 col-lg-6 ">
+        
+        <div id="alertEditado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+            Se ha ingresado con el correo <strong id="nombreCorreo"></strong> de manera satisfactoria.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+          
         <h3 class="align-self-center mt-5">Iniciar sesión</h3>
-        <form action="">
+        
+        <form id="formIngresar" action="">
           <div class="form-group row mx-3 p-4">
             <label for="">Correo universitario: </label>
-            <input type="email" id="" class="form-control border border-dark border-top-0 border-right-0 border-left-0 rounded-0" placeholder="Ingresa tu correo aquí">
+            <input type="email" name="correo" id="" class="form-control border border-dark border-top-0 border-right-0 border-left-0 rounded-0" placeholder="Ingresa tu correo aquí">
             <p class="text-danger ">Ingrese un correo válido (extensión @ucol.mx)</p> 
           </div>
           <div class="form-group row mx-3 p-4 ">
             <label for="">Contraseña: </label>
-            <input type="password" id="" class="form-control border border-dark border-top-0 border-right-0 border-left-0 rounded-0" placeholder="Ingresa tu contraseña aquí">
+            <input type="password" id=""  name="contrasenia" class="form-control border border-dark border-top-0 border-right-0 border-left-0 rounded-0" placeholder="Ingresa tu contraseña aquí">
             <p class="text-danger ">Ingrese una contraseña</p> 
           </div>
           <div class="text-center p-2 mb-3">
-            <button type="submit" class="btn btn-info">Ingresar </button>
+            <button type="submit" id="btnIngresar" class="btn btn-info">Ingresar </button>
           </div>
         </form>
       </div>
@@ -113,5 +122,34 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="<c:url value='/js/bootstrap.js' />"></script>
+    <script>
+    $(function(){
+            //cargarTablaEvaluacion();
+    $("#btnIngresar").unbind('click').on('click', function(e){
+                e.preventDefault();
+               $.ajax({
+                    type: 'GET',
+                    url: './inicio-sesion?action=iniciarSesion',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: $("#formIngresar").serialize(),
+                    success: function(data, textStatus, jqXHR){
+                        // access response data 
+                       console.log(data, textStatus, jqXHR);
+                        if(data.status == 200){
+                            window.location = "./especialista"
+                        }
+                        else{
+                        //$("#alertEditado #nombreCorreo").text(data.correo);
+                            $("#alertEditado").toggle();
+                            setTimeout(function(){
+                                $("#alertEditado").toggle();
+                            }, 5000);
+                        }
+                    }
+                });
+        });    
+});
+    </script>
   </body>
 </html>

@@ -10,16 +10,16 @@ package com.ucol.mesa.ayuda.cgti.model;
  * @author andreaml
  */
 public class Usuario_ {
-    private String usuario;
+    private String correo;
     private String contrasenia;
     
     public Usuario_(String usuario, String contrasenia) {
-        this.usuario = usuario;
+        this.correo = correo;
         this.contrasenia = contrasenia;
     }
 
     public void setUsuario(String usuario) {
-        this.usuario = usuario;
+        this.correo = correo;
     }
     
     public void setContrasenia(String contrasenia) {
@@ -27,7 +27,7 @@ public class Usuario_ {
     }
     
     public String getUsuario() {
-        return usuario;
+        return correo;
     }
     
     public String getContrasenia() {
