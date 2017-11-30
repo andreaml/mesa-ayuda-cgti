@@ -134,17 +134,19 @@ public class ServicioDAO {
     //Actualizar
     public boolean actualizar(Servicio servicio) throws SQLException {
         boolean rowActualizar = false;
-        String sql = "UPDATE SERVICIO SET id_servicio=?, nombreServicio=?, especialista=?, id_vehiculo=?, nivelGasolinaInicio=?, nivelGasolinaFinenia=? WHERE id_servicio=?";
+        String sql = "UPDATE SERVICIO SET id_servicio=?, nombre_servicio=?, id_vehiculo=?, nivel_gas_inicio=?, nivel_gas_fin=?, especialista=?, fecha=?, hora=? WHERE id_servicio=?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, servicio.getId_servicio());
         statement.setString(2, servicio.getNombreServicio());
-        statement.setString(3, servicio.getEspecialistaString());
-        statement.setString(4, servicio.getId_vehiculo());
-        statement.setInt(5, servicio.getNivelGasolinaInicio());
-        statement.setInt(6, servicio.getNivelGasolinaFin());
-        statement.setInt(7, servicio.getId_servicio());
+        statement.setString(3, servicio.getId_vehiculo());
+        statement.setInt(4, servicio.getNivelGasolinaInicio());
+        statement.setInt(5, servicio.getNivelGasolinaFin());
+        statement.setString(6, servicio.getEspecialistaString());
+        statement.setString(7, servicio.getFecha());
+        statement.setString(8, servicio.getHora());
+        statement.setInt(9, servicio.getId_servicio());
         
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();

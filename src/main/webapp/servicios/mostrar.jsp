@@ -194,12 +194,13 @@
                             </div>
                             <div class="form-group row mt-3">
                                 <label for="" class="col-4">Nivel de gasolina inicio: </label>
-                                <select name="nivel_gas_inicio"class="form-control col-8" id="">
+                                <select name="nivel_gas_inicio"class="form-control col-8" id="nivel_gas_inicio">
                                     <option value="5">Lleno</option>
                                     <option value="4">3/4</option>
                                     <option value="3">1/2</option>
                                     <option value="2">1/4</option>
                                     <option value="1">Vacío</option>
+                                    <option value="0">Sin nivel de gasolina</option>
                                 </select> 
                             </div>
                             <div class="form-group row mt-3">
@@ -232,7 +233,7 @@
         </div>
         <!-- Fin de modal agregar -->
 
-        <!--Inicio de modal editar vehículo -->
+        <!--Inicio de modal editar servicio -->
         <div class="modal" id="modal-editarServicio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content ">
@@ -244,13 +245,14 @@
                     </div>
                     <div class="modal-body p-5 col-11 ">
                         <form id="formEditarServicio" action="">
+                            <input type="hidden" id="id_servicio">
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-4">Nombre:</label>
                                 <input name="nombre_servicio"type="text" class="form-control col-8" id="nombre_servicio">
                             </div>                     
                             <div class="form-group row ">
                                 <label for="" class="col-4">Especialista: </label>
-                                <select class="form-control col-8" id="selectEspecialista">
+                                <select class="form-control col-8" id="selectEspecialista" name="especialista">
                                     
                                 </select> 
                             </div>
@@ -261,23 +263,24 @@
     
                             <div class="form-group row mt-3">
                                 <label for="" class="col-4">Vehículo: </label>
-                                <select class="form-control col-8" id="selectVehiculo">
+                                <select class="form-control col-8" id="selectVehiculo" name="vehiculo">
                                    
                                 </select> 
                             </div>
                             <div class="form-group row mt-3">
                                 <label for="" class="col-4">Nivel de gasolina inicio: </label>
-                                <select class="form-control col-8" id="nivel_gas_inicio">
+                                <select class="form-control col-8" id="nivel_gas_inicio" name="nivel_gas_inicio">
                                     <option value="5">Lleno</option>
                                     <option value="4">3/4</option>
                                     <option value="3">1/2</option>
                                     <option value="2">1/4</option>
                                     <option value="1">Vacío</option>
+                                    <option value="0">Sin nivel de gasolina</option>
                                 </select> 
                             </div>
                             <div class="form-group row mt-3">
                                 <label for="" class="col-4">Nivel de gasolina fin: </label>
-                                <select class="form-control col-8" id="nivel_gas_fin">
+                                <select class="form-control col-8" id="nivel_gas_fin" name="nivel_gas_fin">
                                     <option value="5">Lleno</option>
                                     <option value="4">3/4</option>
                                     <option value="3">1/2</option>
@@ -331,6 +334,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <form id="formEliminarServicio" action="">
+                            <input type="hidden" id="id_servicio" name="id_servicio">
                            <button id="btnEliminarServicio" type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
                         </form>
                     </div>
@@ -341,7 +345,7 @@
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="<c:url value='/js/jquery-3.2.1.min.js' />"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
         <script src="<c:url value='/js/bootstrap.js' />"></script>
         
@@ -369,7 +373,7 @@
                         success: function(data, textStatus, jqXHR){
                             // access response data
                             console.log(data, textStatus, jqXHR);
-                            $("#alertAgregado #nombre_servicioServicioNuevo").text(data.nombre_servicio);
+                            $("#alertAgregado #nombre_servicioServicioNuevo").text(data.nombreServicio);
                             $("#alertAgregado").toggle();
                             setTimeout(function(){
                                 $("#alertAgregado").toggle();
@@ -382,9 +386,9 @@
                 $("#btnEditarServicio").unbind('click').on('click', function(){
                    console.log($("#formEditarServicio").serialize()); 
                    let especialista="&especialista="+$("#formAgregarServicio #selectEspecialista").val();
-                   let fechaSeleccionada=$('#selectFecha1').data("DateTimePicker").date();
+                   let fechaSeleccionada=$('#selectFecha2').data("DateTimePicker").date();
                    let fecha="&fecha="+ fechaSeleccionada.toISOString().substring(0,10);
-                   let horaSeleccionada=$('#selectHora1').data("DateTimePicker").date();
+                   let horaSeleccionada=$('#selectHora2').data("DateTimePicker").date();
                    let hora="&hora="+ horaSeleccionada.toString().substring(16,24);
                    $.ajax({
                         type: 'POST',
@@ -395,12 +399,12 @@
                         success: function(data, textStatus, jqXHR){
                             // access response data
                             console.log(data, textStatus, jqXHR);
-                            $("#alertEditado #nombre_servicioServicioNuevo").text(data.nombre_servicio);
+                            $("#alertEditado #nombre_servicioServicioNuevo").text(data.nombreServicio);
                             $("#alertEditado").toggle();
                             setTimeout(function(){
                                 $("#alertEditado").toggle();
                             }, 5000);
-                            cargaTablaUsaurios();
+                            cargarTablaServicios();
                         }
                     });
                 });
@@ -408,13 +412,14 @@
                 $("#btnEliminarServicio").unbind('click').on('click', function(){
                    $.ajax({
                         type: 'POST',
-                        url: './servicios?action=eliminar&id_servicio=' + $("#formEliminarServicio #id_servicio").val(),
+                        url: './servicios?action=eliminar',
                         dataType: 'json',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        data: $("#formEliminarServicio").serialize(),
                         success: function(data, textStatus, jqXHR){
                             // access response data
                             console.log(data, textStatus, jqXHR);
-                            $("#alertEliminado #nombre_servicioServicioNuevo").text(data.nombre_servicio);
+                            $("#alertEliminado #nombre_servicioServicioNuevo").text(data.nombreServicio);
                             $("#alertEliminado").toggle();
                             setTimeout(function(){
                                 $("#alertEliminado").toggle();
@@ -427,12 +432,12 @@
                 function mostrarEditarServicio() {
                     $(".editar").unbind('click').on('click', function(){
                         let idObjServicio = $(this).attr('data-idObjServicio');
+                        $("#modal-editarServicio #id_servicio").val(listaServicios[idObjServicio].id_servicio);
                         $("#modal-editarServicio #nombre_servicio").val(listaServicios[idObjServicio].nombreServicio);
                         $("#modal-editarServicio #selectEspecialista").val(listaServicios[idObjServicio].especialista.correo);
                         $("#modal-editarServicio #selectVehiculo").val(listaServicios[idObjServicio].vehiculo.id_vehiculo);
                         $("#modal-editarServicio #nivel_gas_inicio").val(listaServicios[idObjServicio].nivelGasolinaInicio);
                         $("#modal-editarServicio #nivel_gas_fin").val(listaServicios[idObjServicio].nivelGasolinaFin);
-                        console.log(listaServicios[idObjServicio].fecha)
                         let anio = listaServicios[idObjServicio].fecha.substring(0,4);
                         let mes = listaServicios[idObjServicio].fecha.substring(5,7);
                         let dia = listaServicios[idObjServicio].fecha.substring(8,10);
@@ -447,7 +452,8 @@
                 function mostrarEliminarServicio() {
                     $(".eliminar").unbind('click').on('click', function(){
                         let idObjServicio = $(this).attr('data-idObjServicio');
-                        $("#modal-eliminarServicio #id_vehiculo").text(listaServicios[idObjServicio].id_vehiculo);
+                        $("#modal-eliminarServicio #nombre_servicio").text(listaServicios[idObjServicio].nombreServicio);
+                        $("#modal-eliminarServicio #id_servicio").val(listaServicios[idObjServicio].id_servicio);
                     });
                 }
                 function cargarTablaServicios() {
@@ -501,7 +507,6 @@
                         }
                    });
                 }  
-                
                 cargarVehiculosEnSelect();
                 function cargarVehiculosEnSelect() {
                    $.ajax({
@@ -512,14 +517,53 @@
                             // access response data
                             $("#formAgregarServicio #selectVehiculo").empty();
                             $("#formEditarServicio #selectVehiculo").empty();
+                            $("#formAgregarServicio #selectVehiculo").append(new Option("Selecciona un vehículo",0));
+                            $("#formEditarServicio #selectVehiculo").append(new Option("Selecciona un vehículo",0));
                             $.each(vehiculos, function(id, vehiculo) {
                                 $("#formAgregarServicio #selectVehiculo").append(new Option(vehiculo.id_vehiculo,vehiculo.id_vehiculo));
                                 $("#formEditarServicio #selectVehiculo").append(new Option(vehiculo.id_vehiculo,vehiculo.id_vehiculo));
                             });
+                            nivelGasolinaSelect();
                         }
                    });
                 }  
-                
+                function nivelGasolinaSelect() {
+                    if ($("#formAgregarServicio #selectVehiculo").val() === "0") {
+                        $("#formAgregarServicio #nivel_gas_inicio").val("0");
+                        $("#formAgregarServicio #nivel_gas_inicio").attr('readonly', true);
+                    } else {
+                        $("#formAgregarServicio #nivel_gas_inicio").attr('readonly', false);
+                    }
+                    if ($("#formEditarServicio #selectVehiculo").val() === "0") {
+                        $("#formEditarServicio #nivel_gas_inicio").val("0");
+                        $("#formEditarServicio #nivel_gas_inicio").attr('readonly', true);
+                        $("#formEditarServicio #nivel_gas_fin").val("0");
+                        $("#formEditarServicio #nivel_gas_fin").attr('readonly', true);
+                    } else {
+                        $("#formEditarServicio #nivel_gas_inicio").attr('readonly', false);
+                        $("#formEditarServicio #nivel_gas_fin").attr('readonly', false);
+                    }
+                    $("#formAgregarServicio #selectVehiculo").on('change', function() {
+                        if ($("#formAgregarServicio #selectVehiculo").val() === "0") {
+                            $("#formAgregarServicio #nivel_gas_inicio").val(0);
+                            $("#formAgregarServicio #nivel_gas_inicio").attr('readonly', true);
+                        } else {
+                            $("#formAgregarServicio #nivel_gas_inicio").attr('readonly', false);
+                        }
+                    });
+                    $("#formEditarServicio #selectVehiculo").on('change', function() {
+                        if ($("#formEditarServicio #selectVehiculo").val() === "0") {
+                            $("#formEditarServicio #nivel_gas_inicio").val(0);
+                            $("#formEditarServicio #nivel_gas_inicio").attr('readonly', true);
+                            $("#formEditarServicio #nivel_gas_fin").val(0);
+                            $("#formEditarServicio #nivel_gas_fin").attr('readonly', true);
+                        } else {
+                            $("#formEditarServicio #nivel_gas_inicio").attr('readonly', false);
+                            $("#formEditarServicio #nivel_gas_fin").attr('readonly', false);
+                        }
+                    });
+                    
+                }
                 function mostrarNivelGasolina(nivelGasolina) {
                     switch(nivelGasolina) {
                          case 1:
