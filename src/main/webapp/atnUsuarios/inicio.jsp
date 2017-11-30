@@ -92,45 +92,56 @@
   <section class="container-fluid mt-3">
     <div class="container d-flex flex-column col-12 col-md-8 col-lg-6 p-1">
       <h3 class="align-self-center my-4">Levantar Ticket</h3>
+      <div id="alertAgregado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+          Ticket <strong id="ticketNuevo"></strong> dado de alta con éxito.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div id="alertUsuarioAgregado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+          Usuario <strong id="correoUsuarioNuevo"></strong> agregado con éxito.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
       <!-- Contenido del formulario -->
-      <form id="formAgregarTicket">
-        <div class="form-group row mr-md-3 ml-md-3 p-2 mt-3">
-          <label for="" class="col-4">Emisor: </label>
-          <div class="col-8 form-group px-0 my-0">
-            <input type="text" id="emisor" name="emisor" class="form-control" placeholder="usuario@ucol.mx" autofocus>
-            <div id="mensajeUsuarioNoEncontrado" class="oculto-inicio">
-                <a class="text-danger" id="btnAgregarUsuario">Usuario no encontrado, hacer click aquí para crear un usuario nuevo.</a>
+        <form id="formAgregarTicket">
+            <div class="form-group row mr-md-3 ml-md-3 p-2 mt-3">
+              <label for="" class="col-4">Emisor: </label>
+              <div class="col-8 form-group px-0 my-0">
+                <input type="text" id="emisor" name="emisor" class="form-control" placeholder="usuario@ucol.mx" autofocus>
+                <div id="mensajeUsuarioNoEncontrado" class="oculto-inicio">
+                    <a class="text-danger underlinedhover" id="btnModalAgregarUsuario">Usuario no encontrado, hacer click aquí para crear un usuario nuevo.</a>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+            <div class="form-group row mr-md-3 ml-md-3 p-2">
+                <label for="" class="col-4">Titulo: </label>
+                <input type="text" id="titulo" name="titulo" class="form-control col-8" placeholder="Escriba el titulo del ticket"> 
+            </div>
 
-        <div class="form-group row mr-md-3 ml-md-3 p-2">
-            <label for="" class="col-4">Titulo: </label>
-            <input type="text" id="titulo" name="titulo" class="form-control col-8" placeholder="Escriba el titulo del ticket"> 
-        </div>
+            <div class="form-group row mr-md-3 ml-md-3 p-2">
+                <label for="" class="col-4">Descripción: </label>
+                <textarea class="form-control col-8" id="descripcion" name="descripcion" rows="3" placeholder="Escriba la descripción del problema"></textarea>
+            </div>
 
-        <div class="form-group row mr-md-3 ml-md-3 p-2">
-            <label for="" class="col-4">Descripción: </label>
-            <textarea class="form-control col-8" id="descripcion" name="descripcion" rows="3" placeholder="Escriba la descripción del problema"></textarea>
-        </div>
+            <div class="form-group row mr-md-3 ml-md-3 p-2">
+                <label for="" class="col-4">Tipo de servicio: </label>
+                <select class="form-control col-8" id="selectTipoServicio">
+                </select> 
+                <input type="hidden" id="idArea" name="id_area">
+            </div>
 
-        <div class="form-group row mr-md-3 ml-md-3 p-2">
-            <label for="" class="col-4">Tipo de servicio: </label>
-            <select class="form-control col-8" id="selectTipoServicio" name="tipo_servicio">
-            </select> 
-            <input type="hidden" id="idArea" name="id_area">
-        </div>
-
-        <div class="form-group row mr-md-3 ml-md-3 p-2 ">
-            <label for="" class="col-4">Especialista: </label>
-            <select class="form-control col-8" id="selectEspecialista" name="especialista">
-            </select> 
-        </div>
-        
+            <div class="form-group row mr-md-3 ml-md-3 p-2 ">
+                <label for="" class="col-4">Especialista: </label>
+                <select class="form-control col-8" id="selectEspecialista" name="especialista">
+                </select> 
+            </div>
+       </form>  
         <div class="text-right px-md-4 mt-3 mb-5 pt-2">
           <button id="btnAgregarTicket" class="btn btn-info">Guardar cambios </button>
         </div>
-      </form>
+     
       <!-- Fin del contenido del formulario -->
     </div>  
   </section>
@@ -213,6 +224,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="<c:url value='/js/jquery-ui.min.js' />"></script>
     <script src="<c:url value='/js/bootstrap.js' />"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/moment.min.js"></script>
     <script>
         $(function(){
             var listaUsuarios = [];
@@ -247,14 +259,15 @@
                     }
                });
            }
-           function mostrarAgregarUsuarioModal() {
-                $("#btnAgregarUsuario").unbind('click').on('click', () => {
+            function mostrarAgregarUsuarioModal() {
+                $("#btnModalAgregarUsuario").unbind('click').on('click', () => {
                     $('#modal-agregarUsuario').modal();
                     $("#formAgregarUsuario #correo").val($("#emisor").val());
+                    
                 });
             }
 
-           function cargarTipoServicioEnSelect() {
+            function cargarTipoServicioEnSelect() {
                $.ajax({
                     type: 'GET',
                     url: './atencion-usuarios/tipo-servicio?action=mostrar',
@@ -282,7 +295,7 @@
                     cargarEspecialistasEnSelect();
                 });
             }
-           function cargarEspecialistasEnSelect() {
+            function cargarEspecialistasEnSelect() {
                 $.ajax({
                     type: 'GET',
                     url: './atencion-usuarios/especialistas?action=mostrarPorArea',
@@ -299,12 +312,88 @@
                     }
                 });
             }
+            
+            function cargarDependenciasEnSelect() {
+               $.ajax({
+                    type: 'GET',
+                    url: './atencion-usuarios/dependencias?action=mostrar',
+                    dataType: 'json',
+                    success: function(dependencias, textStatus, jqXHR){
+                        // access response data
+                        $("#selectDependencia").empty();
+                        $.each(dependencias, function(id, dependencia) {
+                            $('#formAgregarUsuario #selectDependencia').append(new Option(dependencia.nombreDependencia,dependencia.id_dependencia));
+                            $('#formEditarUsuario #selectDependencia').append(new Option(dependencia.nombreDependencia,dependencia.id_dependencia));
+                        });
+                    }
+               });
+           }
+           
+            function agregarUsuario() {
+                $("#btnAgregarUsuario").unbind('click').on('click', function(){
+                    console.log($("#formAgregarUsuario").serialize());
+                    let dependencia="&dependencia="+$("#formAgregarUsuario #selectDependencia").val();
+                    $.ajax({
+                         type: 'POST',
+                         url: './atencion-usuarios/usuarios?action=registrar',
+                         dataType: 'json',
+                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                         data: $("#formAgregarUsuario").serialize() + dependencia ,
+                         success: function(data, textStatus, jqXHR){
+                             // access response data
+                             console.log(data, textStatus, jqXHR);
+                             $("#alertUsuarioAgregado #correoUsuarioNuevo").text(data.correo);
+                             $("#alertUsuarioAgregado").toggle();
+                             setTimeout(function(){
+                                 $("#alertUsuarioAgregado").toggle();
+                             }, 5000);
+                             $('#emisor').attr('readonly', true);
+                             $('#emisor').val('Cargando...'); 
+                             cargarEmisoresEnSelect();
+                         }
+                     });
+                 });
+            }
+            
+            $("#btnAgregarTicket").unbind('click').on('click', function(e){
+                e.preventDefault();
+                console.log($("#formAgregarTicket").serialize());
+                let tipoServicio="&tipo_servicio="+$("#selectTipoServicio").val().split(',')[0];
+                let fecha = moment().format();
+                let hora = "&hora=" + fecha.substring(11,19);
+                fecha = "&fecha=" + fecha.substring(0,10);
+                console.log(fecha, hora)
+                $.ajax({
+                     method: 'POST',
+                     url: './atencion-usuarios/tickets?action=registrar',
+                     dataType: 'json',
+                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                     data: $("#formAgregarTicket").serialize() + tipoServicio + fecha + hora,
+                     success: function(data, textStatus, jqXHR){
+                         // access response data
+                         console.log(data, textStatus, jqXHR);
+                         $("#alertAgregado #ticketNuevo").text(data.id_ticket);
+                         $("#alertAgregado").toggle();
+                         setTimeout(function(){
+                             $("#alertAgregado").toggle();
+                         }, 20000);
+                         $("#formAgregarTicket #emisor").val('');
+                         $("#formAgregarTicket #titulo").val('');
+                         $("#formAgregarTicket #descripcion").val('');
+                         $("#formAgregarTicket #selectTipoServicio").val(0);
+                         $("#formAgregarTicket #selectEspecialista").val(0);
+                     }
+                 });
+             });
+ 
             $('#emisor').attr('readonly', true);
             $('#emisor').val('Cargando...'); 
             cargarEmisoresEnSelect();
             $('#selectTipoServicio').attr('readonly', true);
             $('#selectTipoServicio').append(new Option('Cargando...','')); 
-           cargarTipoServicioEnSelect();
+            cargarTipoServicioEnSelect();
+            cargarDependenciasEnSelect();
+            agregarUsuario();
         });
     </script>
   </body>

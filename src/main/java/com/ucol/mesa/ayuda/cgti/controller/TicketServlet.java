@@ -109,8 +109,18 @@ public class TicketServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Ticket ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), request.getParameter("emisor"), request.getParameter("fecha"), request.getParameter("hora"), Integer.parseInt(request.getParameter("estado_ticket")));
+        Ticket ticket;
+        String emisor = request.getParameter("emisor").replace("%40", "@");
+        if (request.getParameter("especialista") != null) {
+            String especialista = request.getParameter("especialista").replace("%40", "@");
+            ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), emisor, request.getParameter("fecha"), request.getParameter("hora"), 1);
+            ticket.setEspecialistaString(especialista);
+        } else {
+            ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), emisor, request.getParameter("fecha"), request.getParameter("hora"), 2);
+        }
+        
         ticketDAO.insertar(ticket);
+        ticket.setId_ticket(ticketDAO.obtenerUltimoIdInsertado(request.getParameter("fecha"), request.getParameter("hora")));
 
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");

@@ -43,23 +43,60 @@ public class TicketDAO {
     
     //Agregar nombreUsuario
     public boolean insertar(Ticket ticket) throws SQLException {
-        String sql = "INSERT INTO TICKETS(titulo, descripcion, tipo_servicio, emisor, fecha, hora, estado_ticket) VALUES (?,?,?,?,?,?,?)";
-        System.out.println(ticket.getId_ticket());
+        String sql;
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, ticket.getTitulo());
-        statement.setString(2, ticket.getDescripcion());
-        statement.setInt(3, ticket.getTipoServicioInt());
-        statement.setString(4, ticket.getEmisorString());
-        statement.setString(5, ticket.getFecha());
-        statement.setString(6, ticket.getHora());
-        statement.setInt(7, ticket.getEstadoTicket());
-
-        boolean rowInserted = statement.executeUpdate() > 0;
+        PreparedStatement statement;
+        boolean rowInserted = false;
+        if (ticket.getEspecialistaString() != "") {
+            sql = "INSERT INTO TICKETS(titulo, descripcion, tipo_servicio, emisor, fecha, hora, estado_ticket, especialista) VALUES (?,?,?,?,?,?,?,?)";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, ticket.getTitulo());
+            statement.setString(2, ticket.getDescripcion());
+            statement.setInt(3, ticket.getTipoServicioInt());
+            statement.setString(4, ticket.getEmisorString());
+            statement.setString(5, ticket.getFecha());
+            statement.setString(6, ticket.getHora());
+            statement.setInt(7, ticket.getEstadoTicket());
+            statement.setString(8, ticket.getEspecialistaString());
+            rowInserted = statement.executeUpdate() > 0;
+        } else {
+            sql = "INSERT INTO TICKETS(titulo, descripcion, tipo_servicio, emisor, fecha, hora, estado_ticket) VALUES (?,?,?,?,?,?,?)";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, ticket.getTitulo());
+            statement.setString(2, ticket.getDescripcion());
+            statement.setInt(3, ticket.getTipoServicioInt());
+            statement.setString(4, ticket.getEmisorString());
+            statement.setString(5, ticket.getFecha());
+            statement.setString(6, ticket.getHora());
+            statement.setInt(7, ticket.getEstadoTicket());
+            rowInserted = statement.executeUpdate() > 0;
+        }
         statement.close();
         conexionBD.desconectar();
         return rowInserted;
+    }
+    
+    //Obtener último id insertado
+    public int obtenerUltimoIdInsertado(String fecha, String hora) throws SQLException {
+        int ticketId = -1;
+
+        String sql = "SELECT id_ticket FROM TICKETS WHERE fecha=? and hora=?";
+        conexionBD.conectar();
+        connection = conexionBD.getJdbcConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, fecha);
+        statement.setString(2, hora);
+
+        ResultSet res = statement.executeQuery();
+        if (res.next()) {
+           ticketId = res.getInt("id_ticket");
+        }
+        res.close();
+        statement.close();
+        conexionBD.desconectar();
+
+        return ticketId;
     }
     
     
