@@ -135,12 +135,12 @@ public class ServicioServlet extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Servicio servicio = new Servicio(Integer.parseInt(request.getParameter("id_servicio")), request.getParameter("nombre_servicio"), request.getParameter("especialista"), request.getParameter("id_vehiculo"), Integer.parseInt(request.getParameter("nivel_gasolina_inicio")), Integer.parseInt(request.getParameter("nivel_gasolina_fin")),request.getParameter("fecha"), request.getParameter("hora"));
+        Servicio servicio = new Servicio(Integer.parseInt(request.getParameter("id_servicio")), request.getParameter("nombre_servicio"), request.getParameter("especialista"), request.getParameter("vehiculo"), Integer.parseInt(request.getParameter("nivel_gas_inicio")), Integer.parseInt(request.getParameter("nivel_gas_fin")),request.getParameter("fecha"), request.getParameter("hora"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString()); 
-        //servicioDAO.actualizar(servicio);
+        servicioDAO.actualizar(servicio);
         
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(servicio));
@@ -152,7 +152,7 @@ public class ServicioServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());  
-        //servicioDAO.eliminar(servicio);
+        servicioDAO.eliminar(servicio);
                
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(servicio));

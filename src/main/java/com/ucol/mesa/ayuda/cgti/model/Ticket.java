@@ -37,6 +37,15 @@ public class Ticket {
         this.estadoTicket= estadoTicket;
     }
     
+    public Ticket(String titulo, String descripcion, int tipoServicio,
+            String emisor,int estadoTicket){
+        this.titulo= titulo;
+        this.descripcion= descripcion;
+        this.tipoServicioInt= tipoServicio;
+        this.emisorString= emisor;
+        this.estadoTicket= estadoTicket;
+    }
+    
     public Ticket(String titulo, String descripcion, TipoServicio tipoServicio,
             Usuario emisor, String fecha, String hora, int estadoTicket){
         this.titulo= titulo;
