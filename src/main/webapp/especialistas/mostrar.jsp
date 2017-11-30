@@ -344,7 +344,7 @@
                let profesion = "&profesion=" + $("#formAgregarEspecialista #profesion").val() + " " + $("#formAgregarEspecialista #nombreProfesion").val();
                $.ajax({
                     type: 'POST',
-                    url: './especialistas?action=editar&correoViejo=' + $("#formEditarEspecialista #correoViejo").val(),
+                    url: './especialistas?action=editar',
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: $("#formEditarEspecialista").serialize() + profesion,

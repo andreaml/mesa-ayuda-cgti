@@ -40,9 +40,9 @@
     <div class="row col-12 px-0 ">
         <div class=" col-12 col-md-8 px-0"><h1 class="display-5">Mesa de ayuda UdeC</h1></div>
         <div class="col-5 col-md-4 px-0 align-self-md-center d-md-flex justify-content-md-start justify-content-md-end px-md-0 ">
-            <a href="" class="btn btn-info">Iniciar sesión</a>
+            <a href="<c:url value='/inicio-sesion.jsp' />" class="btn btn-info">Iniciar sesión</a>
         </div> 
-        
+
         <!-- Barra de menu -->
         <div class="col-7 col-md-12 px-0 mt-lg-3">
             <nav class=" container nav navbar mr-0 mx-lg-auto pt-0 px-0 navbar-expand-lg navbar-light ">

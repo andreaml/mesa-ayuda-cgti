@@ -67,7 +67,6 @@ public class EspecialistaDAO {
             //int area = resulSet.getInt("area");
             Area area = areaDAO.obtenerPorId(resulSet.getInt("area"));
             int numTrabajador = resulSet.getInt("num_trabajador");
-            String contrasenia = resulSet.getString("contrasenia");
             String profesion = resulSet.getString("profesion");
 
             Especialista especialista = new Especialista(correo, nombre1, nombre2, apellidoP, apellidoM, area, numTrabajador, profesion);
@@ -119,7 +118,31 @@ public class EspecialistaDAO {
         if (res.next()) {
             Area area = areaDAO.obtenerPorId(res.getInt("area"));
             especialista = new Especialista(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), area, res.getInt("num_trabajador"), res.getString("profesion"));
+            especialista.setContrasenia(res.getString("contrasenia"));
         }
+        
+        res.close();
+        conexionBD.desconectar();
+
+        return especialista;
+    }
+    
+    public Especialista obtenerPorCorreoContrasenia(String correo, String contrasenia) throws SQLException {
+        Especialista especialista = null;
+
+        String sql = "SELECT * FROM ESPECIALISTA WHERE correo=? AND contrasenia=?";
+        conexionBD.conectar();
+        connection = conexionBD.getJdbcConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, correo);
+        statement.setString(2, contrasenia);
+        ResultSet res = statement.executeQuery();
+        if (res.next()) {
+            Area area = areaDAO.obtenerPorId(res.getInt("area"));
+            especialista = new Especialista(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), area, res.getInt("num_trabajador"), res.getString("profesion"));
+            especialista.setContrasenia(res.getString("contrasenia"));
+        }
+        
         res.close();
         conexionBD.desconectar();
 
