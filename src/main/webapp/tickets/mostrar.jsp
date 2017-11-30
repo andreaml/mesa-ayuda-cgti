@@ -88,6 +88,12 @@
 <!-- Seccion 1-->
   <section class="container mt-4">
         <h3 class="text-center p-1">Tickets</h3>
+        <div id="alertEditado" class="alert alert-success alert-dismissible fade show col-12 oculto-inicio" role="alert">
+          Ticket <strong id="ticketNuevo"></strong> modificado con éxito.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
         <div class="row col-12 d-flex justify-content-center align-items-center my-4 ml-0">
             <form class="form-group col-11 col-md-6 mx-md-5 px-0 mb-lg-0 mb-2">
                 <div class="input-group">
@@ -318,37 +324,36 @@
                     <form action="">
                         <div class="form-group row">
                             <label for="" class="col-form-label col-4">Titulo:</label>
-                            <input type="text" class="form-control col-8" id="">
+                            <input type="text" class="form-control col-8" id="titulo" name="titulo">
                         </div>
                         <div class="form-group row">         
                             <label for="" class="col-form-label col-4">Descripción:</label>           
-                            <textarea class="form-control col-8" id="" rows="3" ></textarea>
+                            <textarea class="form-control col-8" id="descripcion" name="descripcion" rows="3" ></textarea>
                         </div>
                         <div class="form-group row ">
                             <label for="" class="col-4">Tipo de servicio: </label>
-                            <select class="form-control col-8" id="selectTipoServicio">
-                                <option></option>
+                            <select class="form-control col-8" id="selectTipoServicio" name="tipo_servicio">
                             </select> 
+                            <input type="hidden" id="idArea" name="id_area">
                         </div>
                         <div class="form-group row ">
                             <label for="" class="col-4">Emisor: </label>
-                            <select class="form-control col-8" id="selectEmisor">
-                                <option></option>
+                            <select class="form-control col-8" id="selectEmisor" id="emisor">
                             </select> 
                         </div>
                         <div class="form-group row ">
                             <label for="" class="col-4">Especialista: </label>
-                            <select class="form-control col-8" id="selectEspecialista">
+                            <select class="form-control col-8" id="selectEspecialista" name="especialista">
                             </select> 
                         </div>
                         <div class="form-group row ">
                             <label for="" class="col-4">Servicio: </label>
-                            <select class="form-control col-8" id="selectServicio">
+                            <select class="form-control col-8" id="selectServicio" name="servicio">
                             </select> 
                         </div>
                         <div class="form-group row ">
                         <label for="" class="col-4">Estado de ticket: </label>
-                            <select class="form-control col-8" id="">
+                            <select class="form-control col-8" id="estadoTicket" name="estado">
                                 <option value="Atendiendo">Atendiendo</option>
                                 <option value="Solucionado">Solucionado</option>
                             </select> 
@@ -377,7 +382,7 @@
                     </button>
                 </div>
                 <div class="modal-body p-5">
-                ¿Realmente desea eliminar ticket array[i]?   
+                    ¿Realmente desea eliminar ticket <span id="id_ticket"></span>?   
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -391,7 +396,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="<c:url value='/js/jquery-3.2.1.min.js' />"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="<c:url value='/js/bootstrap.js' />"></script>
     <script>
@@ -399,7 +404,7 @@
            function cargarEmisoresEnSelect() {
                $.ajax({
                     type: 'GET',
-                    url: './usuario?action=mostrar',
+                    url: './usuarios?action=mostrar',
                     dataType: 'json',
                     success: function(usuarios, textStatus, jqXHR){
                         // access response data
@@ -410,40 +415,6 @@
                     }
                });
            }
-           function cargarEspecialistasEnSelect() {
-               console.log('entraespecialista')
-               /*$.ajax({
-                    type: 'GET',
-                    url: './especialista?action=mostrar',
-                    dataType: 'json',
-                    success: function(especialistas, textStatus, jqXHR){
-                        // access response data
-                        $("#selectEspecialista").empty();
-                        $.each(especialistas, function(id, especialista) {
-                            $('#selectEspecialista').append(new Option(especialista.correo,especialista.correo)); 
-                        });
-                    }
-               });*/
-               $("#selectEspecialista").change(function(){
-                   console.log('clickselect')
-                    cargarServiciosEnSelect($("#selectEspecialista option:selected").val());
-               });
-           }
-           function cargarServiciosEnSelect(id_especialista) {
-               console.log(id_especialista)
-               /*$.ajax({
-                    type: 'GET',
-                    url: './servicios?action=mostrarPorEspecialista?id_especialista=' + id_especialista,
-                    dataType: 'json',
-                    success: function(servicios, textStatus, jqXHR){
-                        // access response data
-                        $("#selectServicios").empty();
-                        $.each(servicios, function(id, servicio) {
-                            $('#selectServicios').append(new Option(servicio.nombreServicio,servicio.id_servicio)); 
-                        });
-                    }
-               });*/
-           } 
            function cargarTipoServicioEnSelect() {
                $.ajax({
                     type: 'GET',
@@ -452,18 +423,74 @@
                     success: function(tiposServicio, textStatus, jqXHR){
                         // access response data
                         $("#selectTipoServicio").empty();
+                        $('#selectTipoServicio').append(new Option('Seleccionar Tipo de servicio', 0));
+                        $('#selectTipoServicio').attr('readonly', false); 
                         $.each(tiposServicio, function(id, tipoServicio) {
-                            $('#selectTipoServicio').append(new Option(tipoServicio.nombreTipoServicio,tipoServicio.id_tipo_servicio)); 
+                            console.log(tipoServicio)
+                            $('#selectTipoServicio').append(new Option(tipoServicio.nombreTipoServicio,tipoServicio.id_tipo_servicio + ',' + tipoServicio.areaInt)); 
                         });
+                        seleccionTipoServicio();
                     }
                });
-               $("#selectTipoServicio").change(function(){
-                    cargarEspecialistasEnSelect($("#selectTipoServicio option:selected").val());
-               });
-           } 
-           cargarEmisoresEnSelect();
-           cargarTipoServicioEnSelect();
-           //cargarEspecialistasEnSelect();
+            } 
+            function seleccionTipoServicio() {
+                $("#selectTipoServicio").on('change', ()=>{
+                    let idArea = $("#selectTipoServicio").val().split(',')[1];
+                    $("#idArea").val(idArea);
+                    $("#selectEspecialista").empty();
+                    $('#selectEspecialista').attr('readonly', true);
+                    $('#selectEspecialista').append(new Option('Cargando...','')); 
+                    cargarEspecialistasEnSelect();
+                });
+            }
+            function cargarEspecialistasEnSelect() {
+                $.ajax({
+                    type: 'GET',
+                    url: './especialistas?action=mostrarPorArea',
+                    dataType: 'json',
+                    data: $("#idArea").serialize(),
+                    success: function(especialistas, textStatus, jqXHR){
+                        // access response data
+                        $("#selectEspecialista").empty();
+                        $('#selectEspecialista').append(new Option('Seleccionar Especialista', 0));
+                        $('#selectEspecialista').attr('readonly', false);
+                        $.each(especialistas, function(id, especialista) {
+                            $('#selectEspecialista').append(new Option(especialista.correo,especialista.correo)); 
+                        });
+                        seleccionEspecialista();
+                    }
+                });
+            }
+            function seleccionEspecialista() {
+                $("#selectEspecialista").on('change', ()=>{
+                    $("#selectServicio").empty();
+                    $('#selectServicio').attr('readonly', true);
+                    $('#selectServicio').append(new Option('Cargando...','')); 
+                    cargarServiciosEnSelect();
+                });
+            }
+            function cargarServiciosEnSelect() {
+                $.ajax({
+                    type: 'GET',
+                    url: './servicios?action=mostrarPorEspecialista',
+                    dataType: 'json',
+                    data: $("#selectEspecialista").serialize(),
+                    success: function(servicios, textStatus, jqXHR){
+                        // access response data
+                        $("#selectServicio").empty();
+                        $('#selectServicio').append(new Option('Seleccionar Servicio', 0));
+                        $('#selectServicio').attr('readonly', false);
+                        $.each(servicios, function(id, servicio) {
+                            $('#selectServicio').append(new Option(servicio.nombreServicio,servicio.id_servicio)); 
+                        });
+                    }
+                });
+            }
+            cargarEmisoresEnSelect();
+            $('#selectTipoServicio').attr('readonly', true);
+            $('#selectTipoServicio').append(new Option('Cargando...','')); 
+            cargarTipoServicioEnSelect();
+            cargarDependenciasEnSelect();
         });
     </script>
   </body>
