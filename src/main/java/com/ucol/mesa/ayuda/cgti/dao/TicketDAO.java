@@ -114,31 +114,23 @@ public class TicketDAO {
             int id_ticket = resulSet.getInt("id_ticket");
             String titulo = resulSet.getString("titulo");
             String descripcion = resulSet.getString("descripcion");
-            //int servicioInt = resulSet.getInt("servicio");
             Servicio servicio= servicioDAO.obtenerPorId(resulSet.getInt("servicio"));
-            //int tipo_servicioInt = resulSet.getInt("tipo_servicio");
             TipoServicio tipo_servicio=tipoServicioDAO.obtenerPorId(resulSet.getInt("tipo_servicio"));
-            //String emisor = resulSet.getString("emisor");
             Usuario emisor = usuarioDAO.obtenerPorId(resulSet.getString("emisor"));
-            //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
-            //LocalDate fecha = LocalDate.parse(resulSet.getString("fecha"), dtf);
             String fecha = resulSet.getString("fecha");
-            //DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
-            //LocalTime hora = LocalTime.parse(resulSet.getString("hora"),dtf2);
             String hora = resulSet.getString("hora");
             String comentarios = resulSet.getString("comentario_atencion_usuario");
             int estado_satisfaccion = resulSet.getInt("estado_satisfaccion");
             int estado_ticket = resulSet.getInt("estado_ticket");
-            //String especialista = resulSet.getString("especialista");
             Especialista especialista = especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
 
             Ticket ticket = new Ticket(titulo, descripcion, tipo_servicio, emisor, fecha, hora, estado_ticket);
             ticket.setId_ticket(id_ticket);
-
             ticket.setServicio(servicio);
             ticket.setComentarios(comentarios);
             ticket.setEstadoSatisfaccion(estado_satisfaccion);
             ticket.setEspecialista(especialista);
+            
             listaTickets.add(ticket);
         }
         conexionBD.desconectar();
@@ -185,21 +177,24 @@ public class TicketDAO {
     //Actualizar
     public boolean actualizar(Ticket ticket) throws SQLException {
         boolean rowActualizar = false;
-        String sql = "UPDATE TICKETS SET id_ticket=?, titulo=?, descripcion=?, servicio=?,tipo_servicio=?, emisor=?, fecha=?, hora=?, comentario_atencion_usuario=?, estado_satisfaccion=?, estado_ticket=?, especialista=? WHERE id_ticket=?";
+        String sql = "UPDATE TICKETS SET titulo=?, descripcion=?, servicio=?, tipo_servicio=?, emisor=?, comentario_atencion_usuario=?, estado_satisfaccion=?, estado_ticket=?, especialista=? WHERE id_ticket=?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, ticket.getId_ticket());
-        statement.setString(2, ticket.getTitulo());
-        statement.setString(3, ticket.getDescripcion());
-        statement.setInt(4, ticket.getServicioInt());
-        statement.setInt(5, ticket.getTipoServicioInt());
-        statement.setString(6, ticket.getEmisorString());
-        statement.setString(7, ticket.getFecha());
-        statement.setString(8, ticket.getHora());
-        statement.setString(9, ticket.getComentarios());
-        statement.setInt(10, ticket.getEstadoSatisfaccion());
-        statement.setInt(11, ticket.getEstadoTicket());
+        
+        statement.setString(1, ticket.getTitulo());
+        statement.setString(2, ticket.getDescripcion());
+        if (ticket.getServicioInt() == 0) 
+            statement.setInt(3, ticket.getServicioInt());
+        else 
+             statement.setNull(3, java.sql.Types.INTEGER);
+        statement.setInt(4, ticket.getTipoServicioInt());
+        statement.setString(5, ticket.getEmisorString());
+        statement.setString(6, ticket.getComentarios());
+        statement.setInt(7, ticket.getEstadoSatisfaccion());
+        statement.setInt(8, ticket.getEstadoTicket());
+        statement.setString(9, ticket.getEspecialistaString());
+        statement.setInt(10, ticket.getId_ticket());
         
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();

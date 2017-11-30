@@ -113,10 +113,10 @@ public class TicketServlet extends HttpServlet {
         String emisor = request.getParameter("emisor").replace("%40", "@");
         if (request.getParameter("especialista") != null) {
             String especialista = request.getParameter("especialista").replace("%40", "@");
-            ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), emisor, request.getParameter("fecha"), request.getParameter("hora"), 1);
+            ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), emisor, request.getParameter("fecha"), request.getParameter("hora"), 2);
             ticket.setEspecialistaString(especialista);
         } else {
-            ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), emisor, request.getParameter("fecha"), request.getParameter("hora"), 2);
+            ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), emisor, request.getParameter("fecha"), request.getParameter("hora"), 1);
         }
         
         ticketDAO.insertar(ticket);
@@ -139,8 +139,13 @@ public class TicketServlet extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Ticket ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), request.getParameter("emisor"), request.getParameter("fecha"), request.getParameter("hora"), Integer.parseInt(request.getParameter("estado_ticket")));
+        Ticket ticket = new Ticket(request.getParameter("titulo"), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("tipo_servicio")), request.getParameter("emisor"), Integer.parseInt(request.getParameter("estado_ticket")));
+        ticket.setComentarios(request.getParameter("comentario"));
         ticket.setId_ticket(Integer.parseInt(request.getParameter("id_ticket")));
+        if (request.getParameter("especialista") != null) {
+            String especialista = request.getParameter("especialista").replace("%40", "@");
+            ticket.setEspecialistaString(especialista);
+        }
         ticketDAO.actualizar(ticket);
         
         response.setContentType("application/json");

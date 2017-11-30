@@ -111,8 +111,8 @@
 <!-- Inicio de contenido principal -->
   <div class="container-fluid d-flex flex-column mt-4 col-11 table-responsive">
    
-    <!-- Tabla de registros -->
-    <div class="">
+    <!-- Tabla de tickets -->
+    <div id="tablaTickets">
       <table class="table table-striped">
         <thead>
           <tr>
@@ -130,91 +130,6 @@
           </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>123</td>
-                <td>Lorem ipsum dolor sit </td>
-                <td>Lorem ipsum </td>
-                <td>usuario@ucol.mx</td>
-                <td>2017-10-09</td>
-                <td>12:20</td>
-                <td>Si</td> 
-                <td>Calendarizado</td>
-                <td>-</td>
-                <td>usuario@ucol.mx</td>
-                <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-                    <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarTicket"><i class="fa fa-pencil"></i></button>
-                    <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarTicket"><i class="fa fa-trash-o"></i></button>
-                    <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target=""><i class="fa fa-times"></i></button>
-                </td>
-            </tr>
-            <tr>
-                <td>123</td>
-                <td>Lorem ipsum dolor sit </td>
-                <td>Lorem ipsum </td>
-                <td>usuario@ucol.mx</td>
-                <td>2017-10-09</td>
-                <td>12:20</td>
-                <td>No</td> 
-                <td>Solucionado</td>
-                <td>-</td>
-                <td>usuario@ucol.mx</td>
-                <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-                    <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarTicket"><i class="fa fa-pencil"></i></button>
-                    <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarTicket"><i class="fa fa-trash-o"></i></button>
-                    <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target=""><i class="fa fa-times"></i></button>
-                </td>
-            </tr>
-            <tr>
-                <td>123</td>
-                <td>Lorem ipsum dolor sit </td>
-                <td>Lorem ipsum </td>
-                <td>usuario@ucol.mx</td>
-                <td>2017-10-09</td>
-                <td>12:20</td>
-                <td>Si</td> 
-                <td>Asignado</td>
-                <td>5</td>
-                <td>usuario@ucol.mx</td>
-                <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-                    <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarTicket"><i class="fa fa-pencil"></i></button>
-                    <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarTicket"><i class="fa fa-trash-o"></i></button>
-                    <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target=""><i class="fa fa-times"></i></button>
-                 </td>
-            </tr>
-            <tr>
-                <td>123</td>
-                <td>Lorem ipsum dolor sit </td>
-                <td>Lorem ipsum </td>
-                <td>usuario@ucol.mx</td>
-                <td>2017-10-09</td>
-                <td>12:20</td>
-                <td>No</td> 
-                <td>Calendarizado</td>
-                <td>-</td>
-                <td>usuario@ucol.mx</td>
-                <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-                    <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarTicket"><i class="fa fa-pencil"></i></button>
-                    <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarTicket"><i class="fa fa-trash-o"></i></button>
-                    <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target=""><i class="fa fa-times"></i></button>
-                </td>
-            </tr>
-            <tr>
-                <td>123</td>
-                <td>Lorem ipsum dolor sit </td>
-                <td>Lorem ipsum </td>
-                <td>usuario@ucol.mx</td>
-                <td>2017-10-09</td>
-                <td>12:20</td>
-                <td>Si</td> 
-                <td>Calendarizado</td>
-                <td>-</td>
-                <td>usuario@ucol.mx</td>
-                <td class="text-center d-flex flex-column flex-lg-row justify-content-around">
-                    <button type="button" class="btn btn-info my-1" data-toggle="modal" data-target="#modal-editarTicket"><i class="fa fa-pencil"></i></button>
-                    <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarTicket"><i class="fa fa-trash-o"></i></button>
-                    <button type="button" class="btn btn-danger my-1" data-toggle="modal" data-target=""><i class="fa fa-times"></i></button>
-                </td>
-            </tr>
         </tbody>
       </table>
     </div>
@@ -222,7 +137,7 @@
   </div>
 <!-- Fin de contenido principal -->
 
-<!-- Inicio de descripción de los tickets -->
+<!-- Inicio de descripción de los tickets
     <div class="container-fluid d-flex flex-column mt-5 col-12 col-md-11 ">
         <div class="row">
             <div class="col-12 col-md-8">
@@ -321,24 +236,29 @@
                 </div>
 
                 <div class="modal-body p-5 col-11 ">
-                    <form action="">
+                    <form id="formEditarTicket">
                         <div class="form-group row">
                             <label for="" class="col-form-label col-4">Titulo:</label>
+                            <input type="hidden" id="id_ticket" name="id_ticket">
                             <input type="text" class="form-control col-8" id="titulo" name="titulo">
                         </div>
                         <div class="form-group row">         
                             <label for="" class="col-form-label col-4">Descripción:</label>           
                             <textarea class="form-control col-8" id="descripcion" name="descripcion" rows="3" ></textarea>
                         </div>
+                        <div class="form-group row">         
+                            <label for="" class="col-form-label col-4">Comentario:</label>           
+                            <textarea class="form-control col-8" id="comentario" name="comentario" rows="3" ></textarea>
+                        </div>
                         <div class="form-group row ">
                             <label for="" class="col-4">Tipo de servicio: </label>
-                            <select class="form-control col-8" id="selectTipoServicio" name="tipo_servicio">
+                            <select class="form-control col-8" id="selectTipoServicio">
                             </select> 
                             <input type="hidden" id="idArea" name="id_area">
                         </div>
                         <div class="form-group row ">
                             <label for="" class="col-4">Emisor: </label>
-                            <select class="form-control col-8" id="selectEmisor" id="emisor">
+                            <select class="form-control col-8" id="selectEmisor" name="emisor">
                             </select> 
                         </div>
                         <div class="form-group row ">
@@ -353,16 +273,20 @@
                         </div>
                         <div class="form-group row ">
                         <label for="" class="col-4">Estado de ticket: </label>
-                            <select class="form-control col-8" id="estadoTicket" name="estado">
-                                <option value="Atendiendo">Atendiendo</option>
-                                <option value="Solucionado">Solucionado</option>
+                            <select class="form-control col-8" id="estadoTicket" name="estado_ticket">
+                                <option value="1">Sin asignar</option>
+                                <option value="2">Asignado</option>
+                                <option value="3">Atendiendo</option>
+                                <option value="4">Cerrado</option>
+                                <option value="5">Solucionado</option>
+                                <option value="6">Calendarizado</option>
                             </select> 
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Editar</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="btnEditarTicket">Editar</button>
                 </div>
             </div>
         </div>
@@ -382,11 +306,14 @@
                     </button>
                 </div>
                 <div class="modal-body p-5">
-                    ¿Realmente desea eliminar ticket <span id="id_ticket"></span>?   
+                    ¿Realmente desea eliminar ticket <span id="num_ticket"></span>?   
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
+                    <form id="formEliminarTicket">
+                        <input type="hidden" id="id_ticket" name="id_ticket">
+                    </form>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnEliminarTicket">Eliminar</button>
                 </div>
             </div>
         </div>
@@ -401,6 +328,7 @@
     <script src="<c:url value='/js/bootstrap.js' />"></script>
     <script>
         $(function(){
+            var listaTickets = [];
            function cargarEmisoresEnSelect() {
                $.ajax({
                     type: 'GET',
@@ -414,8 +342,8 @@
                         });
                     }
                });
-           }
-           function cargarTipoServicioEnSelect() {
+            }
+            function cargarTipoServicioEnSelect() {
                $.ajax({
                     type: 'GET',
                     url: './tipo-servicio?action=mostrar',
@@ -486,11 +414,143 @@
                     }
                 });
             }
+            function cargarTablaTickets() {
+                $.ajax({
+                    type: 'GET',
+                    url: './tickets?action=mostrar',
+                    dataType: 'json',
+                    //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    //data: $("#formAgregarDependencia").serialize() + direccion,
+                    success: function(tickets, textStatus, jqXHR){
+                        // access response data
+                        console.log(tickets, textStatus, jqXHR);
+                        listaTickets = tickets;
+                        $("#tablaTickets tbody").empty();
+                        $.each(tickets, function(id, ticket) {
+                            let btnEditar = '<button type="button" class="editar btn btn-info my-1" data-toggle="modal" data-target="#modal-editarTicket" data-idObjServicio="'+ id +'"><i class="fa fa-pencil"></i></button>';
+                            let btnEliminar = '<button type="button " class="eliminar btn btn-danger my-1" data-toggle="modal" data-target="#modal-eliminarServicio" data-idObjServicio="'+ id +'"><i class="fa fa-trash-o"></i></button>';
+                            let idServicio = "";
+                            
+                            if (ticket.servicio !== undefined) {
+                               idServicio = ticket.servicio.id_servicio;
+                            }
+                            let correoEspecialista = "";
+                            if (ticket.especialista !== undefined) {
+                               correoEspecialista = ticket.especialista.correo;
+                            }
+                            let tr = $('<tr class="text-truncate">').append(
+                                $('<td>').text(ticket.id_ticket),                              
+                                $('<td>').text(ticket.titulo),    
+                                $('<td>').text(ticket.tipoServicio.nombreTipoServicio),
+                                $('<td>').text(ticket.emisor.correo),
+                                $('<td>').text(ticket.fecha),
+                                $('<td>').text(ticket.hora),
+                                $('<td>').text(idServicio),
+                                $('<td>').text(mostrarEstadoTicket(ticket.estadoTicket)),
+                                $('<td>').text(ticket.estadoSatisfaccion),
+                                $('<td>').text(correoEspecialista),
+                                $('<td class="text-center d-flex flex-column flex-lg-row justify-content-around">').html(btnEditar + btnEliminar)
+                            ); //.appendTo('#records_table');
+                            $("#tablaTickets table").append(tr);
+                            //console.log(tr.wrap('<tr>').html());
+                        });
+                        mostrarEditarTicket();
+                        mostrarEliminarTicket();
+                    }
+                });
+            }
+            function mostrarEstadoTicket(estadoTicket) {
+                    switch(estadoTicket) {
+                         case 1:
+                             return 'Sin asignar';
+                         case 2:
+                             return 'Asignado';
+                         case 3:
+                             return 'Atendiendo';
+                         case 4:
+                             return 'Cerrado';
+                         case 5:
+                             return 'Solucionado';
+                         case 6:
+                             return 'Calendarizado';
+                    }
+                }
+            function mostrarEditarTicket() {
+                $(".editar").unbind('click').on('click', function(){
+                    let idObjServicio = $(this).attr('data-idObjServicio');
+                    $("#modal-editarTicket #id_ticket").val(listaTickets[idObjServicio].id_ticket);
+                    $("#modal-editarTicket #titulo").val(listaTickets[idObjServicio].titulo);
+                    $("#modal-editarTicket #descripcion").val(listaTickets[idObjServicio].descripcion);
+                    if (listaTickets[idObjServicio].tipoServicio !== undefined)
+                        $("#modal-editarTicket #selectTipoServicio").val(listaTickets[idObjServicio].tipoServicio.id_tipo_servicio + ',' + listaTickets[idObjServicio].tipoServicio.areaInt);
+                    else 
+                        $("#modal-editarTicket #selectTipoServicio").val(0);
+                    $("#modal-editarTicket #selectEmisor").val(listaTickets[idObjServicio].emisor.correo);
+                    if (listaTickets[idObjServicio].especialista !== undefined) {
+                        $("#modal-editarTicket #selectEspecialista").append(new Option(listaTickets[idObjServicio].especialista.correo, listaTickets[idObjServicio].especialista.correo)); 
+                        $("#modal-editarTicket #selectEspecialista").val(listaTickets[idObjServicio].especialista.correo);
+                    } else 
+                        $("#modal-editarTicket #selectEspecialista").val('');
+                    if (listaTickets[idObjServicio].servicio !== undefined) 
+                        $("#modal-editarTicket #selectServicio").val(listaTickets[idObjServicio].servicio.id_servicio);
+                    else 
+                        $("#modal-editarTicket #selectServicio").val('');
+                    $("#modal-editarTicket #estadoTicket").val(listaTickets[idObjServicio].estado_ticket);
+                });
+            }
+            function mostrarEliminarTicket() {
+                $(".eliminar").unbind('click').on('click', function(){
+                    let idObjServicio = $(this).attr('data-idObjServicio');
+                    $("#modal-eliminarTicket #num_ticket").text(listaTickets[idObjServicio].titulo);
+                    $("#modal-eliminarTicket #id_ticket").val(listaTickets[idObjServicio].id_ticket);
+                });
+            }
+            $("#btnEditarTicket").unbind('click').on('click', function(){
+                   console.log($("#formEditarTicket").serialize()); 
+                   let tipoServicio="&tipo_servicio="+$("#selectTipoServicio").val().split(',')[0];
+                   $.ajax({
+                        type: 'POST',
+                        url: './tickets?action=editar',
+                        dataType: 'json',
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        data: $("#formEditarTicket").serialize() + tipoServicio,
+                        success: function(data, textStatus, jqXHR){
+                            // access response data
+                            console.log(data, textStatus, jqXHR);
+                            $("#alertEditado #ticketNuevo").text(data.id_ticket);
+                            $("#alertEditado").toggle();
+                            setTimeout(function(){
+                                $("#alertEditado").toggle();
+                            }, 5000);
+                            cargarTablaTickets();
+                        }
+                    });
+                });
+                
+                $("#btnEliminarTicket").unbind('click').on('click', function(){
+                   $.ajax({
+                        type: 'POST',
+                        url: './servicios?action=eliminar',
+                        dataType: 'json',
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        data: $("#formEliminarServicio").serialize(),
+                        success: function(data, textStatus, jqXHR){
+                            // access response data
+                            console.log(data, textStatus, jqXHR);
+                            $("#alertEliminado #nombre_servicioServicioNuevo").text(data.nombreServicio);
+                            $("#alertEliminado").toggle();
+                            setTimeout(function(){
+                                $("#alertEliminado").toggle();
+                            }, 5000);
+                            cargarTablaServicios();
+                        }
+                    });
+                });
+            cargarTablaTickets();
             cargarEmisoresEnSelect();
             $('#selectTipoServicio').attr('readonly', true);
             $('#selectTipoServicio').append(new Option('Cargando...','')); 
             cargarTipoServicioEnSelect();
-            cargarDependenciasEnSelect();
         });
     </script>
   </body>

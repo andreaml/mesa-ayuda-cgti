@@ -162,10 +162,12 @@
                                 // access response data
                                 $("#ticketNoEncontrado").hide();
                                 $("#divDescripcionTicket").show();
+                                if (data.especialista !== undefined){
                                 let nombreCompletoEspecialista = data.especialista.nombre1+ " ";
                                     nombreCompletoEspecialista+= data.especialista.nombre2+ " ";
                                     nombreCompletoEspecialista+= data.especialista.apellidoP+ " ";
                                     nombreCompletoEspecialista+= data.especialista.apellidoM;
+                                }
                                 console.log(data, textStatus, jqXHR);
                                 $("#tituloTicket").text(data.titulo);
                                 $("#estadoTicket").text(mostrarEstadoTicket(data.estadoTicket));
@@ -176,11 +178,17 @@
                                 $("#descripcionTicket").text(data.descripcion);
                                 $("#idTicket1").text(data.id_ticket);
                                 $("#nombreTipoServicio").text(data.tipoServicio.nombreTipoServicio);
-                                $("#nombreServicio").text(data.servicio.nombreServicio);
-                                $("#correoEspecialistaTicket").text(data.especialista.correo);
-                                $("#fechaServicio").text(data.servicio.fecha);
-                                $("#nombreEspecialista").text(nombreCompletoEspecialista);
-                                $("#comentarioDeEspecialista").text(data.comentarios);
+                                if (data.servicio !== undefined){
+                                    $("#nombreServicio").text(data.servicio.nombreServicio);
+                                    $("#fechaServicio").text(data.servicio.fecha);
+                                }
+                                if (data.especialista !== undefined){
+                                    $("#correoEspecialistaTicket").text(data.especialista.correo);
+                                    $("#nombreEspecialista").text(nombreCompletoEspecialista);
+                                }
+                                if (data.comentarios !== undefined){
+                                    $("#comentarioDeEspecialista").text(data.comentarios);
+                                }
                             }
                         }
                     });
