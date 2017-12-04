@@ -7,6 +7,7 @@ package com.ucol.mesa.ayuda.cgti.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.ucol.mesa.ayuda.cgti.dao.AtnUsuariosDAO;
 import com.ucol.mesa.ayuda.cgti.dao.EspecialistaDAO;
 import com.ucol.mesa.ayuda.cgti.model.Especialista;
 import java.io.IOException;
@@ -23,8 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author andreaml
  */
-public class InicioSesionServlet extends HttpServlet {
+public class SeleccionServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    AtnUsuariosDAO atnUsuariosDAO;
     EspecialistaDAO especialistaDAO;
 
     public void init() {
@@ -32,13 +34,14 @@ public class InicioSesionServlet extends HttpServlet {
         String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
         try {
+            atnUsuariosDAO = new AtnUsuariosDAO(jdbcURL, jdbcUsername, jdbcPassword);
             especialistaDAO = new EspecialistaDAO(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
 
-    public InicioSesionServlet() {
+    public SeleccionServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -83,7 +86,7 @@ public class InicioSesionServlet extends HttpServlet {
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         ServletContext servletContext = request.getServletContext();
-        servletContext.getRequestDispatcher("/inicio-sesion.jsp").forward(request, response);
+        servletContext.getRequestDispatcher("/seleccion-usuario.jsp").forward(request, response);
     }
     
     private void iniciarSesion(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
@@ -124,6 +127,5 @@ public class InicioSesionServlet extends HttpServlet {
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(jsonObject));        
         }
-        
     }
 }

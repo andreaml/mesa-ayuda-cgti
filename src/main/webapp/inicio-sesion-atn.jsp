@@ -67,7 +67,6 @@
         </div>
         <div class="container d-flex flex-column border border-dark col-12 col-md-8 col-lg-6 ">
         
-        
           
         <h3 class="align-self-center mt-5">Iniciar sesión</h3>
         
@@ -84,7 +83,7 @@
             <p class="text-danger ">Ingrese una contraseña</p> 
           </div>
           <div class="text-center p-2 mb-3">
-            <button type="submit" id="btnIngresar" class="btn btn-info">Ingresar </button>
+            <button type="submit" id="btnIngresarAtn" class="btn btn-info">Ingresar </button>
           </div>
         </form>
       </div>
@@ -127,7 +126,7 @@
     <script>
     $(function(){
             //cargarTablaEvaluacion();
-    $("#btnIngresar").unbind('click').on('click', function(e){
+    $("#btnIngresarAtn").unbind('click').on('click', function(e){
                 e.preventDefault();
                $.ajax({
                     type: 'GET',
@@ -139,7 +138,7 @@
                         // access response data 
                        console.log(data, textStatus, jqXHR);
                         if(data.status === 200){
-                            window.location = "./especialista"
+                            window.location = "./atencion-usuarios"
                         }
                         else{
                         //$("#alertEditado #nombreCorreo").text(data.correo);
